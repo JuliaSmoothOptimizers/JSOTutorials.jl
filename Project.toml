@@ -1,0 +1,7 @@
+name = "JSOTutorials"
+uuid = "42841b7b-4a47-4294-8a32-05b70c747acb"
+authors = ["Abel Soares Siqueira <abel.s.siqueira@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Weave = "44d3d7a6-8a23-5bf8-98c5-b353f8df5ec9"
