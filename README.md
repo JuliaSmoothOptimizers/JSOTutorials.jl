@@ -10,7 +10,7 @@ Check the specific folder.
 
 ## Contributing
 
-We use `Weave.jl` to write `.jmd` files, then run `JSOTutorials.conversions(filename)` to generate the specific files.
+We use `Weave.jl` to write `.jmd` files, then run `JSOTutorials.conversions(filename)` to generate the specific files. See [CONTRIBUTING](CONTRIBUTING.md) for a full description.
 
 ### Guidelines:
 
