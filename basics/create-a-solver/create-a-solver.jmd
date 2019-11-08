@@ -1,0 +1,242 @@
+---
+title: Creating a JSO compatible solver
+author: João Okimoto
+---
+
+![](../../jso-banner.png)
+
+```julia; results="hidden"
+using Pkg
+pkg"activate ."
+pkg"add NLPModels"
+pkg"add SolverTools"
+pkg"add SolverBenchmark"
+pkg"add Plots"
+pkg"add PyPlot"
+pkg"add LinearAlgebra"
+pkg"add JSOSolvers"
+pkg"add Weave"
+pkg"instantiate"
+```
+
+Julia version and JSO packages:
+```julia; echo=false
+pkgs = ["NLPModels", "SolverTools", "SolverBenchmark", "JSOSolvers"]
+
+using Pkg
+ctx=Pkg.Types.Context()
+display("text/html", "<img src=\"https://img.shields.io/badge/julia-$VERSION-3a5fcc.svg?style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAMAAAAolt3jAAAB+FBMVEUAAAA3lyU3liQ4mCY4mCY3lyU4lyY1liM3mCUskhlSpkIvkx0zlSEeigo5mSc8mio0liKPxYQ/nC5NozxQpUBHoDY3lyQ5mCc3lyY6mSg3lyVPpD9frVBgrVFZqUpEnjNgrVE3lyU8mio8mipWqEZhrVJgrVFfrE9JoTkAVAA3lyXJOjPMPjNZhCowmiNOoz1erE9grVFYqUhCnjFmk2KFYpqUV7KTWLDKOjK8CADORj7GJx3SJyVAmCtKojpOoz1DnzFVeVWVSLj///+UV7GVWbK8GBjPTEPMQTjPTUXQUkrQSEGZUycXmg+WXbKfZ7qgarqbYraSVLCUV7HLPDTKNy7QUEjUYVrVY1zTXFXPRz2UVLmha7upeMCqecGlcb6aYLWfaLrLPjXLPjXSWFDVZF3VY1zVYlvRTkSaWKqlcr6qesGqecGpd8CdZbjo2+7LPTTKOS/QUUnVYlvVY1zUXVbPSD6TV7OibLuqecGqecGmc76aYbaibLvKOC/SWlPMQjrQUEjRVEzPS0PLPDL7WROZX7WgarqibLucY7eTVrCVWLLLOzLGLCLQT0bIMynKOC7FJx3MPjV/Vc+odsCRUa+SVLCDPaWVWLKWWrLJOzPHOTLKPDPLPDPLOzLLPDOUV6+UV7CVWLKVWLKUV7GUWLGPUqv///8iGqajAAAAp3RSTlMAAAAAAAAAAAAAABAZBAAAAABOx9uVFQAAAB/Y////eQAAADv0////pgEAAAAAGtD///9uAAAAAAAAAAcOQbPLfxgNAAAAAAA5sMyGGg1Ht8p6CwAAFMf///94H9j///xiAAAw7////65K+f///5gAABjQ////gibg////bAAAAEfD3JwaAFfK2o0RAAAAAA4aBQAAABEZAwAAAAAAAAAAAAAAAAAAAIvMfRYAAAA6SURBVAjXtcexEUBAFAXAfTM/IDH6uAbUqkItyAQYR26zDeS0UxieBvPVbArjXd9GS295raa/Gmu/A7zfBRgv03cCAAAAAElFTkSuQmCC\">")
+for p in pkgs
+  uuid=ctx.env.project.deps[p]
+  v=ctx.env.manifest[uuid].version
+  c=string(hash(p) % 0x1000000, base=16)
+  display("text/html", "<img src=\"https://img.shields.io/badge/$p-$v-brightgreen?color=$c\">")
+end
+```
+
+---
+
+
+This tutorial covers the basics on how to create a solver compatible with the
+JuliaSmoothOptimizers format and how to perform basic benchmarking.
+## Newton's method implemented with the JSO API
+To illustrate the procedure for creating a solver with the JSO API, i'll be implementing
+a Line-Search Newton solver. The method consists of following
+the direction $d_{k}$ that minimizes
+$$
+m_{k}(p) = f(x_{k}) + g_{k}^{T}p + \frac{1}{2}p^{T}H_{k}p
+$$
+where $g_{k} = \nabla f(x_{k})$ and $H_{k} = \nabla f^{2}(x_{k})$. The direction $d_{k}$
+can then be written as
+$$
+d_{k} = - H_{k}^{-1}g_{k}.
+$$
+However, $d_{k}$ is only accepted if $H_{k}$ is positive definite, if not, we set
+$$
+d_{k} = -g_{k}.
+$$
+For the Line-Search strategy, we use Backtracking and ask that the Armijo condition be satisfied, that is finding
+a scalar $t > 0$ such that
+$$
+f(x_{k} + td_{k}) < f(x_{k}) + \alpha g_{k}^{T}td_{k},
+$$
+for some $\alpha  \in (0,1)$.
+
+
+```julia
+using NLPModels, LinearAlgebra, SolverTools
+
+function newton(nlp :: AbstractNLPModel;
+                x :: AbstractVector = copy(nlp.meta.x0),
+                max_tol :: Real = √eps(eltype(x)),
+                max_time :: Float64 = 30.0,
+                max_iter :: Int = 100)
+
+  fx = obj(nlp, x)
+  ∇fx = grad(nlp, x)
+  nrmgrad = norm(∇fx)
+  ∇²fx = Symmetric(hess(nlp, x), :L)
+
+  T = eltype(x)
+  k = 0
+  el_time = 0.0
+  start_time = time()
+  tired = el_time > max_time || k ≥ max_iter
+  optimal = nrmgrad < max_tol
+
+  @info log_header([:iter, :f, :nrmgrad], [Int, T, T], hdr_override=Dict(:f => "f(x)", :nrmgrad => "‖∇f(x)‖"))
+
+  while !(optimal || tired)
+
+    @info log_row(Any[k, fx, nrmgrad])
+
+    step = -∇²fx\∇fx
+    d = dot(step, ∇fx) < 0 ? step : -∇fx
+    t = one(T)
+    α = 0.5
+    slope = dot(∇fx, t*d)
+    xt = x + t*d
+    ft = obj(nlp, xt)
+
+    while ft > fx + α * slope
+      t *= 0.5
+      xt = x + t*d
+      ft = obj(nlp, xt)
+      slope =  dot(∇fx, t*d)
+    end
+
+    x += t*d
+
+    fx = obj(nlp, x)
+    ∇fx = grad(nlp, x)
+    nrmgrad = norm(∇fx)
+    ∇²fx = Symmetric(hess(nlp, x), :L)
+
+    k += 1
+    el_time = time() - start_time
+    tired = el_time > max_time || k ≥ max_iter
+    optimal = nrmgrad < max_tol
+  end
+
+  if optimal
+    status =:first_order
+  elseif tired
+    if k ≥ max_iter
+      status =:max_iter
+    else
+      status =:max_time
+    end
+  else
+    status =:unknown
+  end
+
+  return GenericExecutionStats(status, nlp, solution=x, objective=fx,
+                               iter = k, elapsed_time = el_time)
+
+end
+```
+As you can see in the example above, our `newton` solver has a few important
+features:
+- It receives the **JSO Standard input**, an **AbtractNLPModel**, part of the [NLPModels](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) package.
+- Derivatives are computed according to the **AbstractNLPModel** API using the `hess` and `grad` functions.
+- It returns the **JSO Standard output**, a **GenericExecutionStats**, part of the [SolverTools](https://github.com/JuliaSmoothOptimizers/SolverTools.jl) package.
+
+Both input and output are important when interacting with other JSO packages.
+An **AbstractNLPModel** is the main structure of the problem, as it contains
+details regarding its description (i.e. function to be minimized, starting point,
+number of variables, etc.), while a **GenericExecutionStats** is responsible for
+carrying information over how the problem was solved (i.e. number of iterations,
+time elapsed, number of function evaluations, etc.).
+
+Another important thing to highlight, is that we'll be using the **ADNLPModel**
+struct to run our solver. **ADNLPModel** is a kind of **AbstractNLPModel**, that
+uses [ForwardDiff](https://github.com/JuliaDiff/ForwardDiff.jl) to compute
+derivatives.
+
+When creating a new JSO compatible solver, it's also important to manipulate
+the output data to match that of **GenericExecutionStats**. The `status`
+attribute tells us about the result of the optimization given our input problem.
+It is possible that the number of iterations has exceed the maximum limit,
+or the time it took for it to solve was greater than allowed. Either way, the ``status`` is an
+important attribute when benchmarking and testing, as it allows the user to keep
+track of how a solver behaves over a specific problem. It is possible to list
+all the currently acceptable statuses by running `SolverTools.show_statuses()`
+```julia
+using SolverTools
+SolverTools.show_statuses()
+```
+If we want to run our solver, we simply need to create a optimization problem
+```julia
+f(x) = (x[1]^2 + x[2]^2)^2
+problem = ADNLPModel(f, [1.0,2.0])
+output = newton(problem)
+```
+The information regarding the solution of the problem is stored in `output`.
+```julia
+print(output)
+```
+## Benchmarking
+With a solver in hands, we can start to do more interesting things, such as
+benchmarking and comparing our `newton` method to other solvers. Since JSO
+contains a lot of useful packages, we'll be using a collection of those to make
+our comparison easier. The packages we'll be using are [SolverTools](https://github.com/JuliaSmoothOptimizers/SolverTools.jl)
+and [SolverBenchmarks](https://github.com/JuliaSmoothOptimizers/SolverBenchmark.jl).
+The first is a package that provides tools for developing solvers, and the last,
+is a package that's designed for manipulating DataFrames that contain statistics
+regarding the execution of a specific solver given a set of problems.
+
+Let us compare our `newton` method to a solver contained in the
+[JSOSolvers](https://github.com/JuliaSmoothOptimizers/JSOSolvers.jl) package,
+namely `lbfgs`, a line-search solver using limited memory BFGS updates.
+Firstly, we'll need to gather the data regarding each solver.
+```julia
+using SolverBenchmark, JSOSolvers
+solvers = Dict(:newton=>newton, :lbfgs=>lbfgs)
+f1(x) = x[1]^2 + x[2]^2
+f2(x) = (1 - x[1])^2 + 100(x[2] - x[1]^2)^2
+f3(x) = x[1]^2 + x[2] - 11 + (x[1] + x[2]^2 - 7)^2
+f4(x) = 0.26 * (x[1]^2 + x[2]^2) - 0.48 * x[1] * x[2]
+test_functions = [f1, f2, f3, f4]
+problems = (ADNLPModel(i, 2*ones(2), name="Problem $i") for i in test_functions)
+stats = bmark_solvers(solvers, problems)
+```
+The `bmark_solvers` function is part of the **SolverTools** package, and
+runs our solver on a set of problems given by `problems`, in our case `f1`, `f2`
+, `f3` and `f4`. Lastly, it returns a dictionary `solver => DataFrame`, where
+`DataFrame` is the execution data of that solver in the problems, that we can manipulate using
+**SolverBenchmarks**.
+
+Next, let's create a latex table with the data we just gathered
+```julia
+open("newton.tex", "w") do io
+  latex_table(io, stats[:newton], cols = [:name, :status, :objective, :elapsed_time, :iter])
+end
+open("lbfgs.tex", "w") do io
+  latex_table(io, stats[:lbfgs], cols = [:name, :status, :objective, :elapsed_time, :iter])
+end
+```
+
+That will give us a nicely formatted table that we can just plug into our
+latex code.
+![](lbfgs.svg)
+
+![](newton.svg)
+
+It's also possible to create the table in the markdown format.
+
+```julia
+markdown_table(stdout, stats[:newton],cols = [:name,:status,:objective,:elapsed_time,:iter])
+
+markdown_table(stdout, stats[:lbfgs],cols = [:name,:status,:objective,:elapsed_time,:iter])
+
+```
+
+## Performance profiles
+To create a performance profile, we use the **Plots** package, along with the
+desired framework. The profiles are drawn using [BenchmarkProfiles](https://github.com/JuliaSmoothOptimizers/BenchmarkProfiles.jl) through an
+interface in SolverBenchmark to use `stats`.
+```julia
+using Plots
+pyplot()
+performance_profile(stats, df->df.elapsed_time)
+```
