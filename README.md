@@ -22,4 +22,3 @@ We use `Weave.jl` to write `.jmd` files, then run `JSOTutorials.conversions(file
 ## TODO
 
 - Table of contents
-- (?) Generate files directly on travis and push them

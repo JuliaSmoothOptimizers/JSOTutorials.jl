@@ -48,17 +48,18 @@ function generate_site()
       println(io, "<ul>")
       subdirs = readdir(joinpath(@__DIR__, dir))
       for subdir in subdirs
-        print(io, "<li><a href=\"")
-        print(io, joinpath(dir, subdir, subdir * ".html"))
-        print(io, "\">")
-        print(io, titlename(subdir))
-        println(io, "</a></li>")
+        fullpath = joinpath(dir, subdir, subdir)
+        print(io, "<li><a href=\"$fullpath.html\">$(titlename(subdir))</a> - Download")
+        for ft in ("ipynb", "jl")
+          print(io, " <a href=\"$fullpath.$ft\">$ft</a>")
+        end
+        println(io, "</li>")
 
         src = joinpath(@__DIR__,  dir, subdir)
         dst = joinpath(build_dir, dir, subdir)
         mkpath(dst)
         for file in readdir(src)
-          if !(split(file, ".")[2] in ["jmd", "jl", "ipynb", "toml"])
+          if !(split(file, ".")[end] in ["jmd", "toml"])
             cp(joinpath(src, file), joinpath(dst, file))
           end
         end
@@ -89,7 +90,7 @@ function push_to_gh_pages()
   upstream = "https://$user:$key@github.com/$repo"
   run(`git remote add upstream $upstream`)
   run(`git fetch --all`)
-  if !success(`git checkout -b gh-pages upstream/gh-pages`)
+  if !success(`git checkout -f -b gh-pages upstream/gh-pages`)
     run(`git checkout --orphan gh-pages`)
     run(`git reset --hard`)
     run(`git commit --allow-empty -m "Initial commit"`)
@@ -113,6 +114,10 @@ function push_to_gh_pages()
     run(`git commit -m ":robot: Building tutorials pages"`)
     run(`git push upstream gh-pages`)
   end
+
+  site = "https://$user.github.io/JSOTutorials.jl/" * (dst == "." ? "" : "$dst/") * "index.html"
+  println("Here is your site:")
+  println("  \033[1;33m$site\033[0m")
 end
 
 generate_site()

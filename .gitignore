@@ -1,1 +1,7 @@
+*.html
+*.ipynb
+*.jl
+*.gif
 site
+!src/*.jl
+!test/*.jl
