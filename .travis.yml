@@ -1,0 +1,19 @@
+language: julia
+
+os:
+  - linux
+
+julia:
+  - 1.3
+
+notifications:
+  email:
+    recipients: abel.s.siqueira@gmail.com
+    on_success: never
+    on_failure: change
+
+# Should build on all branches in order to generate the preview
+
+script:
+  - julia -e 'using Pkg; pkg"activate"; pkg"test"'
+  - julia -e 'include("build-site.jl")'
