@@ -7,7 +7,7 @@ Here's the Too Long; Didn't Read version:
 - Fork [JSOTutorials.jl](https://github.com/JuliaSmoothOptimizers/JSOTutorials.jl) and clone;
 - Choose a **topic** and **title**;
 - Create **topic/title/title.jmd** (a Weave.jl file);
-- Use `JSOTutorials.conversions` to convert the `.jmd`;
+- Use `JSOTutorials.conversions` to convert the `.jmd` and verify your tutorial works in Jupyter and html;
 - Create a [GitHub personal token](https://github.com/settings/tokens);
 - Enable Travis and add the personal token as variable `GITHUB_AUTH`;
 - Create branch `new/short-abrv-title`;
@@ -65,15 +65,13 @@ This part might be improved in the future, but for now it shows how to install t
 
 Work on it until you are satisfied with your tutorial.
 Now you should have a new file **title.jmd** inside folder **title** inside of **topic**.
-To submit your tutorial, you will need a branch and you will need to create the various formats that we support for our tutorials.
-Then, inside **topic/title**, enter
+Verify that your tutorial is working in other formats by going inside **topic/title**, and using
 ```julia
 pkg> activate ../..
 julia> using JSOTutorials
 julia> JSOTutorials.conversions("title.jmd")
-pkg> test
 ```
-This should create `.html`, `.ipynb` and `.jl` files using `Weave.jl`, and then test that they exits.
+This should create `.html`, `.ipynb` and `.jl` files using `Weave.jl`.
 
 Now comes the online part. First, go to [Travis-CI](https://travis-ci.org/) and enable travis for `JSOTutorials.jl`.
 Then, go to your github and create a [personal token](https://github.com/settings/tokens), enabling the `repo` flag so that travis has access to your repository. 
