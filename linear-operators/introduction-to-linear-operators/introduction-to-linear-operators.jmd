@@ -150,15 +150,40 @@ $$
 \frac{\partial u}{\partial y}(t,x,0) = \frac{\partial u}{\partial y}(t,x,L) = 0.
 $$
 
-Discretizing $u$ into $[0,t_1,\dots,t_N]$ and $x \in [0,L]$ into $[0,x_1,x_2,\dots,x_m,L]$ and accordingly to $y$,
+Discretizing $u$ into $[0,t_1,\dots,t_N]$ and $x \in [0,L]$ into $[x_1,x_2,\dots,x_m]$ and accordingly to $y$,
 we define $u^n_{i,j}$ as the approximation to $u(t_n,x_i,y_j)$.
-The derivatives can be approximated by finite differences.
-Using a forward difference for $u_t$ and centered differentes for the spartial differences we obtain
+The derivatives can be approximated by finite differences:
 $$
-\frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta} = \frac{\alpha}{h^2}(4u^n_{i,j} - u^n_{i-1,j} - u^n_{i+1,j} - u^n_{i,j-1} - u^n_{i,j+1}),
+\begin{align}
+  u_t(t_n,x_i,y_j) & \approx \frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta}
+      \qquad \text{(Forward scheme in time)}; \\
+  u_x(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - u^n_{i-1,j}}{2h}
+      \qquad \text{(Central 1st order scheme)}; \\
+  u_{xx}(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - 2u^n_{i,j} + u^n_{i-1,j}}{h^2}
+      \qquad \text{Central 2nd order scheme)}; \\
+  u_y(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - u^n_{i,j-1}}{2h}
+      \qquad \text{(Central 1st order scheme)}; \\
+  u_{yy}(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - 2u^n_{i,j} + u^n_{i,j-1}}{h^2}
+      \qquad \text{Central 2nd order scheme)}.
+\end{align}
+$$
+
+Substituting in the PDE, we obtain
+$$
+\frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta} = \frac{\alpha}{h^2}(-4u^n_{i,j} + u^n_{i-1,j} + u^n_{i+1,j} + u^n_{i,j-1} + u^n_{i,j+1}),
 $$
 where $\delta = t_{n+1} - t_n$ and $h = x_{i+1} - x_i = y_{j+1} - y_j$.
-The boundary conditions lead to
+This can be written as
+$$
+u^{n+1}_{i,j} = (1 - 4\gamma)u^n_{i,j} + \gamma\Big(u^n_{i-1,j} + u^n_{i+1,j} + u^n_{i,j-1} + u^n_{i,j+1}\Big),
+$$
+where $\gamma = \dfrac{\alpha\delta}{h^2}$.
+
+The boundary conditions at the nodes are
+$$
+u_x(t_n,x_1,y_j) = u_x(t_n,x_m,y_j) = u_y(t_n,x_i,y_1) = u_y(t_n,x_i,y_m) = 0.
+$$
+This leads to
 $$
 u^n_{2,j} = u^n_{0,j}, \quad
 u^n_{m+1,j} = u^n_{m-1,j}, \quad
@@ -166,32 +191,82 @@ u^n_{i,2} = u^n_{i,0}, \quad
 u^n_{i,m+1} = u^n_{i,m-1}.
 $$
 
+Note that in the PDE discretization, if $u^n_{0,j}$, $u^n_{m+1,j}$, $u^n_{i,0}$ or $u^n_{i,m+1}$ appear, we can substitute it by one of the inner mesh points.
+For instance, for $(i,j) = (1,2)$:
+$$
+\begin{align}
+    u^{n+1}_{1,2} & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(u^n_{0,2} + u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big) \\
+        & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(2u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big)
+\end{align}
+$$
+Another example, for $(i,j) = (1,1)$:
+$$
+\begin{align}
+    u^{n+1}_{1,1} & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(u^n_{0,1} + u^n_{2,1} + u^n_{1,0} + u^n_{1,2}\Big) \\
+        & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(2u^n_{2,1} + 2u^n_{1,2}\Big)
+\end{align}
+$$
+
+Now we define $U^n = (u_{1,1}^n, u_{1,2}^n, \dots, u_{1,m}^n, u_{2,1}^n, \dots, u_{m,m}^n)^T$, i.e., the linearized matrix of mesh points for a given $t = t_n$. 
+This way we can define the following recurrence relation:
+$$ U^{n+1} = AU^n, $$
+for some matrix $A$.
+This matrix has a very special structure. With $m = 3$, which only has one interior  mesh point, it becomes the following:
+$$
+\begin{bmatrix}
+1 - 4\gamma & 2\gamma & 0 & 2\gamma & 0 & 0 & 0 & 0 & 0 \\
+\gamma & 1 - 4\gamma & \gamma & 0 & 2\gamma & 0 & 0 & 0 & 0 \\
+0 & 2\gamma & 1 - 4\gamma & 0 & 0 & 2\gamma & 0 & 0 & 0 \\
+\gamma & 0 & 0 & 1 - 4\gamma & 2\gamma & 0 & \gamma & 0 & 0 \\
+0 & \gamma & 0 & \gamma & 1 - 4\gamma & \gamma & 0 & \gamma & 0 \\
+0 & 0 & \gamma & 0 & 2\gamma & 1 - 4\gamma & 0 & 0 & \gamma \\
+0 & 0 & 0 & 2\gamma & 0 & 0 & 1 - 4\gamma & 2\gamma & 0 \\
+0 & 0 & 0 & 0 & 2\gamma & 0 & \gamma & 1 - 4\gamma & \gamma \\
+0 & 0 & 0 & 0 & 0 & 2\gamma & 0 & 2\gamma & 1 - 4\gamma
+\end{bmatrix}.
+$$
+This can be generalized into
+$$
+A = \begin{bmatrix}
+T & 2D \\
+D & T & D \\
+  & D & T & D \\
+  & & \ddots & \ddots & \ddots \\
+  & & & D & T & D \\
+  & & & & 2D & T
+\end{bmatrix},
+$$
+where $T$ is a tridiagonal matrix and $D = \gamma I$.
+
+#### Implementing
+
+Instead of creating the full matrix $A$, we create $A$ as an operator.
+
+
 ```julia
-HeatEquationOp(L, m, δ, α) = HeatEquationOp(Float64, L, m, δ, α)
+function HeatEquationOp(L, m, δ, α)
+  h = L / (m - 1)
+  γ = α * δ / h^2
+  κ = 1 - 4γ
 
-function HeatEquationOp(opType, L, m, δ, α)
-    h = L / (m + 1)
-    γ = α * δ / h^2
-    κ = 1 + γ
+  Tprod(v) = [κ * v[1] + 2γ * v[2];
+             [γ * v[i-1] + κ * v[i] + γ * v[i+1] for i = 2:m-1];
+              κ * v[m] + 2γ * v[m-1]]
 
-    Tprod(v) = [κ * v[1] - 2γ * v[2];
-             [-γ * v[i-1] + κ * v[i] - γ * v[i+1] for i = 2:m-1];
-              κ * v[m] - 2γ * v[m-1]]
+  T = LinearOperator(Float64, m, m, false, false, Tprod)
+  D = opEye(m) * γ
 
-    T = LinearOperator(opType, m, m, false, false, Tprod)
-    D = opEye(m) * γ
-
-    function prod(v)
-        Hv = zeros(m^2)
-        Hv[1:m] .= [T  -2D] * v[1:2m]
-        for i = 2:m-1
-            Hv[(i-1)*m+1:i*m] .= [-D T -D] * v[(i-2)*m+1:(i+1)*m]
-        end
-        Hv[end-m+1:end] .= [-2D T] * v[end-2m+1:end]
-        return Hv
+  function prod(v)
+    Hv = zeros(m^2)
+    Hv[1:m] .= [T  2D] * v[1:2m]
+    for i = 2:m-1
+      Hv[(i-1)*m+1:i*m] .= [D T D] * v[(i-2)*m+1:(i+1)*m]
     end
+    Hv[end-m+1:end] .= [2D T] * v[end-2m+1:end]
+    return Hv
+  end
 
-    return LinearOperator(opType, m^2, m^2, false, false, prod)
+  return LinearOperator(Float64, m^2, m^2, false, false, prod)
 end
 ```
 
@@ -204,44 +279,28 @@ Matrix(A)
 using SparseArrays, Plots
 pyplot(size=(600,600))
 
-A = HeatEquationOp(1.0, 10, 0.1, 0.1)
+A = HeatEquationOp(1.0, 20, 0.1, 0.1)
 spy(sparse(Matrix(A)))
 ```
 
 ```julia
-function HeatEquationFwd(u0, L, m, δ, tf, α)
-    h = L / (m + 1)
-    U = zeros(m^2)
-    b = zeros(m^2)
-    for i = 1:m
-        x = i * h
-        for j = 1:m
-            y = j * h
-            U[(i - 1)*m + j] = u0(x, y)
-        end
+function HeatEquation(u0, L, m, δ, α)
+  h = L / (m - 1)
+  U = zeros(m^2)
+  for i = 1:m
+    x = (i - 1) * h
+    for j = 1:m
+      y = (j - 1) * h
+      U[(i - 1)*m + j] = u0(x, y)
     end
-    A = HeatEquationOp(L, m, δ, α)
+  end
+  A = HeatEquationOp(L, m, δ, α)
 
-    return U, A, b
-end
-
-function HeatEquationIterate(U, A, δ, tf)
-    m = round(Int, sqrt(length(b)))
-    U = U[:]
-    t = 0.0
-    while t ≤ tf
-        U = A * U
-        t += δ
-    end
-
-    return reshape(U, m, m)
-end
-
-function HeatEquationIterate(U, A, b)
-    m = round(Int, sqrt(length(b)))
-    return reshape(A * U[:] + b, m, m)
+  return U, A
 end
 ```
+
+Now, anytime we want to make a time step, we can simply compute `A * U`.
 
 ```julia
 const dark_purple = Colors.RGB(0.584, 0.345, 0.698)
@@ -249,15 +308,14 @@ const dark_red    = Colors.RGB(0.796, 0.235, 0.200)
 const dark_green  = Colors.RGB(0.220, 0.596, 0.149)
 const black       = Colors.RGB(0.0, 0.0, 0.0)
 colors = [black, dark_green, dark_green, dark_red, dark_red, dark_purple, dark_purple]
-```
 
-```julia
-u0(x, y) = begin
-    d = [(x,y) -> ((x - sin(2π/3*i))^2 + (y - cos(2π/3*i))^2)^2 for i = 1:3]
-    xx, yy = x - L / 2, y - L / 2
-    return 3*exp(-sqrt(2)*d[1](xx,yy)) + 2*exp(-d[2](xx,yy)) + exp(-4*d[3](xx,yy))
-end
 L = 5
+u0(x, y) = begin
+  d = [(x,y) -> ((x - sin(2π/3*i))^2 + (y - cos(2π/3*i))^2)^2 for i = 1:3]
+  xx, yy = x - L / 2, y - L / 2
+  return 3*exp(-sqrt(2)*d[1](xx,yy)) + 2*exp(-d[2](xx,yy)) + exp(-4*d[3](xx,yy))
+end
+
 grid = range(0, L, length=100)
 maxu = maximum([u0(xi,yi) for xi in grid, yi in grid])
 p = plot(; leg=false, size=(1000,500), layout=@layout [a b])
@@ -267,50 +325,59 @@ contour!(p[2], grid, grid, u0, levels=range(0.1, maxu, length=50), c=ColorGradie
 
 ```julia
 L = 5
-m = 50
-δ = 0.001
-tf = δ
-α = 0.1
-U0, A, b = HeatEquationFwd(u0, L, m, δ, 0.0, α)
-U0 = reshape(U0, m, m)
+m = 30
+δ = 0.01
+α = 0.5
 
-plot_rows = 3
+U0, A = HeatEquation(u0, L, m, δ, α)
+U = copy(U0)
+
+plot_rows = 5
 plot_cols = 3
 plots = []
 
-t = 0.0
-Δt = 10δ
+Δt = 25
 
 for i = 1:plot_rows
-    for j = 1:plot_cols
-        k = (i - 1) * plot_cols + j
-        global U0
-        U = HeatEquationIterate(U0, A, δ, k * Δt)
+  for j = 1:plot_cols
+    global U
 
-        p = surface(U, leg=false, c=ColorGradient(colors), camera=(210,30))
-        zlims!(0, maximum(U0))
-        xticks!(Float64[])
-        yticks!(Float64[])
-        title!("t = $(k * Δt)")
-        push!(plots, p)
+    p = surface(reshape(U, m, m), leg=false, c=ColorGradient(colors), camera=(210,30))
+    zlims!(0, maximum(U0))
+    xticks!(Float64[])
+    yticks!(Float64[])
+    k = (i - 1) * plot_cols + j
+    title!("t = $(round(k * Δt * δ, digits=3))")
+    push!(plots, p)
+
+    for t = 1:Δt
+      U = A * U
     end
+  end
 end
 plot(plots..., layout=(plot_rows, plot_cols), size=(900, plot_rows * 300))
 ```
 
 ```julia
-U0, A, b = HeatEquationFwd(u0, L, m, δ, 0.0, α)
+U0, A = HeatEquation(u0, L, m, δ, α)
 U = copy(U0)
 
+Δt = 5
+
 anim = Animation()
-for i = 1:100
-    global U
-    U = HeatEquationIterate(U, A, b)
-    p = plot(; leg=false, size=(1000,500), layout=@layout [a b])
-    surface!(p[1], U, c=ColorGradient(colors), camera=(210,30))
-    contour!(p[2], U, levels=range(0.1, maximum(U0), length=50), c=ColorGradient(colors))
-    zlims!(0, maximum(U0))
-    frame(anim)
+for i = 1:60
+  global U
+
+  rU = reshape(U, m, m)
+  p = plot(; leg=false, size=(1000,500), layout=@layout [a b])
+  surface!(p[1], rU, c=ColorGradient(colors), camera=(210,30))
+  contour!(p[2], rU, levels=range(0.1, maximum(U0), length=50), c=ColorGradient(colors))
+  zlims!(0, maximum(U0))
+  frame(anim)
+
+  for t = 1:Δt
+    U = A * U
+  end
 end
 gif(anim, "heat-equation.gif", fps=12)
 nothing
