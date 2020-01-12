@@ -30,12 +30,12 @@ for p in pkgs
   c=string(hash(p) % 0x1000000, base=16)
   display("text/html", "<img src=\"https://img.shields.io/badge/$p-$v-brightgreen?color=$c\">")
 end
-println("Tutorial beginning:")
+pkg"status"
 ```
 
 ---
 
-LinearOperators.jl is a package for matrix-like operators. Linear operators are defined by how they act on a vector, which is useful in a variety of situations where you don't want to produce the matrix.
+LinearOperators.jl is a package for matrix-like operators. Linear operators are defined by how they act on a vector, which is useful in a variety of situations where you don't want to materialize the matrix.
 
 ```julia
 using LinearOperators
@@ -44,10 +44,11 @@ prod(v) = [3v[1] - v[2]; 2v[1] + 2v[2]]
 #                     type, nrows, ncols, symm?, herm?, prod[; tprod, ctprod]
 A = LinearOperator(Float64,     2,     2, false, false, prod)
 
+@show A
 A * ones(2)
 ```
 
-The operator can be symmetric and/or Hermitian, and it the transpose and adjoint products might be defined as well:
+The operator can be symmetric and/or Hermitian, and products with its transpose and adjoint can be defined as well.
 
 ```julia
 prod(v) = [3v[1] - v[2]; 2v[1] + 2v[2]]
@@ -55,8 +56,17 @@ tprod(v) = [3v[1] + 2v[2]; -v[1] + 2v[2]]
 
 A = LinearOperator(Float64, 2, 2, false, false, prod, tprod)
 
+transpose(A) * ones(2)
+```
+
+Notice that since `A` defined above is real, then the adjoint transpose is inferred to also be `tprod`:
+
+```julia
 A' * ones(2)
 ```
+
+In the following example we define a complex operator using the Fast Fourier Transform and its inverse.
+Notice that the operator is orthogonal.
 
 ```julia
 using FFTW, LinearAlgebra
@@ -64,16 +74,7 @@ using FFTW, LinearAlgebra
 A = LinearOperator(16, 16, false, false, fft, nothing, ifft)
 
 v = rand(16) + im * rand(16)
-norm(A' * A * v - v)
-```
-
-Notice that in some cases missing operators can be inferred.
-
-```julia
-A = LinearOperator(16, 16, false, false, fft, nothing, ifft)
-v = rand(16) + im * rand(16)
-
-transpose(A) * v == conj.(ifft(conj.(v)))
+norm(A * v - fft(v)), norm(A' * v - ifft(v)), norm(Matrix(A' * A) - I)
 ```
 
 ## Lazy Products
@@ -87,6 +88,8 @@ B = rand(n, n)
 opA = LinearOperator(A)
 opB = LinearOperator(B)
 
+@show opA * opB
+
 # Run twice
 @time A * B
 @time opA * opB
@@ -94,6 +97,30 @@ opB = LinearOperator(B)
 v = rand(n)
 @time A * (B * v)
 @time (opA * opB) * v;
+```
+
+## Preallocated Operators
+
+It is often useful to reuse the memory used in a linear operator.
+If the operator is created from a matrix `A`, `PreallocatedLinearOperator(A)` automatically creates the underlying memory to store `A * v`, `transpose(A) * v` and `A' * v`.
+
+```julia
+m, n = 50, 30
+A = rand(50, 30)
+op1 = PreallocatedLinearOperator(A)
+op2 = LinearOperator(A)
+v = rand(n)
+
+op1 * v
+al = @allocated for i = 1:100
+  op1 * v
+end
+println("Allocation of op1: $al")
+op2 * v
+al = @allocated for i = 1:100
+  op2 * v
+end
+println("Allocation of op2: $al")
 ```
 
 ## Inverse Operator
@@ -111,7 +138,7 @@ norm(A \ v - op * v) / norm(v)
 
 ## LBFGS Operator
 
-One useful operator is the Limited BFGS operator, which implements the BFGS update with limited memory used in nonlinear optimization. This update comes in both direct ($B_k$) and inverse ($H_k = B_k^{-1}$) formats.
+A useful operator is the Limited BFGS operator, which implements the BFGS update with limited memory used in nonlinear optimization. This update comes in both direct ($B_k$) and inverse ($H_k = B_k^{-1}$) form.
 $$
 B_{k+1} = B_k + \frac{y_k y_k^T}{y_k^T s_k} - \frac{B_k s_k s_k^T B_k^T}{s_k^T B_k s_k}
 $$
@@ -150,38 +177,36 @@ $$
 \frac{\partial u}{\partial y}(t,x,0) = \frac{\partial u}{\partial y}(t,x,L) = 0.
 $$
 
-Discretizing $u$ into $[0,t_1,\dots,t_N]$ and $x \in [0,L]$ into $[x_1,x_2,\dots,x_m]$ and accordingly to $y$,
-we define $u^n_{i,j}$ as the approximation to $u(t_n,x_i,y_j)$.
+Discretizing $t$ into $[0,t_1,\dots,t_N]$ with $\delta = t_{n+1} - t_n$, $x \in [0,L]$ into $[x_1,x_2,\dots,x_m]$ with $h = x_{i+1} - x_i$ and $y$ accordingly, with $h = y_{j+1} - y_j$, we define $u^n_{i,j}$ as the approximation to $u(t_n,x_i,y_j)$.
 The derivatives can be approximated by finite differences:
 $$
 \begin{align}
-  u_t(t_n,x_i,y_j) & \approx \frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta}
+  \frac{\partial u}{\partial t}(t_n,x_i,y_j) & \approx \frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta}
       \qquad \text{(Forward scheme in time)}; \\
-  u_x(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - u^n_{i-1,j}}{2h}
+  \frac{\partial u}{\partial x}(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - u^n_{i-1,j}}{2h}
       \qquad \text{(Central 1st order scheme)}; \\
-  u_{xx}(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - 2u^n_{i,j} + u^n_{i-1,j}}{h^2}
-      \qquad \text{Central 2nd order scheme)}; \\
-  u_y(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - u^n_{i,j-1}}{2h}
+  \frac{\partial^2 u}{\partial x^2}(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - 2u^n_{i,j} + u^n_{i-1,j}}{h^2}
+      \qquad \text{(Central 2nd order scheme)}; \\
+  \frac{\partial u}{\partial y}(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - u^n_{i,j-1}}{2h}
       \qquad \text{(Central 1st order scheme)}; \\
-  u_{yy}(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - 2u^n_{i,j} + u^n_{i,j-1}}{h^2}
-      \qquad \text{Central 2nd order scheme)}.
+  \frac{\partial^2 u}{\partial y^2}(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - 2u^n_{i,j} + u^n_{i,j-1}}{h^2}
+      \qquad \text{(Central 2nd order scheme)}.
 \end{align}
 $$
 
-Substituting in the PDE, we obtain
+Substituting into the PDE, we obtain
 $$
-\frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta} = \frac{\alpha}{h^2}(-4u^n_{i,j} + u^n_{i-1,j} + u^n_{i+1,j} + u^n_{i,j-1} + u^n_{i,j+1}),
+\frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta} = \frac{\alpha}{h^2}(-4u^n_{i,j} + u^n_{i-1,j} + u^n_{i+1,j} + u^n_{i,j-1} + u^n_{i,j+1}).
 $$
-where $\delta = t_{n+1} - t_n$ and $h = x_{i+1} - x_i = y_{j+1} - y_j$.
 This can be written as
 $$
 u^{n+1}_{i,j} = (1 - 4\gamma)u^n_{i,j} + \gamma\Big(u^n_{i-1,j} + u^n_{i+1,j} + u^n_{i,j-1} + u^n_{i,j+1}\Big),
 $$
 where $\gamma = \dfrac{\alpha\delta}{h^2}$.
 
-The boundary conditions at the nodes are
+To handle the boundary conditions, we need to introduce additional unknowns $u_{0,j}$, $u_{m+1,j}$, $u_{i,0}$ and $u_{i,m+1}$ for values $x = -h$, $x = L + h$, $y = -h$ and $y = L + h$, respectively. Although these values are outside the domain of interest, they help define the values inside the domain by being removed through the discretization of the boundary contitions
 $$
-u_x(t_n,x_1,y_j) = u_x(t_n,x_m,y_j) = u_y(t_n,x_i,y_1) = u_y(t_n,x_i,y_m) = 0.
+\frac{\partial u}{\partial x}(t_n,x_1,y_j) = \frac{\partial u}{\partial x}(t_n,x_m,y_j) = \frac{\partial u}{\partial y}(t_n,x_i,y_1) = \frac{\partial u}{\partial y}(t_n,x_i,y_m) = 0.
 $$
 This leads to
 $$
@@ -191,23 +216,23 @@ u^n_{i,2} = u^n_{i,0}, \quad
 u^n_{i,m+1} = u^n_{i,m-1}.
 $$
 
-Note that in the PDE discretization, if $u^n_{0,j}$, $u^n_{m+1,j}$, $u^n_{i,0}$ or $u^n_{i,m+1}$ appear, we can substitute it by one of the inner mesh points.
+Note that in the PDE discretization, if $u^n_{0,j}$, $u^n_{m+1,j}$, $u^n_{i,0}$ or $u^n_{i,m+1}$ appear, we can substitute them by one of the inner mesh points.
 For instance, for $(i,j) = (1,2)$:
 $$
 \begin{align}
     u^{n+1}_{1,2} & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(u^n_{0,2} + u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big) \\
-        & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(2u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big)
+        & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(2u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big).
 \end{align}
 $$
 Another example, for $(i,j) = (1,1)$:
 $$
 \begin{align}
     u^{n+1}_{1,1} & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(u^n_{0,1} + u^n_{2,1} + u^n_{1,0} + u^n_{1,2}\Big) \\
-        & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(2u^n_{2,1} + 2u^n_{1,2}\Big)
+        & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(2u^n_{2,1} + 2u^n_{1,2}\Big).
 \end{align}
 $$
 
-Now we define $U^n = (u_{1,1}^n, u_{1,2}^n, \dots, u_{1,m}^n, u_{2,1}^n, \dots, u_{m,m}^n)^T$, i.e., the linearized matrix of mesh points for a given $t = t_n$. 
+Now we define $U^n = (u_{1,1}^n, u_{1,2}^n, \dots, u_{1,m}^n, u_{2,1}^n, \dots, u_{m,m}^n)^T$, for $n = 0,\dots,N$.
 This way we can define the following recurrence relation:
 $$ U^{n+1} = AU^n, $$
 for some matrix $A$.
@@ -225,7 +250,7 @@ $$
 0 & 0 & 0 & 0 & 0 & 2\gamma & 0 & 2\gamma & 1 - 4\gamma
 \end{bmatrix}.
 $$
-This can be generalized into
+For $m > 3$, the above matrix can be written
 $$
 A = \begin{bmatrix}
 T & 2D \\
@@ -240,7 +265,7 @@ where $T$ is a tridiagonal matrix and $D = \gamma I$.
 
 #### Implementing
 
-Instead of creating the full matrix $A$, we create $A$ as an operator.
+Instead of creating the full matrix $A$, we create $A$ as an operator to save memory.
 
 
 ```julia
@@ -270,10 +295,14 @@ function HeatEquationOp(L, m, δ, α)
 end
 ```
 
+Here is an example of this operator.
+
 ```julia
 A = HeatEquationOp(1.0, 3, 0.1, 0.1)
 Matrix(A)
 ```
+
+This example shows the sparsisty pattern.
 
 ```julia
 using SparseArrays, Plots
@@ -282,6 +311,8 @@ pyplot(size=(600,600))
 A = HeatEquationOp(1.0, 20, 0.1, 0.1)
 spy(sparse(Matrix(A)))
 ```
+
+The next function creates a `HeatEquationOp` operator and the linearized vector `U` with starting values.
 
 ```julia
 function HeatEquation(u0, L, m, δ, α)
@@ -323,6 +354,9 @@ surface!(p[1], grid, grid, u0, c=ColorGradient(colors), camera=(210,30))
 contour!(p[2], grid, grid, u0, levels=range(0.1, maxu, length=50), c=ColorGradient(colors))
 ```
 
+The following two blocks are a visualization of the solution of the Heat Equation.
+The first block show images of at different time steps.
+
 ```julia
 L = 5
 m = 30
@@ -332,11 +366,11 @@ m = 30
 U0, A = HeatEquation(u0, L, m, δ, α)
 U = copy(U0)
 
-plot_rows = 5
-plot_cols = 3
+plot_rows = 4
+plot_cols = 4
 plots = []
 
-Δt = 25
+Δt = 10
 
 for i = 1:plot_rows
   for j = 1:plot_cols
@@ -355,8 +389,10 @@ for i = 1:plot_rows
     end
   end
 end
-plot(plots..., layout=(plot_rows, plot_cols), size=(900, plot_rows * 300))
+plot(plots..., layout=(plot_rows, plot_cols), size=(1000, plot_rows * 250))
 ```
+
+The second block shows an animation.
 
 ```julia
 U0, A = HeatEquation(u0, L, m, δ, α)
