@@ -106,7 +106,7 @@ function push_to_gh_pages()
   end
 
   for d in readdir("site")
-    mv("site/$d", "$dst/$d")
+    mv("site/$d", "$dst/$d", force=true)
   end
   rm("site")
   run(`git add $dst`)
