@@ -631,7 +631,7 @@ kbd,
 pre,
 samp {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 13px;
+  font-size: 0.9em;
 }
 
 
@@ -863,7 +863,7 @@ opA * opB &#61; Linear operator
 
 
 <pre class="output">
-4.325634 seconds &#40;2.71 M allocations: 249.918 MiB, 4.44&#37; gc time&#41;
+4.627431 seconds &#40;2.71 M allocations: 250.379 MiB, 4.83&#37; gc time&#41;
 </pre>
 
 
@@ -874,7 +874,7 @@ opA * opB &#61; Linear operator
 
 
 <pre class="output">
-0.000010 seconds &#40;8 allocations: 336 bytes&#41;
+0.000008 seconds &#40;8 allocations: 336 bytes&#41;
 </pre>
 
 
@@ -886,7 +886,7 @@ opA * opB &#61; Linear operator
 
 
 <pre class="output">
-0.116643 seconds &#40;279.06 k allocations: 14.804 MiB&#41;
+0.121736 seconds &#40;279.12 k allocations: 14.358 MiB&#41;
 </pre>
 
 
@@ -897,7 +897,7 @@ opA * opB &#61; Linear operator
 
 
 <pre class="output">
-0.035785 seconds &#40;2.29 k allocations: 189.056 KiB&#41;
+0.037835 seconds &#40;2.29 k allocations: 189.056 KiB&#41;
 </pre>
 
 
@@ -955,7 +955,7 @@ Allocation of op2: 49600
 
 
 <pre class="output">
-3.116320400111712e-10
+1.5613456130906604e-12
 </pre>
 
 
@@ -989,7 +989,7 @@ H_{k+1} = \bigg(I - \frac{s_k y_k^T}{y_k^T s_k}\bigg)H_k\bigg(I - \frac{y_k s_k^
 
 
 <pre class="output">
-&#40;2.482534153247273e-16, 2.482534153247273e-16, 6.473657049138938e-16&#41;
+&#40;3.1401849173675503e-16, 6.938893903907228e-18, 5.551115123125783e-17&#41;
 </pre>
 
 
@@ -1005,7 +1005,7 @@ H_{k+1} = \bigg(I - \frac{s_k y_k^T}{y_k^T s_k}\bigg)H_k\bigg(I - \frac{y_k s_k^
 \]</p>
 <p>Discretizing <span class="math">$t$</span> into <span class="math">$[0,t_1,\dots,t_N]$</span> with <span class="math">$\delta = t_{n+1} - t_n$</span>, <span class="math">$x \in [0,L]$</span> into <span class="math">$[x_1,x_2,\dots,x_m]$</span> with <span class="math">$h = x_{i+1} - x_i$</span> and <span class="math">$y$</span> accordingly, with <span class="math">$h = y_{j+1} - y_j$</span>, we define <span class="math">$u^n_{i,j}$</span> as the approximation to <span class="math">$u(t_n,x_i,y_j)$</span>. The derivatives can be approximated by finite differences:</p>
 <p class="math">\[
-\begin{align}
+\begin{aligned}
   \frac{\partial u}{\partial t}(t_n,x_i,y_j) & \approx \frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta}
       \qquad \text{(Forward scheme in time)}; \\
   \frac{\partial u}{\partial x}(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - u^n_{i-1,j}}{2h}
@@ -1016,7 +1016,7 @@ H_{k+1} = \bigg(I - \frac{s_k y_k^T}{y_k^T s_k}\bigg)H_k\bigg(I - \frac{y_k s_k^
       \qquad \text{(Central 1st order scheme)}; \\
   \frac{\partial^2 u}{\partial y^2}(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - 2u^n_{i,j} + u^n_{i,j-1}}{h^2}
       \qquad \text{(Central 2nd order scheme)}.
-\end{align}
+\end{aligned}
 \]</p>
 <p>Substituting into the PDE, we obtain</p>
 <p class="math">\[
@@ -1040,17 +1040,17 @@ u^n_{i,m+1} = u^n_{i,m-1}.
 \]</p>
 <p>Note that in the PDE discretization, if <span class="math">$u^n_{0,j}$</span>, <span class="math">$u^n_{m+1,j}$</span>, <span class="math">$u^n_{i,0}$</span> or <span class="math">$u^n_{i,m+1}$</span> appear, we can substitute them by one of the inner mesh points. For instance, for <span class="math">$(i,j) = (1,2)$</span>:</p>
 <p class="math">\[
-\begin{align}
+\begin{aligned}
     u^{n+1}_{1,2} & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(u^n_{0,2} + u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big) \\
         & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(2u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big).
-\end{align}
+\end{aligned}
 \]</p>
 <p>Another example, for <span class="math">$(i,j) = (1,1)$</span>:</p>
 <p class="math">\[
-\begin{align}
+\begin{aligned}
     u^{n+1}_{1,1} & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(u^n_{0,1} + u^n_{2,1} + u^n_{1,0} + u^n_{1,2}\Big) \\
         & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(2u^n_{2,1} + 2u^n_{1,2}\Big).
-\end{align}
+\end{aligned}
 \]</p>
 <p>Now we define <span class="math">$U^n = (u_{1,1}^n, u_{1,2}^n, \dots, u_{1,m}^n, u_{2,1}^n, \dots, u_{m,m}^n)^T$</span>, for <span class="math">$n = 0,\dots,N$</span>. This way we can define the following recurrence relation: &#36; U^&#123;n&#43;1&#125; &#61; AU^n, &#36; for some matrix <span class="math">$A$</span>. This matrix has a very special structure. With <span class="math">$m = 3$</span>, which only has one interior  mesh point, it becomes the following:</p>
 <p class="math">\[
@@ -1275,10 +1275,6 @@ HeatEquation &#40;generic function with 1 method&#41;
 </pre>
 
 
-<pre class="output">
-nothing
-</pre>
-
 
 <p><img src="heat-equation.gif" alt="" /></p>
 
@@ -1288,7 +1284,7 @@ nothing
           <div class="footer"><p>
           Published from <a href="introduction-to-linear-operators.jmd">introduction-to-linear-operators.jmd</a> using
           <a href="http://github.com/mpastell/Weave.jl">Weave.jl</a>
-           on 2020-02-08.
+           on 2020-04-19.
           <p></div>
 
 
