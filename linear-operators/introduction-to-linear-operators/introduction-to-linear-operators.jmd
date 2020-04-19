@@ -180,7 +180,7 @@ $$
 Discretizing $t$ into $[0,t_1,\dots,t_N]$ with $\delta = t_{n+1} - t_n$, $x \in [0,L]$ into $[x_1,x_2,\dots,x_m]$ with $h = x_{i+1} - x_i$ and $y$ accordingly, with $h = y_{j+1} - y_j$, we define $u^n_{i,j}$ as the approximation to $u(t_n,x_i,y_j)$.
 The derivatives can be approximated by finite differences:
 $$
-\begin{align}
+\begin{aligned}
   \frac{\partial u}{\partial t}(t_n,x_i,y_j) & \approx \frac{u^{n+1}_{i,j} - u^n_{i,j}}{\delta}
       \qquad \text{(Forward scheme in time)}; \\
   \frac{\partial u}{\partial x}(t_n,x_i,y_j) & \approx \frac{u^n_{i+1,j} - u^n_{i-1,j}}{2h}
@@ -191,7 +191,7 @@ $$
       \qquad \text{(Central 1st order scheme)}; \\
   \frac{\partial^2 u}{\partial y^2}(t_n,x_i,y_j) & \approx \frac{u^n_{i,j+1} - 2u^n_{i,j} + u^n_{i,j-1}}{h^2}
       \qquad \text{(Central 2nd order scheme)}.
-\end{align}
+\end{aligned}
 $$
 
 Substituting into the PDE, we obtain
@@ -219,17 +219,17 @@ $$
 Note that in the PDE discretization, if $u^n_{0,j}$, $u^n_{m+1,j}$, $u^n_{i,0}$ or $u^n_{i,m+1}$ appear, we can substitute them by one of the inner mesh points.
 For instance, for $(i,j) = (1,2)$:
 $$
-\begin{align}
+\begin{aligned}
     u^{n+1}_{1,2} & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(u^n_{0,2} + u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big) \\
         & = (1 - 4\gamma)u^n_{1,2} + \gamma\Big(2u^n_{2,2} + u^n_{1,1} + u^n_{1,3}\Big).
-\end{align}
+\end{aligned}
 $$
 Another example, for $(i,j) = (1,1)$:
 $$
-\begin{align}
+\begin{aligned}
     u^{n+1}_{1,1} & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(u^n_{0,1} + u^n_{2,1} + u^n_{1,0} + u^n_{1,2}\Big) \\
         & = (1 - 4\gamma)u^n_{1,1} + \gamma\Big(2u^n_{2,1} + 2u^n_{1,2}\Big).
-\end{align}
+\end{aligned}
 $$
 
 Now we define $U^n = (u_{1,1}^n, u_{1,2}^n, \dots, u_{1,m}^n, u_{2,1}^n, \dots, u_{m,m}^n)^T$, for $n = 0,\dots,N$.
