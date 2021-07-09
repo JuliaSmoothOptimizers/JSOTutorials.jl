@@ -97,7 +97,7 @@ function push_to_gh_pages()
   end
 
   dst = ENV["TRAVIS_BRANCH"]
-  if dst == "master"
+  if dst == "main"
     dst = "."
   else
     # When fixing a PR, the branch folder in gh-pages needs to be removed so it can be created again
