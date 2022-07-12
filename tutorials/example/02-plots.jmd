@@ -1,7 +1,9 @@
 ---
 title: Example 02 - Plots
 author: Abel Soares Siqueira
+tags: ["example", "plots"]
 ---
+
 
 ```julia
 # using Plots
@@ -16,6 +18,6 @@ y = sin.(x) * 0.2 + randn(20) * 0.1
 ```
 
 ```
-using JSSOTutorials
+using JSOTutorials
 JSSOTutorials.tutorial_footer(WEAVE_ARGS[:folder],WEAVE_ARGS[:file])
 ```

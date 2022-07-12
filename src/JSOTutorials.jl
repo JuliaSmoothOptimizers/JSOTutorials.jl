@@ -2,7 +2,7 @@ module JSOTutorials
 
 # We copied SciML/SciMLTutorials.jl here
 
-using Weave, Pkg, IJulia, InteractiveUtils, Markdown
+using Weave, Pkg, IJulia, InteractiveUtils, Markdown, YAML
 
 repo_directory = joinpath(@__DIR__, "..")
 # cssfile = joinpath(@__DIR__, "..", "templates", "skeleton_css.css")
@@ -134,6 +134,37 @@ function open_notebooks()
   weave_all((:notebook,))
   path = joinpath(repo_directory, "notebook")
   IJulia.notebook(; dir = path)
+end
+
+function parse_markdown_into_franklin(infile, outfile)
+  @info "Parsing Markdown file into parsed file"
+  yaml = YAML.load_file(infile)
+  if any(!haskey(yaml, k) for k in ["title", "author", "tags"])
+    error("file header is missing some key. It should have title, author and tags")
+  end
+
+  open(outfile, "w") do io
+    println(io, """
+    @def title = "$(yaml["title"])"
+    @def showall = true
+    @def tags = $(yaml["tags"])
+
+    \\preamble{$(yaml["author"])}
+    """)
+
+    yaml_count = 0
+    for line in readlines(infile)
+      # Remove YAML header
+      if yaml_count < 2
+        if line == "---"
+          yaml_count += 1
+        end
+        continue
+      end
+      println(io, line)
+    end
+  end
+  @info "Done parsing Markdown file into parsed file"
 end
 
 end
