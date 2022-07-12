@@ -1,9 +1,9 @@
 function tests()
   rootdir = joinpath(@__DIR__, "..")
-  dirs = filter(x -> isdir(joinpath(rootdir, x))
-                && x[1] != '.'
-                && !(x in ["site", "src", "test"]),
-                readdir(rootdir))
+  dirs = filter(
+    x -> isdir(joinpath(rootdir, x)) && x[1] != '.' && !(x in ["site", "src", "test"]),
+    readdir(rootdir),
+  )
   for dir in dirs
     subdirs = readdir(joinpath(rootdir, dir))
     for subdir in subdirs
