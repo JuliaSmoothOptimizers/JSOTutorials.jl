@@ -18,7 +18,7 @@ function generate_site()
   if pr === nothing # Local build
     # Removing "site" since this is a test
     if isdir(joinpath(@__DIR__, "site"))
-      rm(joinpath(@__DIR__, "site"), recursive=true)
+      rm(joinpath(@__DIR__, "site"), recursive = true)
     end
   elseif pr != "false"
     # This is a PR. Don't generate the site, as it can't be used
@@ -36,10 +36,10 @@ function generate_site()
   open(joinpath(build_dir, "index.html"), "w") do io
     println(io, site_header)
     println(io, "<ul>")
-    dirs = filter(x -> isdir(joinpath(@__DIR__, x))
-                  && x[1] != '.'
-                  && !(x in ["site", "src", "test"]),
-    readdir(@__DIR__))
+    dirs = filter(
+      x -> isdir(joinpath(@__DIR__, x)) && x[1] != '.' && !(x in ["site", "src", "test"]),
+      readdir(@__DIR__),
+    )
     for dir in dirs
       print(io, "<li>")
       print(io, titlename(dir))
@@ -55,7 +55,7 @@ function generate_site()
         end
         println(io, "</li>")
 
-        src = joinpath(@__DIR__,  dir, subdir)
+        src = joinpath(@__DIR__, dir, subdir)
         dst = joinpath(build_dir, dir, subdir)
         mkpath(dst)
         for file in readdir(src)
@@ -101,12 +101,12 @@ function push_to_gh_pages()
     dst = "."
   else
     # When fixing a PR, the branch folder in gh-pages needs to be removed so it can be created again
-    isdir(dst) && rm(dst, recursive=true)
+    isdir(dst) && rm(dst, recursive = true)
     mkpath(dst)
   end
 
   for d in readdir("site")
-    mv("site/$d", "$dst/$d", force=true)
+    mv("site/$d", "$dst/$d", force = true)
   end
   rm("site")
   run(`git add $dst`)
