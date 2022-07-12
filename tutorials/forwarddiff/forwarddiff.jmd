@@ -1,6 +1,7 @@
 ---
 title: ForwardDiff example
 author: Abel Soares Siqueira
+tags: ["differentiation"]
 ---
 
 Consider the function below:
