@@ -1,0 +1,10 @@
+[deps]
+BenchmarkProfiles = "ecbce9bc-3e5e-569d-9e29-55181f61f8d0"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[compat]
+BenchmarkProfiles = "0.4"
+JSON = "0.21"
+Plots = "1"
