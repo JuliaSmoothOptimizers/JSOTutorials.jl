@@ -83,7 +83,7 @@ jobs:
           git checkout -b $BRANCH
           git add tutorials
           git commit -am ":robot: Tutorials deployment from $GITHUB_SHA"
-          git push -u origin $BRANCH
+          git push -u origin $BRANCH -f
       - name: Create pull request
         uses: actions/github-script@v6
         with:
