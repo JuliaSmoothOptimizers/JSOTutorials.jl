@@ -136,6 +136,16 @@ function open_notebooks()
   IJulia.notebook(; dir = path)
 end
 
+"""
+    parse_markdown_into_franklin(infile, outfile)
+
+Parses the `infile` returned by Weave into a file that can be understood in Franklin.
+
+Expected:
+
+- `infile`: `markdown/...`
+- `outfile`: `parsed/...`
+"""
 function parse_markdown_into_franklin(infile, outfile)
   @info "Parsing Markdown file into parsed file"
   yaml = YAML.load_file(infile)
@@ -160,6 +170,10 @@ function parse_markdown_into_franklin(infile, outfile)
           yaml_count += 1
         end
         continue
+      end
+      if startswith("![](figures")(line)
+        folder = split(infile, "/")[2]
+        line = "![]($folder/" * line[5:end]
       end
       println(io, line)
     end
