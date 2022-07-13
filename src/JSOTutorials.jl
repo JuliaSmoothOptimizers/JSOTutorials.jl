@@ -162,6 +162,8 @@ function parse_markdown_into_franklin(infile, outfile)
     \\preamble{$(yaml["author"])}
     """)
 
+    code_fence = startswith("```")
+    inside_fenced_code = false
     yaml_count = 0
     for line in readlines(infile)
       # Remove YAML header
@@ -174,6 +176,15 @@ function parse_markdown_into_franklin(infile, outfile)
       if startswith("![](figures")(line)
         folder = split(infile, "/")[2]
         line = "![]($folder/" * line[5:end]
+      elseif code_fence(line)
+        if line == "```"
+          if !inside_fenced_code
+            line = "```plaintext"
+          end
+          inside_fenced_code = !inside_fenced_code
+        else
+          inside_fenced_code = true
+        end
       end
       println(io, line)
     end
