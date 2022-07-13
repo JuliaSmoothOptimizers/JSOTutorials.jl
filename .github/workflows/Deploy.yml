@@ -74,9 +74,9 @@ jobs:
         run: ls -R
       - name: Clone and commit
         run: |
-          git clone https://abelsiqueira:$PAT@github.com/JSOTemp/JSOTemp.github.io
-          cp -r artifact/* JSOTemp.github.io/tutorials/
-          cd JSOTemp.github.io
+          git clone https://abelsiqueira:$PAT@github.com/JuliaSmoothOptimizers/JuliaSmoothOptimizers.github.io
+          cp -r artifact/* JuliaSmoothOptimizers.github.io/tutorials/
+          cd JuliaSmoothOptimizers.github.io
           git config --global user.email "jsotutorials@no.mail"
           git config --global user.name "JSOTutorials bot"
           echo $PAT
@@ -92,8 +92,8 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
             const { BRANCH } = process.env
             github.rest.pulls.create({
-              owner: 'JSOTemp',
-              repo: 'JSOTemp.github.io',
+              owner: 'JuliaSmoothOptimizers',
+              repo: 'JuliaSmoothOptimizers.github.io',
               title: 'Updates from JSOTutorials',
               body: `Updates from ${BRANCH}`,
               head: `${BRANCH}`,
