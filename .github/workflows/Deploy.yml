@@ -6,6 +6,9 @@ on:
     paths:
       - "**/*.jmd"
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   generate-job-strategy-matrix:
@@ -59,9 +62,28 @@ jobs:
         with:
           path: parsed/*
 
+  gh-pages:
+    needs: tutorial
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: .
+      - name: list
+        run: ls -R
+      - name: Deploy (main)
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: markdown
+
   deploy:
     needs: tutorial
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     env:
       PAT: '${{ secrets.JSOTUTORIALS_TOKEN }}'
       BRANCH: 'jsotutorials-${{ github.event_name }}-${{ github.sha }}'
@@ -74,9 +96,9 @@ jobs:
         run: ls -R
       - name: Clone and commit
         run: |
-          git clone https://abelsiqueira:$PAT@github.com/JuliaSmoothOptimizers/JuliaSmoothOptimizers.github.io
-          cp -r artifact/* JuliaSmoothOptimizers.github.io/tutorials/
-          cd JuliaSmoothOptimizers.github.io
+          git clone https://abelsiqueira:$PAT@github.com/JSSOTemp/JSSOTemp.github.io
+          cp -r artifact/* JSSOTemp.github.io/tutorials/
+          cd JSSOTemp.github.io
           git config --global user.email "jsotutorials@no.mail"
           git config --global user.name "JSOTutorials bot"
           echo $PAT
@@ -92,8 +114,8 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
             const { BRANCH } = process.env
             github.rest.pulls.create({
-              owner: 'JuliaSmoothOptimizers',
-              repo: 'JuliaSmoothOptimizers.github.io',
+              owner: 'JSSOTemp',
+              repo: 'JSSOTemp.github.io',
               title: 'Updates from JSOTutorials',
               body: `Updates from ${BRANCH}`,
               head: `${BRANCH}`,
