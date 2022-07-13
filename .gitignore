@@ -10,3 +10,5 @@
 tutorials/**/*.html
 tutorials/**/*.pdf
 /*/*/jl_*/
+markdown
+parsed
