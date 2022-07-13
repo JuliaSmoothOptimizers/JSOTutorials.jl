@@ -26,3 +26,7 @@ folder = join(folder, \"/\");
 JSOTutorials.weave_file(folder, \"$file\")
 JSOTutorials.parse_markdown_into_franklin(\"$MD_FILE\", \"$OUTPUT_FILE\")
 """
+
+if [ -d "markdown/$folder_without_tutorial_prefix/figures" ]; then
+  cp -r "markdown/$folder_without_tutorial_prefix/figures" "parsed/$folder_without_tutorial_prefix/"
+fi
