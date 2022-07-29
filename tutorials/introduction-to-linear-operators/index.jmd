@@ -15,7 +15,9 @@ This section of the documentation describes a few uses of LinearOperators.
 Operators may be defined from matrices and combined using the usual operations, but the result is deferred until the operator is applied.
 
 ```julia
-using LinearOperators, SparseArrays
+using LinearOperators, Random, SparseArrays
+Random.seed!(0)
+
 A1 = rand(5,7)
 A2 = sprand(7,3,.3)
 op1 = LinearOperator(A1)

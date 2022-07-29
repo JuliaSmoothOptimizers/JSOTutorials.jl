@@ -94,7 +94,9 @@ You can use the API from [`NLPModels.jl`](https://juliasmoothoptimizers.github.i
 Here are some examples:
 
 ```julia
-using NLPModels
+using NLPModels, Random
+Random.seed!(0)
+
 x = rand(3)
 grad(qmCOO, x)
 ```

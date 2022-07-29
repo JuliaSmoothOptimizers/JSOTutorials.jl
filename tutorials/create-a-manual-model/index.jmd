@@ -23,7 +23,8 @@ where $e$ is the vector with all components equal to 1.
 
 ```julia
 using ManualNLPModels
-using LinearAlgebra
+using LinearAlgebra, Random
+Random.seed!(0)
 
 sigmoid(t) = 1 / (1 + exp(-t))
 h(β, X) = sigmoid.(β[1] .+ X * β[2:end])
