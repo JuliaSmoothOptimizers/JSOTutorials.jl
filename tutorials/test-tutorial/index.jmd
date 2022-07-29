@@ -1,0 +1,14 @@
+---
+title: "Test tutorial"
+tags: ["testing", "youtube", "jso"]
+author: "Abel S. Siqueira"
+---
+
+Hi, this is a test tutorial.
+
+```julia
+using Distributions
+
+d = Normal()
+rand(d, 10)
+```
