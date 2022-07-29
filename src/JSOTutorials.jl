@@ -173,10 +173,7 @@ function parse_markdown_into_franklin(infile, outfile)
         end
         continue
       end
-      if startswith("![](figures")(line)
-        folder = split(infile, "/")[2]
-        line = "![]($folder/" * line[5:end]
-      elseif code_fence(line)
+      if code_fence(line)
         if line == "```"
           if !inside_fenced_code
             line = "```plaintext"
