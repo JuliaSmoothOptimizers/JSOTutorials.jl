@@ -5,7 +5,7 @@ author: "Abel S. Siqueira"
 ---
 
 When you know the derivatives of your optimization problem, it is frequently more efficient to use them directly instead of relying on automatic differentiation.
-For that purpose, we have created `ManualNLPModels`.
+For that purpose, we have created `ManualNLPModels`. The package is very crude, due to demand being low, but let us know if you need more functionalities.
 
 For instance, in the logistic regression problem, we have a model
 $h_{\beta}(x) = \sigma(\hat{x}^T \beta) = \sigma(\beta_0 + x^T\beta_{1:p})$,
