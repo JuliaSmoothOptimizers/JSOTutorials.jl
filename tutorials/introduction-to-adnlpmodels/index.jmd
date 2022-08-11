@@ -18,7 +18,7 @@ f(x) = (x_1 - 1)^2 + 100(x_2 - x_1^2)^2,
 ```
 with starting point ``x^0 = (-1.2,1.0)``.
 
-```@example adnlp
+```julia
 using ADNLPModels
 
 nlp = ADNLPModel(x->(x[1] - 1.0)^2 + 100*(x[2] - x[1]^2)^2 , [-1.2; 1.0])
@@ -27,7 +27,7 @@ nlp = ADNLPModel(x->(x[1] - 1.0)^2 + 100*(x[2] - x[1]^2)^2 , [-1.2; 1.0])
 This is enough to define the model.
 Let's get the objective function value at ``x^0``, using only `nlp`.
 
-```@example adnlp
+```julia
 using NLPModels # To access the API
 
 fx = obj(nlp, nlp.meta.x0)
@@ -37,7 +37,7 @@ println("fx = $fx")
 Done.
 Let's try the gradient and Hessian.
 
-```@example adnlp
+```julia
 gx = grad(nlp, nlp.meta.x0)
 Hx = hess(nlp, nlp.meta.x0)
 println("gx = $gx")
@@ -58,7 +58,7 @@ Namely, the method
 5. Define ``x^{k+1} = x^k + \alpha_kx^k``
 6. Update ``k = k + 1`` and go to step 2.
 
-```@example adnlp
+```julia
 using LinearAlgebra
 
 function steepest(nlp; itmax=100000, eta=1e-4, eps=1e-6, sigma=0.66)
@@ -99,7 +99,7 @@ println("iter = $iter")
 Maybe this code is too complicated? If you're in a class you just want to show a
 Newton step.
 
-```@example adnlp
+```julia
 g(x) = grad(nlp, x)
 H(x) = hess(nlp, x)
 x = nlp.meta.x0
@@ -108,7 +108,7 @@ d = -H(x)\g(x)
 
 or a few
 
-```@example adnlp
+```julia
 for i = 1:5
   global x
   x = x - H(x)\g(x)
@@ -118,7 +118,7 @@ end
 
 Also, notice how we can reuse the method.
 
-```@example adnlp
+```julia
 f(x) = (x[1]^2 + x[2]^2 - 5)^2 + (x[1]*x[2] - 2)^2
 x0 = [3.0; 2.0]
 nlp = ADNLPModel(f, x0)
@@ -131,7 +131,7 @@ External models can be tested with `steepest` as well, as long as they implement
 For constrained minimization, you need the constraints vector and bounds too.
 Bounds on the variables can be passed through a new vector.
 
-```@example adnlp2
+```julia
 using NLPModels, ADNLPModels # hide
 f(x) = (x[1] - 1.0)^2 + 100*(x[2] - x[1]^2)^2
 x0 = [-1.2; 1.0]
@@ -156,17 +156,17 @@ and its derivatives.
 A simple way to define an NLS problem is with `ADNLSModel`, which uses automatic
 differentiation.
 
-```@example nls
+```julia
 using NLPModels, ADNLPModels # hide
 F(x) = [x[1] - 1.0; 10 * (x[2] - x[1]^2)]
 x0 = [-1.2; 1.0]
 nls = ADNLSModel(F, x0, 2) # 2 nonlinear equations
 ```
 
-```@example nls
+```julia
 residual(nls, x0)
 ```
 
-```@example nls
+```julia
 jac_residual(nls, x0)
 ```
