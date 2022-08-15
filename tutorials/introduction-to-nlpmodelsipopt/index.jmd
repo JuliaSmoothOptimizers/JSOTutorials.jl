@@ -77,9 +77,9 @@ with regularization $\lambda \|\beta\|^2 / 2$.
 using DataFrames, LinearAlgebra, NLPModels, NLPModelsIpopt, Random
 
 mutable struct LogisticRegression <: AbstractNLPModel{Float64, Vector{Float64}}
-  X :: Matrix
-  y :: Vector
-  λ :: Real
+  X :: Matrix{Float64}
+  y :: Vector{Float64}
+  λ :: Float64
   meta :: NLPModelMeta{Float64, Vector{Float64}} # required by AbstractNLPModel
   counters :: Counters # required by AbstractNLPModel
 end
@@ -163,7 +163,4 @@ scatter(df.age[P], df.salary[P], c=:blue, m=:square)
 P = findall(df.buy .== false)
 scatter!(df.age[P], df.salary[P], c=:red, m=:xcross, ms=7)
 contour!(range(18, 60, step=0.1), range(40_000, 180_000, step=1.0), f, levels=[0.5])
-png("ex3")
 ```
-
-![](ex3.png)
