@@ -1,3 +1,8 @@
 [deps]
 BundleAdjustmentModels = "0bf3e898-7c79-4b38-9ca6-2d9cc6573905"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
+
+[compat]
+BundleAdjustmentModels = "0.3"
+NLPModels = "0.19"
