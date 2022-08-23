@@ -132,6 +132,7 @@ meta_nls = nls_meta(model)
 rows = Vector{Int}(undef, meta_nls.nnzj)
 cols = Vector{Int}(undef, meta_nls.nnzj)
 jac_structure_residual!(model, rows, cols)
+println(model.meta.name)
 ```
 
 You need to call `jac_coord_residual!` everytime before calling `jac_op_residual!` to update it to the current point.
@@ -140,6 +141,7 @@ You need to call `jac_coord_residual!` everytime before calling `jac_op_residual
 model = BundleAdjustmentModel("problem-49-7776")
 vals = similar(model.meta.x0, meta_nls.nnzj)
 jac_coord_residual!(model, model.meta.x0, vals)
+println(model.meta.name)
 ```
 
 Finally you can use `jac_op_residual!`:
