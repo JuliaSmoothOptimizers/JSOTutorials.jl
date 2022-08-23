@@ -64,7 +64,6 @@ You can also directly download and get access to an entire group of problems lik
 
 ```
 paths = fetch_ba_group("ladybug")
-println(length(paths))
 println(paths[1])
 ```
 
@@ -179,4 +178,4 @@ If you want to clean your workspace or save some more space you can also delete 
 delete_all_ba_artifacts!()
 ```
 
-That's it for this tutorial ! If you have any problems with the package don't hesitate to open an issue and I will try to fix it.
+That's it for this tutorial ! If you have any problems with the package do not hesitate to open an issue and I will try to fix it.
