@@ -63,8 +63,7 @@ If it is already downloaded it will simply get you the path to it.
 You can also directly download and get access to an entire group of problems like this :
 
 ```
-paths = fetch_ba_group("ladybug")
-println(paths[1])
+paths = fetch_ba_group("ladybug");
 ```
 
 It will return a vector of the paths to all the problems.
@@ -77,15 +76,13 @@ Now, let's say you want to work on the model itself.
 df = problems_df()
 filter_df = df[ ( df.nequ .≥ 50000 ) .& ( df.nvar .≤ 34000 ), :]
 name = filter_df[1, :name]
-model = BundleAdjustmentModel(name)
-println(model.meta.name)
+model = BundleAdjustmentModel(name);
 ```
 
 Or
 
 ```julia
-model = BundleAdjustmentModel("problem-49-7776-pre")
-println(model.meta.name)
+model = BundleAdjustmentModel("problem-49-7776-pre");
 ```
 
 This command will generate the model out of the `name` variable defined above or the given string (and automatically download it if it's not been done already).
@@ -107,7 +104,6 @@ You can calculate the residual of the model:
 model = BundleAdjustmentModel("problem-49-7776-pre.txt.bz2")
 x = model.meta.x0
 Fx = residual(model,x)
-println(norm(Fx))
 ```
 
 The in place method is also available if you don't want to use too much memory.
@@ -116,8 +112,7 @@ The in place method is also available if you don't want to use too much memory.
 model = BundleAdjustmentModel("problem-49-7776-pre.txt.bz2")
 x = model.meta.x0
 Fx = zeros(model.nls_meta.nequ)
-Fx = residual!(model,x,Fx)
-println(norm(Fx))
+Fx = residual!(model,x,Fx);
 ```
 
 ### Jacobian of the model
@@ -131,8 +126,7 @@ model = BundleAdjustmentModel("problem-49-7776")
 meta_nls = nls_meta(model)
 rows = Vector{Int}(undef, meta_nls.nnzj)
 cols = Vector{Int}(undef, meta_nls.nnzj)
-jac_structure_residual!(model, rows, cols)
-println(model.meta.name)
+jac_structure_residual!(model, rows, cols);
 ```
 
 You need to call `jac_coord_residual!` everytime before calling `jac_op_residual!` to update it to the current point.
@@ -141,7 +135,6 @@ You need to call `jac_coord_residual!` everytime before calling `jac_op_residual
 model = BundleAdjustmentModel("problem-49-7776")
 vals = similar(model.meta.x0, meta_nls.nnzj)
 jac_coord_residual!(model, model.meta.x0, vals)
-println(model.meta.name)
 ```
 
 Finally you can use `jac_op_residual!`:
