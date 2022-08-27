@@ -53,7 +53,7 @@ jobs:
           path: markdown/*
 
   deploy:
-    needs: [generate-job-strategy-matrix, tutorial]
+    needs: [generate-job-strategy-matrix, build-tutorials]
     runs-on: ubuntu-latest
     if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
     steps:
