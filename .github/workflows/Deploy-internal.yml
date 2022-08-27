@@ -1,0 +1,84 @@
+name: Deploy internal
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**/*.jmd"
+
+jobs:
+  generate-job-strategy-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      job-strategy-matrix: ${{ steps.generate.outputs.job-strategy-matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 5
+      - name: Generate MATRIX
+        id: generate
+        run: |
+          MATRIX=$( (
+            echo '{ "tutorial": ['
+            git diff --name-only HEAD HEAD~1 | grep jmd | sed -r 's/(.*)/\"\1\"/g' | sed '$!s/$/,/'
+            echo ']}'
+          ) | jq -c .)
+          echo $MATRIX
+          echo $MATRIX | jq .
+          echo "::set-output name=job-strategy-matrix::$MATRIX"
+
+  build-tutorials:
+    needs: generate-job-strategy-matrix
+    runs-on: ubuntu-latest
+    if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
+    strategy:
+      matrix: ${{ fromJSON(needs.generate-job-strategy-matrix.outputs.job-strategy-matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Install Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: 1
+      - name: Build tutorial
+        run: |
+          bash .github/workflows/build_tutorial.sh ${{ matrix.tutorial }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: markdown/*
+
+  deploy:
+    needs: [generate-job-strategy-matrix, build-tutorials]
+    runs-on: ubuntu-latest
+    if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
+    steps:
+      - name: Download current gh-pages
+        run: |
+          wget https://github.com/JuliaSmoothOptimizers/JSOTutorials.jl/archive/refs/heads/gh-pages.zip
+          unzip gh-pages.zip
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: .
+      - name: list
+        run: ls -R
+      - name: Merge gh-pages and updates and update index.md
+        run: |
+          cp -rf artifact/* JSOTutorials.jl-gh-pages/
+          cd JSOTutorials.jl-gh-pages
+          echo "## JSOTutorials preview page
+
+          For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.io/tutorials/>.
+
+          " > index.md
+          for file in **/*.md; do NAME=$(echo $file | cut -d/ -f 1); TITLE=$(grep "title:" $file | cut -d\" -f2); echo "- [$TITLE]($NAME/)"; done >> index.md
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./JSOTutorials.jl-gh-pages
+          enable_jekyll: true

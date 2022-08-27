@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to website
 on:
   push:
     branches:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 5
-      - name: generate for all
+      - name: Generate MATRIX
         id: generate
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
@@ -37,7 +37,7 @@ jobs:
           echo $MATRIX | jq .
           echo "::set-output name=job-strategy-matrix::$MATRIX"
 
-  tutorial:
+  build-tutorials:
     needs: generate-job-strategy-matrix
     runs-on: ubuntu-latest
     if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
@@ -61,7 +61,7 @@ jobs:
           path: parsed/*
 
   deploy:
-    needs: [generate-job-strategy-matrix, tutorial]
+    needs: [generate-job-strategy-matrix, build-tutorials]
     runs-on: ubuntu-latest
     if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
     env:
