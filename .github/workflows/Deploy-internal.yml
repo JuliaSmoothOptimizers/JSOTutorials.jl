@@ -21,8 +21,8 @@ jobs:
         run: |
           MATRIX=$( (
             echo '{ "tutorial": ['
-            echo '"tutorials/introduction-to-linear-operators/index.jmd",'  # TODO: Remove this line
-            git diff --name-only HEAD HEAD~1 | grep jmd | sed -r 's/(.*)/\"\1\"/g' | sed '$!s/$/,/'
+            echo '"tutorials/introduction-to-linear-operators/index.jmd"'  # TODO: Remove this line and enable below
+            # git diff --name-only HEAD HEAD~1 | grep jmd | sed -r 's/(.*)/\"\1\"/g' | sed '$!s/$/,/'
             echo ']}'
           ) | jq -c .)
           echo $MATRIX
