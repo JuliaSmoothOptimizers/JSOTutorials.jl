@@ -69,7 +69,7 @@ jobs:
         run: ls -R
       - name: Merge gh-pages and updates and update index.md
         run: |
-          mv -f artifact/* JSOTutorials.jl-gh-pages/
+          cp -rf artifact/* JSOTutorials.jl-gh-pages/
           cd JSOTutorials.jl-gh-pages
           echo "## JSOTutorials preview page
 
