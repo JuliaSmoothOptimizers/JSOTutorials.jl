@@ -3,8 +3,8 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - "**/*.jmd"
+    # paths:
+      # - "**/*.jmd"
 
 jobs:
   generate-job-strategy-matrix:
