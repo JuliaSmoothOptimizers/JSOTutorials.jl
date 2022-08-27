@@ -76,7 +76,7 @@ jobs:
           For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.io/tutorials/>.
 
           " > index.md
-          for file in **/*.md; do NAME=$(echo $file | cut -d/ -f 1); TITLE=$(grep "title:" $file | cut -d\" -f2); echo "- [$TITLE]($NAME/)"; done
+          for file in **/*.md; do NAME=$(echo $file | cut -d/ -f 1); TITLE=$(grep "title:" $file | cut -d\" -f2); echo "- [$TITLE]($NAME/)"; done >> index.md
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
