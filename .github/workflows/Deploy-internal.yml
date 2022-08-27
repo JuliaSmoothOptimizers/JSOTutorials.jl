@@ -1,0 +1,71 @@
+name: Deploy internal
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**/*.jmd"
+
+jobs:
+  generate-job-strategy-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      job-strategy-matrix: ${{ steps.generate.outputs.job-strategy-matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 5
+      - name: Generate MATRIX
+        id: generate
+        run: |
+          MATRIX=$( (
+            echo '{ "tutorial": ['
+            echo '"tutorials/introduction-to-linear-operators/index.jmd",'  # TODO: Remove this line
+            git diff --name-only HEAD HEAD~1 | grep jmd | sed -r 's/(.*)/\"\1\"/g' | sed '$!s/$/,/'
+            echo ']}'
+          ) | jq -c .)
+          echo $MATRIX
+          echo $MATRIX | jq .
+          echo "::set-output name=job-strategy-matrix::$MATRIX"
+
+  build-tutorials:
+    needs: generate-job-strategy-matrix
+    runs-on: ubuntu-latest
+    if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
+    strategy:
+      matrix: ${{ fromJSON(needs.generate-job-strategy-matrix.outputs.job-strategy-matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Install Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: 1
+      - name: Build tutorial
+        run: |
+          bash .github/workflows/build_tutorial.sh ${{ matrix.tutorial }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: markdown/*
+
+  deploy:
+    needs: [generate-job-strategy-matrix, tutorial]
+    runs-on: ubuntu-latest
+    if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: .
+      - name: list
+        run: ls -R
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./artifact
+          keep_files: true
