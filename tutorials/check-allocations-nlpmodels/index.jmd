@@ -35,11 +35,11 @@ For nonlinear least-squares, i.e., `AbstractNLSModel`, we can also test allocati
 - `jac_coord_residual!(nlp, x, vals)`
 - `jprod_residual!(nlp, x, v, Jv)`
 - `jtprod_residual!(nlp, x, w, Jtv)`
-- `mul!(Jv, J, v)` for a `J` a LinearOperator, see [LinearOperators.jl](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl), obtained by `jac_op_residual!(nlp, x, Jv, Jtv)`;
+- `mul!(Jv, J, v)` for a `J` a LinearOperator obtained by `jac_op_residual!(nlp, x, Jv, Jtv)`;
 - `hess_structure_residual!(nlp, rows, cols)`
 - `hess_coord_residual!(nlp, x, v, vals)`
 - `hprod_residual!(nlp, x, i, v, Hv)`
-- `mul!(Hv, H, v)` for a `H` a LinearOperator, see [LinearOperators.jl](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl), obtained by `hess_op_residual!(nlp, x, i, Hv)`.
+- `mul!(Hv, H, v)` for a `H` a LinearOperator obtained by `hess_op_residual!(nlp, x, i, Hv)`.
 
 The function [`print_nlp_allocations`](@ref) allows a better rending of the results.
 
