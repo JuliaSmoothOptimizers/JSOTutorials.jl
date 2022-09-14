@@ -39,11 +39,11 @@ For nonlinear least-squares, i.e., `AbstractNLSModel`, we can also test allocati
 - `jac_coord_residual!(nlp, x, vals)`
 - `jprod_residual!(nlp, x, v, Jv)`
 - `jtprod_residual!(nlp, x, w, Jtv)`
-- `mul!(Jv, J, v)` for a `J` a LinearOperator, see [LinearOperators.jl](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl), obtained by `jac_op_residual!(nlp, x, Jv, Jtv)`;
+- `mul!(Jv, J, v)` for a `J` a LinearOperator obtained by `jac_op_residual!(nlp, x, Jv, Jtv)`;
 - `hess_structure_residual!(nlp, rows, cols)`
 - `hess_coord_residual!(nlp, x, v, vals)`
 - `hprod_residual!(nlp, x, i, v, Hv)`
-- `mul!(Hv, H, v)` for a `H` a LinearOperator, see [LinearOperators.jl](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl), obtained by `hess_op_residual!(nlp, x, i, Hv)`.
+- `mul!(Hv, H, v)` for a `H` a LinearOperator obtained by `hess_op_residual!(nlp, x, i, Hv)`.
 
 The function [`print_nlp_allocations`](@ref) allows a better rending of the results.
 
@@ -450,25 +450,25 @@ Test Summary:                                           | Pass  Total  Time
 Test 0-allocations of NLPModel API for MGH01Feas_manual |   30     30  0.0s
 10-element Vector{Test.DefaultTestSet}:
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for BROWNDEN_manua
-l", Any[], 6, false, false, true, 1.663191970807775e9, 1.663191970833619e9)
+l", Any[], 6, false, false, true, 1.663192048803683e9, 1.663192048835838e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for HS5_manual", A
-ny[], 6, false, false, true, 1.663191971811548e9, 1.663191971811573e9)
+ny[], 6, false, false, true, 1.663192050339741e9, 1.663192050339774e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for HS6_manual", A
-ny[], 23, false, false, true, 1.663191973038788e9, 1.663191973038816e9)
+ny[], 23, false, false, true, 1.66319205201955e9, 1.663192052019582e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for HS10_manual", 
-Any[], 23, false, false, true, 1.663191974296256e9, 1.663191974296281e9)
+Any[], 23, false, false, true, 1.663192053686971e9, 1.663192053687001e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for HS11_manual", 
-Any[], 23, false, false, true, 1.663191975530602e9, 1.663191975530626e9)
+Any[], 23, false, false, true, 1.663192055323437e9, 1.663192055323468e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for HS13_manual", 
-Any[], 23, false, false, true, 1.663191976753964e9, 1.663191976753988e9)
+Any[], 23, false, false, true, 1.663192056937021e9, 1.66319205693705e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for HS14_manual", 
-Any[], 30, false, false, true, 1.663191976760443e9, 1.663191976760469e9)
+Any[], 30, false, false, true, 1.663192056945213e9, 1.663192056945239e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for LINCON_manual"
-, Any[], 23, false, false, true, 1.663191978177265e9, 1.663191978177291e9)
+, Any[], 23, false, false, true, 1.663192058790674e9, 1.663192058790704e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for LINSV_manual",
- Any[], 23, false, false, true, 1.663191979381287e9, 1.66319197938131e9)
+ Any[], 23, false, false, true, 1.663192060352296e9, 1.663192060352344e9)
  Test.DefaultTestSet("Test 0-allocations of NLPModel API for MGH01Feas_manu
-al", Any[], 30, false, false, true, 1.663191980720926e9, 1.663191980720958e
+al", Any[], 30, false, false, true, 1.663192062116054e9, 1.663192062116112e
 9)
 ```
 
