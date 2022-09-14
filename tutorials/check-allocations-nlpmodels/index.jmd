@@ -1,5 +1,5 @@
 ---
-title: "How to check allocations of an NLPModel"
+title: "Test allocations of NLPModels"
 tags: ["models", "manual", "tests"]
 author: "Tangi Migot"
 ---
@@ -22,10 +22,10 @@ If the problem has constraints, we also check:
 - `jac_coord!(nlp, x, vals)`;
 - `jprod!(nlp, x, v, Jv)`;
 - `jtprod!(nlp, x, v, Jtv)`;
-- `mul!(Jv, J, v)` for a `J` a LinearOperator, see [LinearOperators.jl](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl), obtained by `jac_op!(nlp, x, Jv, Jtv)`;
+- `mul!(Jv, J, v)` for a `J` a LinearOperator obtained by `jac_op!(nlp, x, Jv, Jtv)`;
 - `hess_coord!(nlp, x, y, vals)`;
 - `hprod!(nlp, x, y, v, Hv)`;
-- `mul!(Hv, H, v)` for a `H` a LinearOperator, see [LinearOperators.jl](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl), obtained by `hess_op!(nlp, x, y, Hv)`.
+- `mul!(Hv, H, v)` for a `H` a LinearOperator obtained by `hess_op!(nlp, x, y, Hv)`.
 
 It is also possible to test the functions for the linear and nonlinear constraints by setting the keyword `linear_api = true` in the call to [`test_allocs_nlpmodels`](@ref).
 
