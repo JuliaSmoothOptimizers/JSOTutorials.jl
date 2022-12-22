@@ -78,7 +78,7 @@ Generic Execution stats
   solution: [0.9999999917126897  0.9999999825882647  0.9999999997312826  0.
 999999999455177 ⋯ 1.0000000026501263]
   iterations: 18
-  elapsed time: 2.852273941040039
+  elapsed time: 2.8289220333099365
 ```
 
 
@@ -108,7 +108,7 @@ cb = (nlp, solver, stats) -> begin
   X = [X; solver.x[1:2]']
 end
 
-output = trunk(nlp)
+output = trunk(nlp, callback=cb)
 
 contour(-2:0.05:2, -2:0.05:2,
   (x1, x2) -> obj(nlp, [x1; x2; output.solution[3:end]]),
@@ -117,7 +117,11 @@ contour(-2:0.05:2, -2:0.05:2,
 plot!(X[:,1], X[:,2], l=:arrow, m=(3))
 ```
 
-![](figures/index_3_1.png)
+```
+Error: UndefVarError: X not defined
+```
+
+
 
 
 
@@ -136,20 +140,12 @@ cb = (nlp, solver, stats) -> begin
   fold = f
 end
 
-output = trunk(nlp)
+output = trunk(nlp, callback=cb, rtol=0.0, atol=0.0)
 println(output)
 ```
 
 ```
-Generic Execution stats
-  status: first-order stationary
-  objective value: 8.970912001856092e-17
-  primal feasibility: 0.0
-  dual feasibility: 8.338702542070883e-9
-  solution: [0.9999999917126897  0.9999999825882647  0.9999999997312826  0.
-999999999455177 ⋯ 1.0000000026501263]
-  iterations: 18
-  elapsed time: 0.001180887222290039
+Error: UndefVarError: fold not defined
 ```
 
 
