@@ -78,7 +78,7 @@ Generic Execution stats
   solution: [0.9999999917126897  0.9999999825882647  0.9999999997312826  0.
 999999999455177 ⋯ 1.0000000026501263]
   iterations: 18
-  elapsed time: 2.3705241680145264
+  elapsed time: 2.852273941040039
 ```
 
 
@@ -149,7 +149,7 @@ Generic Execution stats
   solution: [0.9999999917126897  0.9999999825882647  0.9999999997312826  0.
 999999999455177 ⋯ 1.0000000026501263]
   iterations: 18
-  elapsed time: 0.0009088516235351562
+  elapsed time: 0.001180887222290039
 ```
 
 
@@ -165,6 +165,8 @@ All solvers in `JSOSolvers`, as well as `percival` and `dci` from Percival.jl an
 Here is an example:
 
 ```julia
+using Percival
+
 @NLconstraint(model, [i=1:N], x[2i]^2 + x[2i-1]^2 <= 1.0)
 nlp = MathOptNLPModel(model)
 
@@ -181,8 +183,4 @@ plot!(plt, primal_history, lab="primal", yaxis=:log)
 plot!(plt, dual_history, lab="dual")
 ```
 
-```
-Error: UndefVarError: percival not defined
-```
-
-
+![](figures/index_5_1.png)
