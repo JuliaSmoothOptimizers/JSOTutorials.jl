@@ -57,7 +57,7 @@ using NLPModels, Plots
 
 X = zeros(0, 2)
 cb = (nlp, solver, stats) -> begin
-  X = [X; solver.x[1:2]']
+  global X = [X; solver.x[1:2]']
 end
 
 output = trunk(nlp, callback=cb)
@@ -77,6 +77,7 @@ For instance, to implement a check on whether the objective value is stalling, w
 ```julia
 fold = -Inf
 cb = (nlp, solver, stats) -> begin
+  global fold
   f = stats.objective
   if abs(f - fold) / (abs(f) + abs(fold) + 1e-8) < 1e-3
     stats.status = :user
