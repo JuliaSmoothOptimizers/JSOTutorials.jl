@@ -78,7 +78,7 @@ Generic Execution stats
   solution: [0.9999999917126897  0.9999999825882647  0.9999999997312826  0.
 999999999455177 ⋯ 1.0000000026501263]
   iterations: 18
-  elapsed time: 2.8289220333099365
+  elapsed time: 2.3919520378112793
 ```
 
 
@@ -105,7 +105,7 @@ using NLPModels, Plots
 
 X = zeros(0, 2)
 cb = (nlp, solver, stats) -> begin
-  X = [X; solver.x[1:2]']
+  global X = [X; solver.x[1:2]']
 end
 
 output = trunk(nlp, callback=cb)
@@ -117,11 +117,7 @@ contour(-2:0.05:2, -2:0.05:2,
 plot!(X[:,1], X[:,2], l=:arrow, m=(3))
 ```
 
-```
-Error: UndefVarError: X not defined
-```
-
-
+![](figures/index_3_1.png)
 
 
 
@@ -133,6 +129,7 @@ For instance, to implement a check on whether the objective value is stalling, w
 ```julia
 fold = -Inf
 cb = (nlp, solver, stats) -> begin
+  global fold
   f = stats.objective
   if abs(f - fold) / (abs(f) + abs(fold) + 1e-8) < 1e-3
     stats.status = :user
@@ -145,7 +142,15 @@ println(output)
 ```
 
 ```
-Error: UndefVarError: fold not defined
+Generic Execution stats
+  status: user-requested stop
+  objective value: 1.405115328770847e-20
+  primal feasibility: 0.0
+  dual feasibility: 1.4364101353965366e-10
+  solution: [0.9999999999573873  0.9999999999104003  0.999999999934689  0.9
+999999998670257 ⋯ 0.999999999938523]
+  iterations: 18
+  elapsed time: 0.0010218620300292969
 ```
 
 
