@@ -1,11 +1,11 @@
 ---
-title: "Multiprecision and genericity in NLPModels with automatic differentiation"
+title: "Creating an ADNLPModels backend that supports multiple types"
 tags: ["models", "automatic differentiation", "multi-precision", "tests"]
 author: "Tangi Migot"
 ---
 
 
-# Multiprecision and genericity in NLPModels with automatic differentiation
+# Creating an ADNLPModels backend that supports multiple types
 
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
@@ -17,7 +17,7 @@ The same can be exploited for optimization models and solvers.
 In the organization [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io), the package [ADNLPModels.jl](https://github.com/JuliaSmoothOptimizers/ADNLPModels.jl) provides automatic differentiation (AD)-based model implementations that conform to the NLPModels API.
 This package is modular in the sense that it implements a backend system allowing the user to use essentially any AD system available, see [ADNLPModels.jl/dev/backend/](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/dev/backend/) for a tutorial.
 
-Note that most of the solvers available in [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io) have a flexible working type.
+Note that most of the solvers available in [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io) will accept generic types.
 For instance, it is possible to use the classical L-BFGS method implemented in [JSOSolvers.jl](https://github.com/JuliaSmoothOptimizers/JSOSolvers.jl/) in single precision.
 
 ```julia
@@ -29,7 +29,14 @@ stats = lbfgs(nlp)
 print(stats)
 ```
 
-In this tutorial, we will show how to modify the AD-backend in `ADNLPModel` so that the precision can also be changed during the execution of the algorithm.
+To design a multi-precision algorithm, we would also need to evaluate the model at a different precision, but this fails.
+
+```julia
+x16 = Float16[-1.2; 1.0]
+grad(nlp, x16)
+```
+
+In this tutorial, we will show how to modify the AD-backend in `ADNLPModel` to overcome this issue.
 
 ## Multiprecision ADNLPModels
 
@@ -78,7 +85,7 @@ function ADNLPModels.gradient!(::GenericGradientBackend, g, f, x)
 end
 ```
 
-Once, the new backend is defined it is possible to use it in the `ADNLPModel` constructor:
+Once the new backend is defined it is possible to use it in the `ADNLPModel` constructor:
 
 ```julia
 nlp = ADNLPModel(f, x0, gradient_backend = GenericGradientBackend)
@@ -103,7 +110,7 @@ The same can be done for the other backends jacobian, hessian, etc.
 ## Multiprecision test problems
 
 Designing a multi-precision algorithm is very often connected with benchmarking and test problems.
-The package [OptimizationProblems.jl](https://github.com/JuliaSmoothOptimizers/OptimizationProblems.jl) provides a collection of optimization problems in JuMP and ADNLPModels syntax.
+The package [OptimizationProblems.jl](https://github.com/JuliaSmoothOptimizers/OptimizationProblems.jl) provides a collection of optimization problems in JuMP and ADNLPModels syntax, see [introduction to OptimizationProblems.jl tutorial](https://juliasmoothoptimizers.github.io/tutorials/introduction-to-optimizationproblems/).
 
 This package provides a `DataFrame` with all the information on the implemented problems.
 
