@@ -8,4 +8,5 @@ For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.
 - [Creating an ADNLPModels backend that supports multiple types](generic-adnlpmodels/)
 - [Introduction to JSOSolvers](introduction-to-jsosolvers/)
 - [Introduction to Linear Operators](introduction-to-linear-operators/)
+- [Solve a PDE-constrained optimization problem](introduction-to-pdenlpmodels/)
 - [Using callbacks](using-callbacks/)
