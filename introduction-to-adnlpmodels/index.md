@@ -24,9 +24,8 @@ with starting point $x^0 = (-1.2,1.0)$.
 
 ```julia
 using ADNLPModels
-f = x->(x[1] - 1.0)^2 + 100*(x[2] - x[1]^2)^2
-x0 = [-1.2; 1.0]
-nlp = ADNLPModel(f , x0)
+
+nlp = ADNLPModel(x->(x[1] - 1.0)^2 + 100*(x[2] - x[1]^2)^2 , [-1.2; 1.0])
 ```
 
 ```
@@ -241,7 +240,8 @@ x, fx, ngx, optimal, iter = steepest(nlp)
 ```
 
 ```
-Error: cannot define function f; it already has a value
+([1.9999999068493834, 1.000000113517522], 3.911490500207018e-14, 8.97987092
+7068038e-7, true, 153)
 ```
 
 
@@ -269,7 +269,8 @@ println("Jx = $(jac(nlp, nlp.meta.x0))")
 ```
 
 ```
-Error: cannot define function f; it already has a value
+cx = [-2.2, 2.44]
+Jx = sparse([1, 2, 1, 2], [1, 1, 2, 2], [1.0, -2.4, 1.0, 2.0], 2, 2)
 ```
 
 
