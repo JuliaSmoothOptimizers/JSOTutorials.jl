@@ -125,7 +125,7 @@ norm(cons(nlp, stats_trunk.solution))
 ```
 
 ```
-0.012974641407997924
+0.0012272446461302061
 ```
 
 
@@ -175,15 +175,15 @@ nlp.counters
 ```
 Counters:
              obj: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 6                 grad: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-⋅⋅⋅⋅⋅⋅⋅⋅ 7                 cons: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 9     
+⋅⋅⋅⋅⋅⋅⋅⋅ 7                 cons: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 10    
         cons_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0             cons_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 0                 jcon: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            jgrad: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                  jac: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 7              jac_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
          jac_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                jprod: ████████████
-████████ 188          jprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+████████ 529          jprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
        jprod_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               jtprod: ████████████
-████████ 190         jtprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+████████ 532         jtprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
       jtprod_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                 hess: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 5                hprod: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            jhess: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               jhprod: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
@@ -231,15 +231,15 @@ nlp.counters
 ```
 Counters:
              obj: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 7                 grad: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-⋅⋅⋅⋅⋅⋅⋅⋅ 7                 cons: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 8     
+⋅⋅⋅⋅⋅⋅⋅⋅ 7                 cons: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 7     
         cons_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0             cons_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 0                 jcon: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            jgrad: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                  jac: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-⋅⋅⋅⋅⋅⋅⋅⋅ 14             jac_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+⋅⋅⋅⋅⋅⋅⋅⋅ 13             jac_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
          jac_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                jprod: ████████████
-████████ 10280        jprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+████████ 10751        jprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
        jprod_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               jtprod: ████████████
-████████ 10280       jtprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+████████ 10751       jtprod_lin: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
       jtprod_nln: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                 hess: █⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 5                hprod: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            jhess: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               jhprod: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
@@ -257,7 +257,7 @@ stats_ipopt.elapsed_time, stats_dci.elapsed_time
 ```
 
 ```
-(117.57, 26.17117691040039)
+(70.073, 21.911986112594604)
 ```
 
 
@@ -272,8 +272,8 @@ and also check objective value, feasibility, and dual feasibility of `ipopt` and
 ```
 
 ```
-((16.044043741825813, 2.8622937353617317e-16, 6.754773183374432e-6), (16.04
-027087402259, 6.683369542178143e-7, 4.6763145127271145e-7))
+((16.044043741825828, 2.7929047963226594e-16, 6.75477318337435e-6), (16.040
+271665543603, 2.014065119788772e-7, 8.482067841583333e-8))
 ```
 
 
@@ -292,7 +292,7 @@ yh  = FEFunction(nlp.pdemeta.Ypde, yfv)
 ufv = stats_dci.solution[1+Gridap.FESpaces.num_free_dofs(nlp.pdemeta.Ypde):end]
 uh  = FEFunction(nlp.pdemeta.Ycon, ufv)
 
-writevtk(nlp.pdemeta.tnrj.trian,"results",cellfields=["uh"=>uh, "yh"=>yh])
+writevtk(nlp.pdemeta.tnrj.trian, "results", cellfields = ["uh" => uh, "yh" => yh])
 ```
 
 ```
@@ -305,6 +305,6 @@ writevtk(nlp.pdemeta.tnrj.trian,"results",cellfields=["uh"=>uh, "yh"=>yh])
 
 The following plots can obtained using any software reading VTK, e.g. Paraview.
 
-[](figures/uh.png)
+![](figures/uh.png)
 
-[](figures/yh.png)
+![](figures/yh.png)
