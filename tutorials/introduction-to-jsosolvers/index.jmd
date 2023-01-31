@@ -42,13 +42,13 @@ Refer to the documentation of each solver for further details on the available k
 
 The solvers `tron` and `trunk` both have a specialized implementation for input models of type `AbstractNLSModel`.
 
-The following example illustrate this specialization.
+The following examples illustrate this specialization.
 
 ```julia
 using JSOSolvers, ADNLPModels
 f(x) = (x[1] - 1)^2 + 4 * (x[2] - x[1]^2)^2
 nlp = ADNLPModel(f, [-1.2; 1.0])
-trunk(nlp)
+trunk(nlp, atol = 1e-6, rtol = 1e-6)
 ```
 
 ```julia
@@ -58,11 +58,44 @@ nlp.counters
 ```julia
 F(x) = [x[1] - 1; 2 * (x[2] - x[1]^2)]
 nls = ADNLSModel(F, [-1.2; 1.0], 2)
-trunk(nls)
+trunk(nls, atol = 1e-6, rtol = 1e-6)
 ```
 
 ```julia
 nls.counters
+```
+
+We conclude these examples by a simple nonlinear regression.
+
+We build a nonlinear model `m` with unknown parameters α and β, and generate randomly some observations of this model.
+```julia
+m(α, β, x) = α * cos(x) + β * sin(x) # nonlinear models with unknown α and β
+
+ndata = 100 # size of data sample
+data = [rand() * 2 - 1 for i=1:ndata]
+obs = [m(0.5, 0.5, xi) for xi in data] + rand(ndata) / 10; # observations
+```
+
+We now define the nonlinear least squares associated with the regression problem.
+
+```julia
+F(w) = [m(w[1], w[2], xi) - yi for (xi, yi) in zip(data, obs)]
+w0 = [0., 0.]
+nls = ADNLSModel(F, w0, ndata)
+```
+
+As shown before, we can use any `JSOSolvers` solvers to solve this problem. For instance, we use `trunk` with a time limit of `60` seconds.
+
+```julia
+stats = trunk(nls, max_time = 60.)
+stats.solution
+```
+
+```julia
+using Plots
+scatter(data, obs, c=:blue, m=:square, title="Basic nonlinear regression", ylab="m(α, β, x)", xlab="x")
+mtest = [m(stats.solution[1], stats.solution[2], xi) for xi=-1:0.01:1]
+plot!(-1:0.01:1, mtest)
 ```
 
 ## Advanced usage
