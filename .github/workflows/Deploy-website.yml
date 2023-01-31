@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "**/*.jmd"
+      - "**/Project.toml"
   workflow_dispatch:
 
 jobs:
