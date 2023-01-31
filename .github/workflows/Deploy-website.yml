@@ -30,7 +30,7 @@ jobs:
           else
             MATRIX=$( (
               echo '{ "tutorial": ['
-              git diff --name-only HEAD HEAD~1 | grep jmd | sed -r 's/(.*)/\"\1\"/g' | sed '$!s/$/,/'
+              git diff --name-only HEAD HEAD~1 | grep -E "(jmd|Project.toml)" | sed 's/Project.toml/index.jmd/g' | uniq | sed -r 's/(.*)/\"\1\"/g' | sed '$!s/$/,/'
               echo ']}'
             ) | jq -c .)
           fi
