@@ -257,7 +257,7 @@ stats_ipopt.elapsed_time, stats_dci.elapsed_time
 ```
 
 ```
-(113.087, 25.477482080459595)
+(117.57, 26.17117691040039)
 ```
 
 
