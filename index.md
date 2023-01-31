@@ -6,6 +6,7 @@ For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.
 - [Test allocations of NLPModels](check-allocations-nlpmodels/)
 - [How to create a model from the function and its derivatives](create-a-manual-model/)
 - [Creating an ADNLPModels backend that supports multiple types](generic-adnlpmodels/)
+- [ADNLPModels.jl tutorial](introduction-to-adnlpmodels/)
 - [Introduction to BundleAdjustmentModels](introduction-to-bundleadjustmentmodels/)
 - [Introduction to JSOSolvers](introduction-to-jsosolvers/)
 - [Introduction to Linear Operators](introduction-to-linear-operators/)
