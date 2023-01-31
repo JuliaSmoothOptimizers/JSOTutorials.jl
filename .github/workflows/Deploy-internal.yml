@@ -5,6 +5,7 @@ on:
       - main
     paths:
       - "**/*.jmd"
+      - "**/Project.toml"
 
 jobs:
   generate-job-strategy-matrix:
