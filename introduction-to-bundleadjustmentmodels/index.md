@@ -9,14 +9,16 @@ tags:
   - "test set"
   - "bundle adjustment"
 ---
+
+
+A Julia repository of [bundle adjustment](https://en.wikipedia.org/wiki/Bundle_adjustment) problems from the [Bundle Adjustment in the Large](http://grail.cs.washington.edu/projects/bal/) repository.
+
 ```julia
 using BundleAdjustmentModels
 ```
 
 
 
-
-This package is a Julia repository of [bundle adjustment](https://en.wikipedia.org/wiki/Bundle_adjustment) problems from the [Bundle Adjustment in the Large](http://grail.cs.washington.edu/projects/bal/) repository.
 
 ## Get the list of problems
 
