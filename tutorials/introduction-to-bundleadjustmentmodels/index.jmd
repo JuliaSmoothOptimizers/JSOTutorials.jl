@@ -1,0 +1,166 @@
+---
+title: "Introduction to BundleAdjustmentModels"
+tags: ["introduction", "model", "least-squares", "nlsmodels", "test set", "bundle adjustment"]
+author: "Antonin Kenens and Tangi Migot"
+---
+
+```julia
+using BundleAdjustmentModels
+```
+
+This package is a Julia repository of [bundle adjustment](https://en.wikipedia.org/wiki/Bundle_adjustment) problems from the [Bundle Adjustment in the Large](http://grail.cs.washington.edu/projects/bal/) repository.
+
+## Get the list of problems
+
+The function `problems_df()` returns a `Dataframe` of all the bundle adjustment problems.
+
+There are 74 different models organized in the `Dataframe` with the following elements:
+
+- the name of the model;
+- the group of the model;
+- the size of the jacobian matrix (`nequ`, `nvar`);
+- the number of non-zeros elements in the jacobian matrix (`nnzj`).
+
+```julia
+df = problems_df()
+```
+
+For instance, it is possible to select the problems where the Jacobian matrix of the residual has at least 50000 lines and less than 34000 columns.
+
+```julia
+filter_df = df[ ( df.nequ .≥ 50000 ) .& ( df.nvar .≤ 34000 ), :]
+```
+
+The `Dataframe` is listing the matrices that you can have access to, but they still need to be downloaded.
+
+Following the example above, we filtered two problems. 
+What we want to do now is to select the first one in the listing.
+
+```julia
+name = filter_df[1, :name] # select the name of the first problem
+```
+
+Now that the name is selected, we need to access the problem itself, and there are 2 solutions:
+
+- You can download the problem's archive file;
+- You can automatically create a nonlinear least squares problem using [`NLPModels`](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) from [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io/).
+
+## Get the problem archive file
+
+This package uses Julia Artifacts to handle the problems archives so that
+
+1. The models are downloaded only once;
+2. They are identified with a unique hash;
+3. They can be deleted with a single command line.
+
+The method [`fetch_ba_name`](https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.fetch_ba_name-Tuple{AbstractString}) will automatically download the problem (if needed) and return its path.
+
+```julia
+path = fetch_ba_name(name)
+```
+
+It is also possible to directly download and get access to an entire group of problems using [`fetch_ba_group`](https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.fetch_ba_group-Tuple{AbstractString}).
+
+```julia
+paths = fetch_ba_group("ladybug")
+```
+
+## Generate a nonlinear least squares model
+
+Now, it is possible to load the model using [`BundleAdjustmentModel`](https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.BundleAdjustmentModel-Tuple{AbstractString})
+
+```julia
+df = problems_df()
+filter_df = df[ ( df.nequ .≥ 50000 ) .& ( df.nvar .≤ 34000 ), :]
+name = filter_df[1, :name]
+model = BundleAdjustmentModel(name);
+```
+
+or
+
+```julia
+model = BundleAdjustmentModel("problem-49-7776-pre");
+```
+
+The function `BundleAdjustmentModel` will instantiate the model and automatically download it if needed.
+The resulting structure is an instance of `AbstractNLPModel`.
+So, it is possible to access its API as any other [`NLPModel`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/).
+
+```julia
+using NLPModels
+```
+
+Using [`residual`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.residual), it is possible to compute the residual of the model
+
+```julia
+model = BundleAdjustmentModel("problem-49-7776-pre.txt.bz2")
+x = get_x0(model) # or `model.meta.x0`
+Fx = residual(model, x)
+```
+
+or use the in-place method [`residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.residual!)
+
+```julia
+model = BundleAdjustmentModel("problem-49-7776-pre.txt.bz2")
+x = get_x0(model) # or `model.meta.x0`
+nequ = get_nequ(model) # or `model.nls_meta.nequ`
+Fx = zeros(nequ)
+residual!(model, x, Fx);
+```
+
+You can also have access to the [`LinearOperator`](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl) of the Jacobian matrix of the residual of the model which is calculated by hand (in contradiction to automatic differentiation).
+
+You need to call [`jac_structure_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_structure_residual!) at least once before calling [`jac_op_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_op_residual!).
+
+```julia
+model = BundleAdjustmentModel("problem-49-7776")
+meta_nls = nls_meta(model)
+nnzj = meta_nls.nnzj # number of nonzeros in the jacobian
+rows = Vector{Int}(undef, nnzj)
+cols = Vector{Int}(undef, nnzj)
+jac_structure_residual!(model, rows, cols);
+```
+
+You need to call [`jac_coord_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_coord_residual!) to update it to the current point.
+
+```julia
+model = BundleAdjustmentModel("problem-49-7776")
+x = get_x0(model)
+vals = similar(x, nnzj)
+jac_coord_residual!(model, x, vals)
+```
+
+Finally you can use [`jac_op_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_op_residual!):
+
+```julia
+model = BundleAdjustmentModel("problem-49-7776")
+meta_nls = nls_meta(model)
+nnzj = meta_nls.nnzj
+
+rows = Vector{Int}(undef, nnzj)
+cols = Vector{Int}(undef, nnzj)
+jac_structure_residual!(model, rows, cols)
+
+vals = similar(model.meta.x0, nnzj)
+jac_coord_residual!(model, model.meta.x0, vals)
+
+Jv = similar(model.meta.x0, meta_nls.nequ)
+Jtv = similar(model.meta.x0, meta_nls.nvar)
+Jx = jac_op_residual!(model, rows, cols, vals, Jv, Jtv)
+```
+
+There is no second-order information available for the problems in this package.
+
+## Delete the problems
+
+Once you have finished working with a specific model you can delete it the same way you downloaded it.
+
+```julia
+delete_ba_artifact!("problem-49-7776")
+```
+
+If you want to clean your workspace, you can also delete all the problems at once.
+
+```julia
+delete_all_ba_artifacts!()
+```
