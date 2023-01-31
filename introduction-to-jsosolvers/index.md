@@ -28,14 +28,14 @@ All solvers have the following signature:
     stats = name_solver(nlp; kwargs...)
 ```
 
-where `name_solver` can be `lbfgs`, `R2`, `tron`, or `trunk`, and with
+where `name_solver` can be `lbfgs`, `R2`, `tron`, or `trunk`, and with:
 - `nlp::AbstractNLPModel{T, V}` is an AbstractNLPModel or some specialization, such as an `AbstractNLSModel`;
 - `stats::GenericExecutionStats{T, V}` is a `GenericExecutionStats`, see `SolverCore.jl`.
 
 The keyword arguments may include:
 - `x::V = nlp.meta.x0`: the initial guess.
 - `atol::T = √eps(T)`: absolute tolerance.
-- `rtol::T = √eps(T)`: relative tolerance, the algorithm stops when ‖∇f(xᵏ)‖ ≤ atol + rtol * ‖∇f(x⁰)‖.
+- `rtol::T = √eps(T)`: relative tolerance, the algorithm stops when $\| \nabla f(x^k) \| \leq atol + rtol \| \nabla f(x^0) \|$.
 - `max_eval::Int = -1`: maximum number of objective function evaluations.
 - `max_time::Float64 = 30.0`: maximum time limit in seconds.
 - `verbose::Int = 0`: if > 0, display iteration details every `verbose` iteration.
@@ -52,7 +52,7 @@ The following example illustrate this specialization.
 using JSOSolvers, ADNLPModels
 f(x) = (x[1] - 1)^2 + 4 * (x[2] - x[1]^2)^2
 nlp = ADNLPModel(f, [-1.2; 1.0])
-trunk(nlp, verbose = 1)
+trunk(nlp)
 ```
 
 ```
@@ -88,7 +88,7 @@ Counters:
 ```julia
 F(x) = [x[1] - 1; 2 * (x[2] - x[1]^2)]
 nls = ADNLSModel(F, [-1.2; 1.0], 2)
-trunk(nls, verbose = 1)
+trunk(nls)
 ```
 
 ```
@@ -150,12 +150,12 @@ The following table provides the correspondance between the solvers and the solv
 
 | Algorithm           | Solver structure |
 | ------------------- | ---------------- |
-| lbfgs               | LBFGSSolver      |
-| R2                  | R2Solver         |
-| tron                | TronSolver       |
-| trunk               | TrunkSolver      |
-| tron (nls-variant)  | TronSolverNLS    |
-| trunk (nls-variant) | TrunkSolverNLS   |
+| [lbfgs](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.lbfgs-Union{Tuple{NLPModels.AbstractNLPModel},%20Tuple{V}}%20where%20V)               | LBFGSSolver      |
+| [R2](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.R2-Union{Tuple{NLPModels.AbstractNLPModel{T,%20V}},%20Tuple{V},%20Tuple{T}}%20where%20{T,%20V})                  | R2Solver         |
+| [tron](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.tron-Union{Tuple{V},%20Tuple{Val{:Newton},%20NLPModels.AbstractNLPModel}}%20where%20V)                | TronSolver       |
+| [trunk](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.trunk-Union{Tuple{V},%20Tuple{Val{:Newton},%20NLPModels.AbstractNLPModel}}%20where%20V)               | TrunkSolver      |
+| [tron (nls-variant)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.tron-Union{Tuple{V},%20Tuple{Val{:GaussNewton},%20NLPModels.AbstractNLSModel}}%20where%20V)  | TronSolverNLS    |
+| [trunk (nls-variant)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.trunk-Union{Tuple{V},%20Tuple{Val{:GaussNewton},%20NLPModels.AbstractNLSModel}}%20where%20V) | TrunkSolverNLS   |
 
 It is also possible to pre-allocate the output structure `stats` and call `solve!(solver, nlp, stats)`.
 ```julia
@@ -176,13 +176,14 @@ solve!(solver, nlp, stats)
 
 ## Callback
 
-All the solvers have a callback mechanism called at each iteration.
+All the solvers have a callback mechanism called at each iteration, see also the [Using callbacks tutorial](https://juliasmoothoptimizers.github.io/tutorials/using-callbacks/).
 The expected signature of the callback is `callback(nlp, solver, stats)`, and its output is ignored.
 Changing any of the input arguments will affect the subsequent iterations.
 In particular, setting `stats.status = :user` will stop the algorithm.
-All relevant information should be available in `nlp` and `solver` see the documentation of each solver for details.
 
-Below you can see an example of execution of the solver `trunk` with a callback to plot the iterates and create an animation.
+Below you can see an example of the execution of the solver `trunk` with a callback.
+It stores intermediate points until it stops the algorithm after four iterates.
+Afterward, we plot the iterates and create an animation from the points acquired by the callback.
 
 ```julia
 using ADNLPModels, JSOSolvers, LinearAlgebra, Logging, Plots
