@@ -257,7 +257,7 @@ stats_ipopt.elapsed_time, stats_dci.elapsed_time
 ```
 
 ```
-(113.615, 25.16555404663086)
+(110.241, 24.296043872833252)
 ```
 
 
@@ -305,6 +305,6 @@ writevtk(nlp.pdemeta.tnrj.trian, "results", cellfields = ["uh" => uh, "yh" => yh
 
 The following plots can obtained using any software reading VTK, e.g. Paraview.
 
-![](figures/uh.png)
+![](figures/uh.png =250x)
 
-![](figures/yh.png)
+![](figures/yh.png =250x)
