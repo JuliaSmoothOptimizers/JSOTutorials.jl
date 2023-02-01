@@ -175,6 +175,6 @@ writevtk(nlp.pdemeta.tnrj.trian, "results", cellfields = ["uh" => uh, "yh" => yh
 
 The following plots can obtained using any software reading VTK, e.g. Paraview.
 
-![](figures/uh.png =250x)
+![](figures/uh.png =150x)
 
-![](figures/yh.png =250x)
+![](figures/yh.png =150x)
