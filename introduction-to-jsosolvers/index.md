@@ -127,16 +127,27 @@ Counters:
 
 
 
-We conclude these examples by a simple nonlinear regression.
+We conclude these examples by a nonlinear regression example from the [NIST data set](https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml).
+In particular, we consider the problem [`Thurber`](https://www.itl.nist.gov/div898/strd/nls/data/LINKS/DATA/Thurber.dat).
 
-We build a nonlinear model `m` with unknown parameters α and β, and generate randomly some observations of this model.
+We build a nonlinear model `m` with a vector of unknown parameters β.
 ```julia
-m(α, β, x) = α * cos(x) + β * sin(x) # nonlinear models with unknown α and β
+m(β, x) = (β[1] + β[2] * x + β[3] * x^2 + β[4] * x^3) / (1 + β[5] * x + β[6] * x^2 + β[7] * x^3) # nonlinear models with unknown β vector
 
-ndata = 100 # size of data sample
-data = [rand() * 2 - 1 for i=1:ndata]
-obs = [m(0.5, 0.5, xi) for xi in data] + rand(ndata) / 10; # observations
+using CSV, DataFrames
+url_prefix = "https://gist.githubusercontent.com/abelsiqueira/8ca109888b22b6ab1e76825f0567c668/raw/f3f38d61f750b443fb4307efbf853447275441a5/"
+data = CSV.read(download(joinpath(url_prefix, "thurber.csv")), DataFrame)
+x, y = data.x, data.y
 ```
+
+```
+([-3.067, -2.981, -2.921, -2.912, -2.84, -2.797, -2.702, -2.699, -2.633, -2
+.481  …  0.119, 0.377, 0.79, 0.963, 1.006, 1.115, 1.572, 1.841, 2.047, 2.2]
+, [80.574, 84.248, 87.264, 87.195, 89.076, 89.608, 89.868, 90.101, 92.405, 
+95.854  …  1327.543, 1353.863, 1414.509, 1425.208, 1421.384, 1442.962, 1464
+.35, 1468.705, 1447.894, 1457.628])
+```
+
 
 
 
@@ -144,9 +155,10 @@ obs = [m(0.5, 0.5, xi) for xi in data] + rand(ndata) / 10; # observations
 We now define the nonlinear least squares associated with the regression problem.
 
 ```julia
-F(w) = [m(w[1], w[2], xi) - yi for (xi, yi) in zip(data, obs)]
-w0 = [0., 0.]
-nls = ADNLSModel(F, w0, ndata)
+F(β) = [m(β, xi) - yi for (xi, yi) in zip(x, y)]
+β0 = CSV.read(download(joinpath(url_prefix, "thurber-x0.csv")), DataFrame).beta
+ndata = length(x)
+nls = ADNLSModel(F, β0, ndata)
 ```
 
 ```
@@ -166,21 +178,21 @@ xe2748718, 0x2a3cb564)}}},
   ForwardDiffADGHjvprod,
 }
   Problem name: Generic
-   All variables: ████████████████████ 2      All constraints: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-⋅⋅⋅⋅⋅⋅⋅⋅ 0        All residuals: ████████████████████ 100   
-            free: ████████████████████ 2                 free: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
+   All variables: ████████████████████ 7      All constraints: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
+⋅⋅⋅⋅⋅⋅⋅⋅ 0        All residuals: ████████████████████ 37    
+            free: ████████████████████ 7                 free: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 0               linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            lower: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                lower: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-⋅⋅⋅⋅⋅⋅⋅⋅ 0            nonlinear: ████████████████████ 100   
+⋅⋅⋅⋅⋅⋅⋅⋅ 0            nonlinear: ████████████████████ 37    
            upper: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                upper: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-⋅⋅⋅⋅⋅⋅⋅⋅ 0                 nnzj: (  0.00% sparsity)   200   
+⋅⋅⋅⋅⋅⋅⋅⋅ 0                 nnzj: (  0.00% sparsity)   259   
          low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0              low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
-⋅⋅⋅⋅⋅⋅⋅⋅ 0                 nnzh: (  0.00% sparsity)   3     
+⋅⋅⋅⋅⋅⋅⋅⋅ 0                 nnzh: (  0.00% sparsity)   28    
            fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 0     
           infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 0     
-            nnzh: (  0.00% sparsity)   3               linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
+            nnzh: (  0.00% sparsity)   28              linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                     nonlinear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅
 ⋅⋅⋅⋅⋅⋅⋅⋅ 0     
@@ -212,7 +224,7 @@ rsity)
 
 
 
-As shown before, we can use any `JSOSolvers` solvers to solve this problem. For instance, we use `trunk` with a time limit of `60` seconds.
+As shown before, we can use any `JSOSolvers` solvers to solve this problem, but since `trunk` has a specialized version for unconstrained NLS, we will use it, with a time limit of `60` seconds.
 
 ```julia
 stats = trunk(nls, max_time = 60.)
@@ -220,18 +232,22 @@ stats.solution
 ```
 
 ```
-2-element Vector{Float64}:
- 0.5592754582409406
- 0.5070490200604826
+7-element Vector{Float64}:
+ 1288.1396826441605
+ 1491.255092722479
+  583.3669627041016
+   75.44128919391854
+    0.9664368403070315
+    0.39804057172490376
+    0.049747755368081494
 ```
 
 
 
 ```julia
 using Plots
-scatter(data, obs, c=:blue, m=:square, title="Basic nonlinear regression", ylab="m(α, β, x)", xlab="x")
-mtest = [m(stats.solution[1], stats.solution[2], xi) for xi=-1:0.01:1]
-plot!(-1:0.01:1, mtest)
+scatter(x, y, c=:blue, m=:square, title="Nonlinear regression", lab="data")
+plot!(x, t -> m(stats.solution, t), c=:red, lw=2, lab="fit")
 ```
 
 ![](figures/index_8_1.png)
