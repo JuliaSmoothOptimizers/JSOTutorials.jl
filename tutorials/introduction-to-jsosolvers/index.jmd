@@ -65,26 +65,29 @@ trunk(nls, atol = 1e-6, rtol = 1e-6)
 nls.counters
 ```
 
-We conclude these examples by a simple nonlinear regression.
+We conclude these examples by a nonlinear regression example from the [NIST data set](https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml).
+In particular, we consider the problem [`Thurber`](https://www.itl.nist.gov/div898/strd/nls/data/LINKS/DATA/Thurber.dat).
 
-We build a nonlinear model `m` with unknown parameters α and β, and generate randomly some observations of this model.
+We build a nonlinear model `m` with a vector of unknown parameters β.
 ```julia
-m(α, β, x) = α * cos(x) + β * sin(x) # nonlinear models with unknown α and β
+m(β, x) = (β[1] + β[2] * x + β[3] * x^2 + β[4] * x^3) / (1 + β[5] * x + β[6] * x^2 + β[7] * x^3) # nonlinear models with unknown β vector
 
-ndata = 100 # size of data sample
-data = [rand() * 2 - 1 for i=1:ndata]
-obs = [m(0.5, 0.5, xi) for xi in data] + rand(ndata) / 10; # observations
+using CSV, DataFrames
+url_prefix = "https://gist.githubusercontent.com/abelsiqueira/8ca109888b22b6ab1e76825f0567c668/raw/f3f38d61f750b443fb4307efbf853447275441a5/"
+data = CSV.read(download(joinpath(url_prefix, "thurber.csv")), DataFrame)
+x, y = data.x, data.y
 ```
 
 We now define the nonlinear least squares associated with the regression problem.
 
 ```julia
-F(w) = [m(w[1], w[2], xi) - yi for (xi, yi) in zip(data, obs)]
-w0 = [0., 0.]
-nls = ADNLSModel(F, w0, ndata)
+F(β) = [m(β, xi) - yi for (xi, yi) in zip(x, y)]
+β0 = CSV.read(download(joinpath(url_prefix, "thurber-x0.csv")), DataFrame).beta
+ndata = length(x)
+nls = ADNLSModel(F, β0, ndata)
 ```
 
-As shown before, we can use any `JSOSolvers` solvers to solve this problem. For instance, we use `trunk` with a time limit of `60` seconds.
+As shown before, we can use any `JSOSolvers` solvers to solve this problem, but since `trunk` has a specialized version for unconstrained NLS, we will use it, with a time limit of `60` seconds.
 
 ```julia
 stats = trunk(nls, max_time = 60.)
@@ -93,9 +96,8 @@ stats.solution
 
 ```julia
 using Plots
-scatter(data, obs, c=:blue, m=:square, title="Basic nonlinear regression", ylab="m(α, β, x)", xlab="x")
-mtest = [m(stats.solution[1], stats.solution[2], xi) for xi=-1:0.01:1]
-plot!(-1:0.01:1, mtest)
+scatter(x, y, c=:blue, m=:square, title="Nonlinear regression", lab="data")
+plot!(x, t -> m(stats.solution, t), c=:red, lw=2, lab="fit")
 ```
 
 ## Advanced usage
