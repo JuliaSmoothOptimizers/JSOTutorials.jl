@@ -4,15 +4,11 @@ tags: ["models", "automatic differentiation", "multi-precision", "tests"]
 author: "Tangi Migot"
 ---
 
-
-# Creating an ADNLPModels backend that supports multiple precisions
-
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
 ```
 
 One of the main strengths of Julia for scientific computing is its native usage of [arbitrary precision arithmetic](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/#Arbitrary-Precision-Arithmetic).
-
 The same can be exploited for optimization models and solvers.
 In the organization [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io), the package [ADNLPModels.jl](https://github.com/JuliaSmoothOptimizers/ADNLPModels.jl) provides automatic differentiation (AD)-based model implementations that conform to the NLPModels API.
 This package is modular in the sense that it implements a backend system allowing the user to use essentially any AD system available, see [ADNLPModels.jl/dev/backend/](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/dev/backend/) for a tutorial.
