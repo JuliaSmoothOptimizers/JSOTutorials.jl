@@ -1,11 +1,11 @@
 ---
-title: "Creating an ADNLPModels backend that supports multiple types"
+title: "Creating an ADNLPModels backend that supports multiple precisions"
 tags: ["models", "automatic differentiation", "multi-precision", "tests"]
 author: "Tangi Migot"
 ---
 
 
-# Creating an ADNLPModels backend that supports multiple types
+# Creating an ADNLPModels backend that supports multiple precisions
 
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
@@ -55,14 +55,22 @@ x0 = T[-1.2; 1.0]
 nlp = ADNLPModel(f, x0)
 ```
 
+The [NLPModels](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) are usually parametrically typed by the vector and element type of `x0` and use this type for some pre-computations.
+We now see how `ADNLPModel` can still be used for other types.
+
+### Objective Evaluation
+
 Note that in the input of the `ADNLPModel` constructor only the function `x0` is typed, while the objective function `f` can be generic.
+Therefore, the function `obj(nlp, x)` will return an element of type `eltype(x)`.
 
 ```julia
 x32 = Float32[-1.2; 1.0]
 obj(nlp, x32) # type Float32
 ```
 
-The NLPModels are usually parametrically typed by the vector and element type of `x0` and use this type for some pre-computations.
+### Gradient Evaluation
+
+An `ADNLPModel` is parametrically typed by the vector and element type of `x0` and use this type for some pre-computations.
 For instance, `ADNLPModel` may compute some default backend based on the expected element type to speed up the AD process.
 
 ```julia
@@ -75,6 +83,7 @@ We now show how to define your gradient-backend to keep the genericity in two st
 - Implements the function `ADNLPModels.gradient!` for this new backend.
 
 We will use [ForwardDiff.jl](https://github.com/JuliaDiff/ForwardDiff.jl) to compute the gradient.
+Note that the same can be done using alternatives such as [ReverseDiff.jl](https://github.com/JuliaDiff/ReverseDiff.jl) or [Zygote.jl](https://github.com/FluxML/Zygote.jl).
 
 ```julia
 struct GenericGradientBackend <: ADNLPModels.ADBackend end
@@ -136,5 +145,8 @@ x16 = Float16.(get_x0(nlp))
 g = similar(x16)
 grad!(nlp, x16, g) # returns a vector of Float16
 ```
+
+We should pay additional attention when using multiple precisions as casting, for instance `x0`, from `Float64` into `Float16` implies that rounding errors occur.
+Therefore, `x0` is different than `x16`, and the gradients evaluated for these values too.
 
 Feel free to look at [OptimizationProblems.jl documentation](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/dev/) to learn more or the tutorials at [juliasmoothoptimizers.github.io](https://juliasmoothoptimizers.github.io).
