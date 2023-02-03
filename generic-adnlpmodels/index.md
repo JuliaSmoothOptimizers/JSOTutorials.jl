@@ -7,11 +7,6 @@ tags:
   - "multi-precision"
   - "tests"
 ---
-
-
-
-# Creating an ADNLPModels backend that supports multiple precisions
-
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
 ```
@@ -20,7 +15,6 @@ using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
 
 
 One of the main strengths of Julia for scientific computing is its native usage of [arbitrary precision arithmetic](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/#Arbitrary-Precision-Arithmetic).
-
 The same can be exploited for optimization models and solvers.
 In the organization [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io), the package [ADNLPModels.jl](https://github.com/JuliaSmoothOptimizers/ADNLPModels.jl) provides automatic differentiation (AD)-based model implementations that conform to the NLPModels API.
 This package is modular in the sense that it implements a backend system allowing the user to use essentially any AD system available, see [ADNLPModels.jl/dev/backend/](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/dev/backend/) for a tutorial.
@@ -45,7 +39,7 @@ Generic Execution stats
   dual feasibility: 0.029705668
   solution: [0.98121893f0  0.9626594f0]
   iterations: 33
-  elapsed time: 1.1854238510131836
+  elapsed time: 1.099910020828247
 ```
 
 
@@ -186,9 +180,9 @@ ardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float6
 4}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dua
 l{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64
 , 2}[Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}
-(0.0,5.0e-324,6.91653540223505e-310), Dual{ForwardDiff.Tag{typeof(Main.var"
-##WeaveSandBox#312".f), Float64}}(5.0e-324,5.0e-324,6.91652450366236e-310)]
-))
+(6.93672140646395e-310,6.93672140646395e-310,6.93672140646395e-310), Dual{F
+orwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(6.93672140
+646395e-310,6.93672140646395e-310,6.93672140646395e-310)]))
 ```
 
 
