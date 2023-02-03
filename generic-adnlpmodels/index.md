@@ -1,6 +1,6 @@
 ---
 author: "Tangi Migot"
-title: "Creating an ADNLPModels backend that supports multiple types"
+title: "Creating an ADNLPModels backend that supports multiple precisions"
 tags:
   - "models"
   - "automatic differentiation"
@@ -10,7 +10,7 @@ tags:
 
 
 
-# Creating an ADNLPModels backend that supports multiple types
+# Creating an ADNLPModels backend that supports multiple precisions
 
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
@@ -40,12 +40,12 @@ print(stats)
 ```
 Generic Execution stats
   status: first-order stationary
-  objective value: 0.00036198387
+  objective value: 0.00035444953
   primal feasibility: 0.0
-  dual feasibility: 0.031313986
-  solution: [0.9810229f0  0.9622698f0]
+  dual feasibility: 0.029705668
+  solution: [0.98121893f0  0.9626594f0]
   iterations: 33
-  elapsed time: 0.9119460582733154
+  elapsed time: 1.1854238510131836
 ```
 
 
@@ -148,7 +148,13 @@ rsity)
 
 
 
+The [NLPModels](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) are usually parametrically typed by the vector and element type of `x0` and use this type for some pre-computations.
+We now see how `ADNLPModel` can still be used for other types.
+
+### Objective Evaluation
+
 Note that in the input of the `ADNLPModel` constructor only the function `x0` is typed, while the objective function `f` can be generic.
+Therefore, the function `obj(nlp, x)` will return an element of type `eltype(x)`.
 
 ```julia
 x32 = Float32[-1.2; 1.0]
@@ -163,7 +169,9 @@ obj(nlp, x32) # type Float32
 
 
 
-The NLPModels are usually parametrically typed by the vector and element type of `x0` and use this type for some pre-computations.
+### Gradient Evaluation
+
+An `ADNLPModel` is parametrically typed by the vector and element type of `x0` and use this type for some pre-computations.
 For instance, `ADNLPModel` may compute some default backend based on the expected element type to speed up the AD process.
 
 ```julia
@@ -178,8 +186,9 @@ ardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float6
 4}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dua
 l{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64
 , 2}[Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}
-(0.0,5.0e-324,6.915750601271e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##
-WeaveSandBox#312".f), Float64}}(1.0e-323,5.0e-324,6.91575051403724e-310)]))
+(0.0,5.0e-324,6.91653540223505e-310), Dual{ForwardDiff.Tag{typeof(Main.var"
+##WeaveSandBox#312".f), Float64}}(5.0e-324,5.0e-324,6.91652450366236e-310)]
+))
 ```
 
 
@@ -191,6 +200,7 @@ We now show how to define your gradient-backend to keep the genericity in two st
 - Implements the function `ADNLPModels.gradient!` for this new backend.
 
 We will use [ForwardDiff.jl](https://github.com/JuliaDiff/ForwardDiff.jl) to compute the gradient.
+Note that the same can be done using alternatives such as [ReverseDiff.jl](https://github.com/JuliaDiff/ReverseDiff.jl) or [Zygote.jl](https://github.com/FluxML/Zygote.jl).
 
 ```julia
 struct GenericGradientBackend <: ADNLPModels.ADBackend end
@@ -431,5 +441,8 @@ grad!(nlp, x16, g) # returns a vector of Float16
 
 
 
+
+We should pay additional attention when using multiple precisions as casting, for instance `x0`, from `Float64` into `Float16` implies that rounding errors occur.
+Therefore, `x0` is different than `x16`, and the gradients evaluated for these values too.
 
 Feel free to look at [OptimizationProblems.jl documentation](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/dev/) to learn more or the tutorials at [juliasmoothoptimizers.github.io](https://juliasmoothoptimizers.github.io).
