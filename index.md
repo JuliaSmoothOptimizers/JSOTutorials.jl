@@ -11,4 +11,5 @@ For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.
 - [Introduction to JSOSolvers](introduction-to-jsosolvers/)
 - [Introduction to Linear Operators](introduction-to-linear-operators/)
 - [Solve a PDE-constrained optimization problem](introduction-to-pdenlpmodels/)
+- [Introduction to RipQP](introduction-to-ripqp/)
 - [Using callbacks](using-callbacks/)
