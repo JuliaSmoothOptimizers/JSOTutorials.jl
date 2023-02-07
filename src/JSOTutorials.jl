@@ -12,6 +12,7 @@ default_builds = (:github, )
 function weave_file(folder, file, build_list = default_builds)
   target = joinpath(repo_directory, "tutorials", folder, file)
   @info("Weaving $(target)")
+  set_chunk_defaults!(:line_width => 200)
 
   if isfile(joinpath(repo_directory, "tutorials", folder, "Project.toml"))
     @info("Instantiating", folder)
