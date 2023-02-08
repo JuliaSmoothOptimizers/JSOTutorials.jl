@@ -6,8 +6,8 @@ NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 
 [compat]
-CUTEst = "0.12"
+CUTEst = "0.13"
 JSON = "0.21"
-Krylov = "0.8"
-NLPModels = "0.18"
+Krylov = "0.9"
+NLPModels = "0.19"
 Plots = "1"

@@ -6,3 +6,11 @@ NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
 NLPModelsJuMP = "792afdf1-32c1-5681-94e0-d7bf7a5df49e"
 Percival = "01435c0c-c90d-11e9-3788-63660f8fbccc"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+
+[compat]
+JSOSolvers = "0.9"
+JuMP = "1"
+NLPModels = "0.19"
+NLPModelsJuMP = "0.12"
+Percival = "0.6"
+Plots = "1"
