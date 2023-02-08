@@ -8,6 +8,7 @@ OptimizationProblems = "5049e819-d29b-5fba-b941-0eee7e64c1c6"
 
 [compat]
 ADNLPModels = "0.5"
+DataFrames = "1"
 ForwardDiff = "0.10"
 JSOSolvers = "0.9"
 NLPModels = "0.19"

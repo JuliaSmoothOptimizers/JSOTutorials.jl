@@ -8,10 +8,9 @@ NLPModelsIpopt = "f4238b75-b362-5c4c-b852-0801c9a21d71"
 NLPModelsModifiers = "e01155f1-5c6f-4375-a9d8-616dd036575f"
 PDENLPModels = "80da258d-c172-4540-9646-64f172512520"
 
-
 [compat]
 DCISolver = "0.4.2"
-Gridap = "0.15.5"
+Gridap = "0.15"
 JSOSolvers = "0.9.4"
 NLPModels = "0.19.2"
 NLPModelsIpopt = "0.10.0"

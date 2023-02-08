@@ -7,5 +7,5 @@ LinearOperators = "5c8ed15e-5a4c-59e4-a42b-c7e8811fb125"
 [compat]
 FFTW = "1.4"
 JSON = "0.21"
-Krylov = "0.7"
+Krylov = "0.9"
 LinearOperators = "2.2"
