@@ -34,9 +34,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseADJacobian{Tuple{RuntimeGeneratedFunctions.RuntimeGeneratedFunction{(:ˍ₋arg1,), Symbolics.var"#_RGF_ModTag", Symbolics.var"#_RGF_ModTag", (0xba1c991d, 0xa2a703bd, 0x08b4b52d, 0x5a007c0e, 0xa1a
-266f5)}, RuntimeGeneratedFunctions.RuntimeGeneratedFunction{(:ˍ₋out, :ˍ₋arg1), Symbolics.var"#_RGF_ModTag", Symbolics.var"#_RGF_ModTag", (0x17686376, 0x56f71c2c, 0x9258cd69, 0x9535987a, 0xd42e1de1)}}}
-,
+  SparseADJacobian,
   ForwardDiffADHessian,
   ForwardDiffADGHjvprod,
 }
@@ -279,9 +277,7 @@ ADNLSModel - Nonlinear least-squares model with automatic differentiation backen
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseADJacobian{Tuple{RuntimeGeneratedFunctions.RuntimeGeneratedFunction{(:ˍ₋arg1,), Symbolics.var"#_RGF_ModTag", Symbolics.var"#_RGF_ModTag", (0xba1c991d, 0xa2a703bd, 0x08b4b52d, 0x5a007c0e, 0xa1a
-266f5)}, RuntimeGeneratedFunctions.RuntimeGeneratedFunction{(:ˍ₋out, :ˍ₋arg1), Symbolics.var"#_RGF_ModTag", Symbolics.var"#_RGF_ModTag", (0x17686376, 0x56f71c2c, 0x9258cd69, 0x9535987a, 0xd42e1de1)}}}
-,
+  SparseADJacobian,
   ForwardDiffADHessian,
   ForwardDiffADGHjvprod,
 }
