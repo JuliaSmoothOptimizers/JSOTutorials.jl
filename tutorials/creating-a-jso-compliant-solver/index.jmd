@@ -208,7 +208,7 @@ function newton(nlp :: AbstractNLPModel)
 
   status = :first_order
 
-  return GenericExecutionStats(status, nlp)
+  return GenericExecutionStats(nlp, status=status)
 
 end
 ```
@@ -268,7 +268,7 @@ function newton(nlp :: AbstractNLPModel)
   end # hide
   status = :first_order # hide
 
-  return GenericExecutionStats(status, nlp, solution=x, objective=obj(nlp, x))
+  return GenericExecutionStats(nlp, status=status, solution=x, objective=obj(nlp, x))
 end
 ```
 
@@ -358,7 +358,7 @@ function newton(
     end
   end
 
-  return GenericExecutionStats(status, nlp, solution=x, objective=obj(nlp, x), iter=iter, elapsed_time=Δt)
+  return GenericExecutionStats(nlp, status=status, solution=x, objective=obj(nlp, x), iter=iter, elapsed_time=Δt)
 end
 ```
 
@@ -530,7 +530,7 @@ function newton2(
     end
   end
 
-  return GenericExecutionStats(status, nlp, solution=x, objective=fx, dual_feas=norm(∇fx), iter=iter, elapsed_time=Δt)
+  return GenericExecutionStats(nlp, status=status, solution=x, objective=fx, dual_feas=norm(∇fx), iter=iter, elapsed_time=Δt)
 
 end
 ```
@@ -547,5 +547,3 @@ performance_profile(stats, cost)
 [^1]: Technically, it can be defined more generally, but the choice we made has better behaved values. [Wikipedia page: Rosenbrock page, access on 2021/Mar/17.](https://en.wikipedia.org/wiki/Rosenbrock_function#:~:text=In%20mathematical%20optimization%2C%20the%20Rosenbrock,valley%20or%20Rosenbrock%27s%20banana%20function)
 
 [^2]: Dolan, E., Moré, J. Benchmarking optimization software with performance profiles. Math. Program. 91, 201–213 (2002). [doi.org/10.1007/s101070100263](https://doi.org/10.1007/s101070100263)
-
-
