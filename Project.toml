@@ -13,6 +13,7 @@ Weave = "44d3d7a6-8a23-5bf8-98c5-b353f8df5ec9"
 YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
 
 [compat]
+Colors = "0.12"
 IJulia = "1"
 Weave = "0.10"
 YAML = "0.4"
