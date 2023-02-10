@@ -6,6 +6,11 @@ tags:
   - "ipopt"
 ---
 
+<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826"></a>
+<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+
+
 
 To solve an optimization problem with Ipopt, the first thing to do is define your problem.
 In this example, let's assume we want to solve the following problem:
@@ -130,7 +135,7 @@ Number of inequality constraint evaluations          = 8
 Number of equality constraint Jacobian evaluations   = 0
 Number of inequality constraint Jacobian evaluations = 8
 Number of Lagrangian Hessian evaluations             = 7
-Total seconds in IPOPT                               = 6.928
+Total seconds in IPOPT                               = 8.236
 
 EXIT: Optimal Solution Found.
 "Execution stats: first-order stationary"
@@ -174,7 +179,7 @@ Generic Execution stats
   iterations: 7
   elapsed time: 0.004
   solver specific:
-    real_time: 0.0038700103759765625
+    real_time: 0.004615068435668945
     internal_msg: :Solve_Succeeded
 ```
 
@@ -195,5 +200,4 @@ Solution: [0.5000000094991777, 0.2499999906270549]
 
 That's it. If your model is more complex, you should look into NLPModelsJuMP.jl.
 On the other hand, if you need more control and want to input your model manually, look for the specific how-to.
-
 

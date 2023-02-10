@@ -8,6 +8,17 @@ tags:
   - "solver"
 ---
 
+<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
+<img class="badge" src="https://img.shields.io/badge/MatrixMarket-0.3.1-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/RipQP.jl/stable/"><img class="badge" src="https://img.shields.io/badge/RipQP-0.6.1-006400?style=flat-square&labelColor=389826"></a>
+<a href="https://juliasmoothoptimizers.github.io/SparseMatricesCOO.jl/stable/"><img class="badge" src="https://img.shields.io/badge/SparseMatricesCOO-0.2.1-4b0082?style=flat-square&labelColor=9558b2"></a>
+<a href="https://juliasmoothoptimizers.github.io/QuadraticModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/QuadraticModels-0.9.3-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<img class="badge" src="https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/QPSReader.jl/stable/"><img class="badge" src="https://img.shields.io/badge/QPSReader-0.2.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/LDLFactorizations.jl/stable/"><img class="badge" src="https://img.shields.io/badge/LDLFactorizations-0.10.0-4b0082?style=flat-square&labelColor=9558b2"></a>
+<img class="badge" src="https://img.shields.io/badge/TimerOutputs-0.5.22-000?style=flat-square&labelColor=fff">
+
+
 
 ## Input
 
@@ -87,7 +98,7 @@ Generic Execution stats
   multipliers_L: [0.0  4.5  0.0]
   multipliers_U: [5.0  0.0  0.0]
   iterations: 0
-  elapsed time: 0.011768102645874023
+  elapsed time: 0.013831853866577148
   solver specific:
     presolvedQM: nothing
     psoperations: [QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(1, 0.0, -8.0)  QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(3, 0.0, -3.0)  QuadraticModels.EmptyRow{Float64, Vector{Floa
@@ -227,7 +238,7 @@ stats1.elapsed_time
 ```
 
 ```
-6.318092346191406e-5
+7.414817810058594e-5
 ```
 
 
@@ -249,11 +260,10 @@ show(RipQP.to, sortby = :firstexec)
 ────────────────────────────────────────────────────────────────────
                             Time                    Allocations      
                    ───────────────────────   ────────────────────────
- Tot / % measured:      720ms /   0.0%           29.4MiB /   0.0%    
+ Tot / % measured:      888ms /   0.0%           29.4MiB /   0.0%    
 
  Section   ncalls     time    %tot     avg     alloc    %tot      avg
  ────────────────────────────────────────────────────────────────────
  ────────────────────────────────────────────────────────────────────
 ```
-
 

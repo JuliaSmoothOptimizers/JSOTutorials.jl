@@ -10,6 +10,11 @@ tags:
   - "bundle adjustment"
 ---
 
+<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/BundleAdjustmentModels-0.3.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<img class="badge" src="https://img.shields.io/badge/DataFrames-1.4.4-000?style=flat-square&labelColor=fff">
+
+
 
 A Julia repository of [bundle adjustment](https://en.wikipedia.org/wiki/Bundle_adjustment) problems from the [Bundle Adjustment in the Large](http://grail.cs.washington.edu/projects/bal/) repository.
 
@@ -336,4 +341,3 @@ If you want to clean your workspace, you can also delete all the problems at onc
 ```julia
 delete_all_ba_artifacts!()
 ```
-

@@ -6,6 +6,10 @@ tags:
   - "cannoles"
 ---
 
+<a href="https://juliasmoothoptimizers.github.io/CaNNOLeS.jl/stable/"><img class="badge" src="https://img.shields.io/badge/CaNNOLeS-0.7.2-006400?style=flat-square&labelColor=389826"></a>
+<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+
+
 
 CaNNOLeS is a solver for equality-constrained nonlinear least-squares problems, i.e.,
 optimization problems of the form
@@ -87,5 +91,4 @@ cept_extrapolation, δdec) at ~/.julia/packages/CaNNOLeS/EgvjT/src/CaNNOLeS.jl:1
   solve!(::SolverCore.AbstractOptimizationSolver, ::NLPModels.AbstractNLPModel; kwargs...) at ~/.julia/packages/SolverCore/jOu5t/src/solver.jl:38
   ...
 ```
-
 

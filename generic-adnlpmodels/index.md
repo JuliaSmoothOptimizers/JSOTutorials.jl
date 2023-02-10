@@ -7,6 +7,14 @@ tags:
   - "multi-precision"
   - "tests"
 ---
+
+<a href="https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/"><img class="badge" src="https://img.shields.io/badge/OptimizationProblems-0.6.0-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<img class="badge" src="https://img.shields.io/badge/ForwardDiff-0.10.34-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<img class="badge" src="https://img.shields.io/badge/DataFrames-1.4.4-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/"><img class="badge" src="https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826"></a>
+
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
 ```
@@ -39,7 +47,7 @@ Generic Execution stats
   dual feasibility: 0.031313986
   solution: [0.9810229f0  0.9622698f0]
   iterations: 33
-  elapsed time: 0.8200139999389648
+  elapsed time: 0.9408779144287109
 ```
 
 
@@ -152,7 +160,8 @@ adbackend.gradient_backend # returns information about the default backend for t
 ```
 ADNLPModels.ForwardDiffADGradient(ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2, Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##Wea
 veSandBox#312".f), Float64}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2}[Dual{ForwardDiff.Tag
-{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,0.0,0.0), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,0.0,0.0)]))
+{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.91982432292166e-310,6.91982501974158e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.91982432292166e-310,6.
+9198243215035e-310)]))
 ```
 
 

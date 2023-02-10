@@ -8,6 +8,12 @@ tags:
   - "manual"
 ---
 
+<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<img class="badge" src="https://img.shields.io/badge/JuMP-1.7.0-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/"><img class="badge" src="https://img.shields.io/badge/OptimizationProblems-0.6.0-8b0000?style=flat-square&labelColor=cb3c33"></a>
+
+
 
 In this tutorial, we will see how to access the problems in [JuMP](https://github.com/JuliaOpt/JuMP.jl) and [ADNLPModel](https://github.com/JuliaSmoothOptimizers/ADNLPModels.jl) syntax.
 This package is subdivided in two submodules: `PureJuMP` for the JuMP problems, `ADNLPProblems` for the ADNLPModel problems. 
@@ -304,5 +310,4 @@ obj(nlp16_12, zeros(Float16, 12))
 ```
 Float16(126.0)
 ```
-
 

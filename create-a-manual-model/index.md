@@ -6,6 +6,16 @@ tags:
   - "manual"
 ---
 
+<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/ManualNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ManualNLPModels-0.1.3-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/NLPModelsJuMP.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModelsJuMP-0.12.0-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<img class="badge" src="https://img.shields.io/badge/BenchmarkTools-1.3.2-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<img class="badge" src="https://img.shields.io/badge/JuMP-1.7.0-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/"><img class="badge" src="https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826"></a>
+
+
 
 When you know the derivatives of your optimization problem, it is frequently more efficient to use them directly instead of relying on automatic differentiation.
 For that purpose, we have created `ManualNLPModels`. The package is very crude, due to demand being low, but let us know if you need more functionalities.
@@ -130,14 +140,14 @@ end
 ```
 
 ```
-BenchmarkTools.Trial: 1854 samples with 1 evaluation.
- Range (min … max):  2.301 ms …   7.886 ms  ┊ GC (min … max): 0.00% … 54.35%
- Time  (median):     2.484 ms               ┊ GC (median):    0.00%
- Time  (mean ± σ):   2.692 ms ± 885.166 μs  ┊ GC (mean ± σ):  5.70% ± 11.18%
+BenchmarkTools.Trial: 1943 samples with 1 evaluation.
+ Range (min … max):  2.380 ms …   5.870 ms  ┊ GC (min … max): 0.00% … 45.94%
+ Time  (median):     2.414 ms               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   2.569 ms ± 568.502 μs  ┊ GC (mean ± σ):  3.58% ±  9.07%
 
-  ███▇▅▃    ▂▂                                                ▁
-  ███████▇▆▇██▇█▆▄▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▄▅▅▆▆▆▆▇▅▇ █
-  2.3 ms       Histogram: log(frequency) by time      7.32 ms <
+  █▃▃▁         ▂                                               
+  ████▆▅▄▄▅▃▅▄██▆▆▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃▅▆▅▃▅▅▆▇ █
+  2.38 ms      Histogram: log(frequency) by time      5.61 ms <
 
  Memory estimate: 1.72 MiB, allocs estimate: 2594.
 ```
@@ -156,14 +166,14 @@ end
 ```
 
 ```
-BenchmarkTools.Trial: 52 samples with 1 evaluation.
- Range (min … max):  91.143 ms … 108.271 ms  ┊ GC (min … max): 0.00% … 0.00%
- Time  (median):     95.760 ms               ┊ GC (median):    0.00%
- Time  (mean ± σ):   96.220 ms ±   3.646 ms  ┊ GC (mean ± σ):  1.67% ± 2.35%
+BenchmarkTools.Trial: 53 samples with 1 evaluation.
+ Range (min … max):  92.501 ms … 106.683 ms  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     92.892 ms               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   94.352 ms ±   2.825 ms  ┊ GC (mean ± σ):  0.98% ± 1.48%
 
-     █▁ █     ▁ ▄▁    ▁    █ ▁  ▁▁▁   ▁▁ ▁                      
-  ▆▆▁██▆█▆▆▁▆▆█▁██▁▆▆▁█▁▆▆▁█▁█▁▁███▁▁▆██▁█▁▆▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▆ ▁
-  91.1 ms         Histogram: frequency by time          106 ms <
+   █                                                            
+  ▅█▃▁▁▁▁▁▁▁▁▁▁▁▅▅▃▃▁▁▁▁▁▁▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▃ ▁
+  92.5 ms         Histogram: frequency by time          106 ms <
 
  Memory estimate: 30.79 MiB, allocs estimate: 10075.
 ```
@@ -197,14 +207,14 @@ end
 ```
 
 ```
-BenchmarkTools.Trial: 32 samples with 1 evaluation.
- Range (min … max):  137.333 ms … 170.311 ms  ┊ GC (min … max):  0.00% … 12.93%
- Time  (median):     160.668 ms               ┊ GC (median):    10.39%
- Time  (mean ± σ):   158.182 ms ±  10.621 ms  ┊ GC (mean ± σ):   7.41% ±  5.30%
+BenchmarkTools.Trial: 34 samples with 1 evaluation.
+ Range (min … max):  132.057 ms … 159.199 ms  ┊ GC (min … max): 0.00% … 9.29%
+ Time  (median):     149.409 ms               ┊ GC (median):    6.94%
+ Time  (mean ± σ):   147.212 ms ±   9.380 ms  ┊ GC (mean ± σ):  4.94% ± 3.86%
 
-                          ▂                              █       
-  █▁▅▅▁▁▁▁▁▁▁▁▁▁▁█▁▁▁▁▁▁▁▁█▅▁▁▁▁▅▅▁▅▁▁▁▁▅▁▅▁▅▅▁▁▁▁▁▁▅▁▁███▅▅▅▅▅ ▁
-  137 ms           Histogram: frequency by time          170 ms <
+   ▃▃                     ▃                             ██    ▃  
+  ▇██▇▇▁▁▁▁▁▁▁▇▁▁▁▁▁▇▇▁▁▁▇█▁▁▇▁▁▁▇▁▁▁▁▇▁▇▇▇▁▇▁▁▁▁▇▇▁▇▁▇▇██▁▁▁▇█ ▁
+  132 ms           Histogram: frequency by time          159 ms <
 
  Memory estimate: 98.00 MiB, allocs estimate: 436897.
 ```
@@ -223,13 +233,13 @@ using NLPModels
 
 ```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
- Range (min … max):  13.200 μs …  1.547 ms  ┊ GC (min … max): 0.00% … 0.00%
- Time  (median):     16.200 μs              ┊ GC (median):    0.00%
- Time  (mean ± σ):   16.877 μs ± 19.347 μs  ┊ GC (mean ± σ):  0.00% ± 0.00%
+ Range (min … max):  13.600 μs …  6.508 ms  ┊ GC (min … max): 0.00% … 92.91%
+ Time  (median):     16.500 μs              ┊ GC (median):    0.00%
+ Time  (mean ± σ):   18.895 μs ± 65.405 μs  ┊ GC (mean ± σ):  3.20% ±  0.93%
 
-    ▃▂▆██▃█▇█▃▇▇▂▅▃▂                                           
-  ▃▇████████████████▆█▇▆▄▅▄▃▃▃▃▂▃▂▂▂▂▂▂▂▂▁▁▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂ ▄
-  13.2 μs         Histogram: frequency by time        29.3 μs <
+    ▆▅█▁                                                       
+  ▂▅████▆▆▄▅▅▇▆▅▅▄▃▃▃▂▂▂▂▂▁▂▃▅▇▄▄▃▄▅▅▇▅▅▄▄▅▄▄▃▃▃▃▃▃▃▂▂▂▂▂▂▂▂▂ ▃
+  13.6 μs         Histogram: frequency by time        27.9 μs <
 
  Memory estimate: 18.19 KiB, allocs estimate: 8.
 ```
@@ -242,14 +252,14 @@ adnlp = ADNLPModel(β -> myfun(β, X, y), zeros(p + 1))
 ```
 
 ```
-BenchmarkTools.Trial: 3408 samples with 1 evaluation.
- Range (min … max):  1.313 ms …  10.658 ms  ┊ GC (min … max): 0.00% … 83.99%
- Time  (median):     1.436 ms               ┊ GC (median):    0.00%
- Time  (mean ± σ):   1.464 ms ± 373.879 μs  ┊ GC (mean ± σ):  1.32% ±  4.36%
+BenchmarkTools.Trial: 3625 samples with 1 evaluation.
+ Range (min … max):  1.315 ms …   5.041 ms  ┊ GC (min … max): 0.00% … 68.95%
+ Time  (median):     1.354 ms               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   1.377 ms ± 203.964 μs  ┊ GC (mean ± σ):  0.77% ±  3.85%
 
-    ▄█▄▁                                                       
-  ▂▇████▇▅▅▅▅▅▅▄▅▅▅▆▅▅▅▆▆█▇▆▆▅▅▅▆▅▄▄▃▄▄▃▃▃▃▃▃▂▂▂▂▂▂▁▁▁▁▁▂▁▁▁▁ ▃
-  1.31 ms         Histogram: frequency by time        1.72 ms <
+        ▃▅██▆▄▂                                                
+  ▂▂▂▃▆█████████▅▄▃▃▂▂▂▂▂▂▁▁▁▂▁▁▁▂▁▁▁▁▁▂▂▁▁▁▁▁▁▁▁▁▁▁▂▂▃▃▃▃▃▃▂ ▃
+  1.31 ms         Histogram: frequency by time        1.56 ms <
 
  Memory estimate: 471.91 KiB, allocs estimate: 42.
 ```
@@ -277,13 +287,13 @@ jumpnlp = MathOptNLPModel(model)
 
 ```
 BenchmarkTools.Trial: 10000 samples with 1 evaluation.
- Range (min … max):  232.004 μs … 897.917 μs  ┊ GC (min … max): 0.00% … 0.00%
- Time  (median):     236.705 μs               ┊ GC (median):    0.00%
- Time  (mean ± σ):   238.315 μs ±   9.441 μs  ┊ GC (mean ± σ):  0.00% ± 0.00%
+ Range (min … max):  195.399 μs … 472.696 μs  ┊ GC (min … max): 0.00% … 0.00%
+ Time  (median):     209.099 μs               ┊ GC (median):    0.00%
+ Time  (mean ± σ):   209.320 μs ±   6.727 μs  ┊ GC (mean ± σ):  0.00% ± 0.00%
 
-          ▂▄▆█▇▄▁                                                
-  ▁▁▂▃▅▆█▇███████▆▅▄▃▃▃▂▂▃▃▃▃▃▂▂▂▂▂▂▂▂▂▂▁▂▂▂▂▂▂▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁ ▃
-  232 μs           Histogram: frequency by time          256 μs <
+   ▃▅▄▃     ▁           ▄▇██▆▅▃▃▃▄▄▃▂▂▁    ▁▁▁▁                 ▂
+  ▇████▇▆▄▇██▇▇▆▆▅▄▃▄▄▆██████████████████▇████████▇▆▆▇▇▇▇▆▆▆▆▅▆ █
+  195 μs        Histogram: log(frequency) by time        229 μs <
 
  Memory estimate: 496 bytes, allocs estimate: 1.
 ```
@@ -294,5 +304,4 @@ BenchmarkTools.Trial: 10000 samples with 1 evaluation.
 
 Take these benchmarks with a grain of salt. They are being run on a github actions server with global variables.
 If you want to make an informed option, you should consider performing your own benchmarks.
-
 

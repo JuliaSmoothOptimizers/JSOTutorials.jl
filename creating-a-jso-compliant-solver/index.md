@@ -7,6 +7,15 @@ tags:
   - "jso-compliant"
 ---
 
+<a href="https://juliasmoothoptimizers.github.io/SolverBenchmark.jl/stable/"><img class="badge" src="https://img.shields.io/badge/SolverBenchmark-0.5.4-006400?style=flat-square&labelColor=389826"></a>
+<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/"><img class="badge" src="https://img.shields.io/badge/SolverCore-0.3.3-006400?style=flat-square&labelColor=389826"></a>
+<img class="badge" src="https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+<a href="https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/"><img class="badge" src="https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826"></a>
+
+
 
 In this tutorial you will learn what is a JSO-compliant solver, how to create one, and how to benchmark it against some other solver.
 
@@ -263,8 +272,8 @@ d = factor \ -grad(nlp, x)
 
 ```
 2-element Vector{Float64}:
-  0.48672566371681447
- -0.7281415929203547
+  0.4867256637168144
+ -0.7281415929203545
 ```
 
 
@@ -592,7 +601,7 @@ Generic Execution stats
   dual feasibility: 4.018046284781729e-9
   solution: [0.9999999986742657  0.9999999970013461]
   iterations: 18
-  elapsed time: 8.702278137207031e-5
+  elapsed time: 5.888938903808594e-5
 ```
 
 
@@ -818,5 +827,4 @@ performance_profile(stats, cost)
 [^1]: Technically, it can be defined more generally, but the choice we made has better behaved values. [Wikipedia page: Rosenbrock page, access on 2021/Mar/17.](https://en.wikipedia.org/wiki/Rosenbrock_function#:~:text=In%20mathematical%20optimization%2C%20the%20Rosenbrock,valley%20or%20Rosenbrock%27s%20banana%20function)
 
 [^2]: Dolan, E., Moré, J. Benchmarking optimization software with performance profiles. Math. Program. 91, 201–213 (2002). [doi.org/10.1007/s101070100263](https://doi.org/10.1007/s101070100263)
-
 
