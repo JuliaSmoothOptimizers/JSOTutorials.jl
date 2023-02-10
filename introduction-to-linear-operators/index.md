@@ -6,8 +6,15 @@ tags:
   - "linear-operators"
 ---
 
+<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
+<a href="https://juliasmoothoptimizers.github.io/LinearOperators.jl/stable/"><img class="badge" src="https://img.shields.io/badge/LinearOperators-2.5.1-4b0082?style=flat-square&labelColor=9558b2"></a>
+<a href="https://juliasmoothoptimizers.github.io/Krylov.jl/stable/"><img class="badge" src="https://img.shields.io/badge/Krylov-0.7.13-4b0082?style=flat-square&labelColor=9558b2"></a>
+<img class="badge" src="https://img.shields.io/badge/FFTW-1.5.0-000?style=flat-square&labelColor=fff">
 
-[LinearOperators.jl](https://juliasmoothoptimizers.github.io/LinearOperators.jl/stable) is a package for matrix-like operators. Linear operators are defined by how they act on a vector, which is useful in a variety of situations where you don't want to materialize the matrix.
+
+
+[LinearOperators.jl](https://juliasmoothoptimizers.github.io/LinearOperators.jl/stable) is a package for matrix-like operators.
+Linear operators are defined by how they act on a vector, which is useful in a variety of situations where you don't want to materialize the matrix.
 
 \toc
 
@@ -475,5 +482,4 @@ opA[1,1] * ones(1)
 1-element Vector{Float64}:
  0.02203447865143171
 ```
-
 
