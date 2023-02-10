@@ -7,11 +7,11 @@ tags:
   - "models"
 ---
 
-<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<img class="badge" src="https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/CUTEst.jl/stable/"><img class="badge" src="https://img.shields.io/badge/CUTEst-0.13.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/Krylov.jl/stable/"><img class="badge" src="https://img.shields.io/badge/Krylov-0.9.0-4b0082?style=flat-square&labelColor=9558b2"></a>
+![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff")
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+![Plots 1.38.5](https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff")
+[![CUTEst 0.13.1](https://img.shields.io/badge/CUTEst-0.13.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/CUTEst.jl/stable/)
+[![Krylov 0.9.0](https://img.shields.io/badge/Krylov-0.9.0-4b0082?style=flat-square&labelColor=9558b2")](https://juliasmoothoptimizers.github.io/Krylov.jl/stable/)
 
 
 

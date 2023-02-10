@@ -6,8 +6,8 @@ tags:
   - "cannoles"
 ---
 
-<a href="https://juliasmoothoptimizers.github.io/CaNNOLeS.jl/stable/"><img class="badge" src="https://img.shields.io/badge/CaNNOLeS-0.7.2-006400?style=flat-square&labelColor=389826"></a>
-<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+[![CaNNOLeS 0.7.2](https://img.shields.io/badge/CaNNOLeS-0.7.2-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/CaNNOLeS.jl/stable/)
+[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 
 
 

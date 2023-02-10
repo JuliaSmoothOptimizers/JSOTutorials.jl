@@ -5,14 +5,14 @@ tags:
   - "models"
 ---
 
-<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/RipQP.jl/stable/"><img class="badge" src="https://img.shields.io/badge/RipQP-0.6.1-006400?style=flat-square&labelColor=389826"></a>
-<a href="https://juliasmoothoptimizers.github.io/QuadraticModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/QuadraticModels-0.9.3-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/SparseMatricesCOO.jl/stable/"><img class="badge" src="https://img.shields.io/badge/SparseMatricesCOO-0.2.1-4b0082?style=flat-square&labelColor=9558b2"></a>
-<a href="https://juliasmoothoptimizers.github.io/QPSReader.jl/stable/"><img class="badge" src="https://img.shields.io/badge/QPSReader-0.2.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/LinearOperators.jl/stable/"><img class="badge" src="https://img.shields.io/badge/LinearOperators-2.5.1-4b0082?style=flat-square&labelColor=9558b2"></a>
-<a href="https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModelsModifiers-0.6.3-8b0000?style=flat-square&labelColor=cb3c33"></a>
+![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff")
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![RipQP 0.6.1](https://img.shields.io/badge/RipQP-0.6.1-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/RipQP.jl/stable/)
+[![QuadraticModels 0.9.3](https://img.shields.io/badge/QuadraticModels-0.9.3-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/QuadraticModels.jl/stable/)
+[![SparseMatricesCOO 0.2.1](https://img.shields.io/badge/SparseMatricesCOO-0.2.1-4b0082?style=flat-square&labelColor=9558b2")](https://juliasmoothoptimizers.github.io/SparseMatricesCOO.jl/stable/)
+[![QPSReader 0.2.1](https://img.shields.io/badge/QPSReader-0.2.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/QPSReader.jl/stable/)
+[![LinearOperators 2.5.1](https://img.shields.io/badge/LinearOperators-2.5.1-4b0082?style=flat-square&labelColor=9558b2")](https://juliasmoothoptimizers.github.io/LinearOperators.jl/stable/)
+[![NLPModelsModifiers 0.6.3](https://img.shields.io/badge/NLPModelsModifiers-0.6.3-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/)
 
 
 
@@ -375,7 +375,7 @@ Generic Execution stats
   multipliers_L: [2.815054264364191e-10  0.39130435399011315  3.43538410033642e-9]
   multipliers_U: [0.0  0.0  0.0]
   iterations: 5
-  elapsed time: 10.248447895050049
+  elapsed time: 9.930792093276978
   solver specific:
     iters_sp: 0
     pdd: 2.646321545885072e-10

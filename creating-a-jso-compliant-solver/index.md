@@ -7,13 +7,13 @@ tags:
   - "jso-compliant"
 ---
 
-<a href="https://juliasmoothoptimizers.github.io/SolverBenchmark.jl/stable/"><img class="badge" src="https://img.shields.io/badge/SolverBenchmark-0.5.4-006400?style=flat-square&labelColor=389826"></a>
-<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/"><img class="badge" src="https://img.shields.io/badge/SolverCore-0.3.3-006400?style=flat-square&labelColor=389826"></a>
-<img class="badge" src="https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/"><img class="badge" src="https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826"></a>
+[![SolverBenchmark 0.5.4](https://img.shields.io/badge/SolverBenchmark-0.5.4-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/SolverBenchmark.jl/stable/)
+![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff")
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![SolverCore 0.3.3](https://img.shields.io/badge/SolverCore-0.3.3-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/)
+![Plots 1.38.5](https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff")
+[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![JSOSolvers 0.9.4](https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 
 
@@ -338,7 +338,7 @@ function newton(nlp :: AbstractNLPModel)
 
   status = :first_order
 
-  return GenericExecutionStats(status, nlp)
+  return GenericExecutionStats(nlp, status=status)
 
 end
 ```
@@ -376,7 +376,14 @@ println(output)
 ```
 
 ```
-Error: MethodError: no method matching SolverCore.GenericExecutionStats(::Symbol, ::ADNLPModels.ADNLPModel{Float64, Vector{Float64}, Vector{Int64}})
+Generic Execution stats
+  status: first-order stationary
+  objective value: Inf
+  primal feasibility: 0.0
+  dual feasibility: Inf
+  solution: [NaN  6.9063291972783e-310]
+  iterations: -1
+  elapsed time: Inf
 ```
 
 
@@ -414,7 +421,7 @@ function newton(nlp :: AbstractNLPModel)
   end # hide
   status = :first_order # hide
 
-  return GenericExecutionStats(status, nlp, solution=x, objective=obj(nlp, x))
+  return GenericExecutionStats(nlp, status=status, solution=x, objective=obj(nlp, x))
 end
 ```
 
@@ -435,8 +442,14 @@ println(output)
 ```
 
 ```
-Error: MethodError: no method matching SolverCore.GenericExecutionStats(::Symbol, ::ADNLPModels.ADNLPModel{Float64, Vector{Float64}, Vector{Int64}}; solution=[0.9999999973418803, 0.9999999945459112], 
-objective=7.141610295610004e-18)
+Generic Execution stats
+  status: first-order stationary
+  objective value: 7.141610295610004e-18
+  primal feasibility: 0.0
+  dual feasibility: Inf
+  solution: [0.9999999973418803  0.9999999945459112]
+  iterations: -1
+  elapsed time: Inf
 ```
 
 
@@ -450,7 +463,9 @@ output.solution
 ```
 
 ```
-Error: UndefVarError: output not defined
+2-element Vector{Float64}:
+ 0.9999999973418803
+ 0.9999999945459112
 ```
 
 
@@ -552,7 +567,7 @@ function newton(
     end
   end
 
-  return GenericExecutionStats(status, nlp, solution=x, objective=obj(nlp, x), iter=iter, elapsed_time=Δt)
+  return GenericExecutionStats(nlp, status=status, solution=x, objective=obj(nlp, x), iter=iter, elapsed_time=Δt)
 end
 ```
 
@@ -601,7 +616,7 @@ Generic Execution stats
   dual feasibility: 4.018046284781729e-9
   solution: [0.9999999986742657  0.9999999970013461]
   iterations: 18
-  elapsed time: 5.888938903808594e-5
+  elapsed time: 5.1975250244140625e-5
 ```
 
 
@@ -669,14 +684,14 @@ pretty_stats(stats[:newton][!, cols])
 ```
 
 ```
-┌─────────┬───────────┬───────────┬──────────────┬────────┐
-│    name │    status │ objective │ elapsed_time │   iter │
-├─────────┼───────────┼───────────┼──────────────┼────────┤
-│ Generic │ exception │       Inf │          Inf │      0 │
-│ Generic │ exception │       Inf │          Inf │      0 │
-│ Generic │ exception │       Inf │          Inf │      0 │
-│ Generic │ exception │       Inf │          Inf │      0 │
-└─────────┴───────────┴───────────┴──────────────┴────────┘
+┌─────────┬─────────────┬───────────┬──────────────┬────────┐
+│    name │      status │ objective │ elapsed_time │   iter │
+├─────────┼─────────────┼───────────┼──────────────┼────────┤
+│ Generic │ first_order │  2.47e-31 │     1.56e+00 │      1 │
+│ Generic │ first_order │  3.74e-21 │     5.61e-01 │     21 │
+│ Generic │    max_iter │ -8.36e+00 │     4.21e-01 │    100 │
+│ Generic │ first_order │  1.43e+00 │     5.05e-01 │      5 │
+└─────────┴─────────────┴───────────┴──────────────┴────────┘
 ```
 
 
@@ -798,7 +813,7 @@ function newton2(
     end
   end
 
-  return GenericExecutionStats(status, nlp, solution=x, objective=fx, dual_feas=norm(∇fx), iter=iter, elapsed_time=Δt)
+  return GenericExecutionStats(nlp, status=status, solution=x, objective=fx, dual_feas=norm(∇fx), iter=iter, elapsed_time=Δt)
 
 end
 ```
@@ -827,4 +842,3 @@ performance_profile(stats, cost)
 [^1]: Technically, it can be defined more generally, but the choice we made has better behaved values. [Wikipedia page: Rosenbrock page, access on 2021/Mar/17.](https://en.wikipedia.org/wiki/Rosenbrock_function#:~:text=In%20mathematical%20optimization%2C%20the%20Rosenbrock,valley%20or%20Rosenbrock%27s%20banana%20function)
 
 [^2]: Dolan, E., Moré, J. Benchmarking optimization software with performance profiles. Math. Program. 91, 201–213 (2002). [doi.org/10.1007/s101070100263](https://doi.org/10.1007/s101070100263)
-

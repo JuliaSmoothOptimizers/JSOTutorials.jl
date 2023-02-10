@@ -6,14 +6,14 @@ tags:
   - "ipopt"
 ---
 
-<img class="badge" src="https://img.shields.io/badge/GR-0.71.6-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826"></a>
-<img class="badge" src="https://img.shields.io/badge/DataFrames-1.4.4-000?style=flat-square&labelColor=fff">
-<img class="badge" src="https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff">
-<img class="badge" src="https://img.shields.io/badge/Ipopt-1.1.0-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<img class="badge" src="https://img.shields.io/badge/JuMP-1.7.0-000?style=flat-square&labelColor=fff">
+![GR 0.71.6](https://img.shields.io/badge/GR-0.71.6-000?style=flat-square&labelColor=fff")
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![NLPModelsIpopt 0.10.0](https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/)
+![DataFrames 1.4.4](https://img.shields.io/badge/DataFrames-1.4.4-000?style=flat-square&labelColor=fff")
+![Plots 1.38.5](https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff")
+![Ipopt 1.1.0](https://img.shields.io/badge/Ipopt-1.1.0-000?style=flat-square&labelColor=fff")
+[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+![JuMP 1.7.0](https://img.shields.io/badge/JuMP-1.7.0-000?style=flat-square&labelColor=fff")
 
 
 
@@ -101,7 +101,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 0
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 21
-Total seconds in IPOPT                               = 7.265
+Total seconds in IPOPT                               = 7.319
 
 EXIT: Optimal Solution Found.
 Generic Execution stats
@@ -111,9 +111,9 @@ Generic Execution stats
   dual feasibility: 3.732500974666708e-10
   solution: [0.9999999999400667  0.9999999998789006]
   iterations: 21
-  elapsed time: 7.265
+  elapsed time: 7.319
   solver specific:
-    real_time: 7.265474081039429
+    real_time: 7.3198277950286865
     internal_msg: :Solve_Succeeded
 ```
 
@@ -193,7 +193,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 0
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 21
-Total seconds in IPOPT                               = 2.876
+Total seconds in IPOPT                               = 2.653
 
 EXIT: Optimal Solution Found.
 ```
@@ -225,9 +225,9 @@ Generic Execution stats
   solution: [-0.9505563573613093  0.9139008176388945  0.9890905176644905  0.9985592422681151 ⋯ 0.999999930070643]
   multipliers: [4.1358568305002255  -1.876494903703342  -0.06556333356358673  -0.021931863018312882 ⋯ -7.376592164341867e-6]
   iterations: 6
-  elapsed time: 7.06
+  elapsed time: 6.986
   solver specific:
-    real_time: 7.060521841049194
+    real_time: 6.98586893081665
     internal_msg: :Solve_Succeeded
 ```
 

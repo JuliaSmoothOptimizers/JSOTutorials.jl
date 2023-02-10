@@ -6,9 +6,9 @@ tags:
   - "ipopt"
 ---
 
-<img class="badge" src="https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826"></a>
-<a href="https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33"></a>
+![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff")
+[![NLPModelsIpopt 0.10.0](https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/)
+[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 
 
 
@@ -135,7 +135,7 @@ Number of inequality constraint evaluations          = 8
 Number of equality constraint Jacobian evaluations   = 0
 Number of inequality constraint Jacobian evaluations = 8
 Number of Lagrangian Hessian evaluations             = 7
-Total seconds in IPOPT                               = 8.236
+Total seconds in IPOPT                               = 7.212
 
 EXIT: Optimal Solution Found.
 "Execution stats: first-order stationary"
@@ -179,7 +179,7 @@ Generic Execution stats
   iterations: 7
   elapsed time: 0.004
   solver specific:
-    real_time: 0.004615068435668945
+    real_time: 0.0042040348052978516
     internal_msg: :Solve_Succeeded
 ```
 

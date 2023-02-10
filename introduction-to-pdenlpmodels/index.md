@@ -8,13 +8,13 @@ tags:
   - "PDE"
 ---
 
-<a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826"></a>
-<img class="badge" src="https://img.shields.io/badge/Gridap-0.15.5-000?style=flat-square&labelColor=fff">
-<a href="https://juliasmoothoptimizers.github.io/PDENLPModels.jl/stable/"><img class="badge" src="https://img.shields.io/badge/PDENLPModels-0.3.3-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/"><img class="badge" src="https://img.shields.io/badge/NLPModelsModifiers-0.6.3-8b0000?style=flat-square&labelColor=cb3c33"></a>
-<a href="https://juliasmoothoptimizers.github.io/DCISolver.jl/stable/"><img class="badge" src="https://img.shields.io/badge/DCISolver-0.4.2-006400?style=flat-square&labelColor=389826"></a>
-<a href="https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/"><img class="badge" src="https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826"></a>
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![NLPModelsIpopt 0.10.0](https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/)
+![Gridap 0.15.5](https://img.shields.io/badge/Gridap-0.15.5-000?style=flat-square&labelColor=fff")
+[![PDENLPModels 0.3.3](https://img.shields.io/badge/PDENLPModels-0.3.3-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/PDENLPModels.jl/stable/)
+[![NLPModelsModifiers 0.6.3](https://img.shields.io/badge/NLPModelsModifiers-0.6.3-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/)
+[![DCISolver 0.4.2](https://img.shields.io/badge/DCISolver-0.4.2-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/DCISolver.jl/stable/)
+[![JSOSolvers 0.9.4](https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 
 
@@ -248,7 +248,7 @@ stats_ipopt.elapsed_time, stats_dci.elapsed_time
 ```
 
 ```
-(61.216, 19.223766088485718)
+(60.55, 19.268476009368896)
 ```
 
 
