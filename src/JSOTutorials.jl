@@ -2,6 +2,8 @@ module JSOTutorials
 
 # We copied SciML/SciMLTutorials.jl here
 
+include("pkg_list.jl")
+
 using Weave, Pkg, IJulia, InteractiveUtils, Markdown, YAML
 
 repo_directory = joinpath(@__DIR__, "..")
@@ -52,6 +54,7 @@ function weave_file(folder, file, build_list = default_builds)
     dir = joinpath(repo_directory, "markdown", basename(folder))
     mkpath(dir)
     weave(target, doctype = "github", out_path = dir, args = args)
+    add_package_info(joinpath(dir, file[1:end-4] * ".md"))
   end
   if :notebook ∈ build_list
     println("Building Notebook")
@@ -80,6 +83,51 @@ function weave_folder(folder, build_list = default_builds)
     catch e
       @error(e)
     end
+  end
+end
+
+function package_information()
+  proj = sprint(io -> Pkg.status(io = io))
+  re_str = r"\[[0-f]+\]\s+(.*) v(.*)"
+  pkg_info = Dict{String,String}()
+  for line in split(proj, "\n")
+    m = match(re_str, line)
+    if m !== nothing
+      pkg_info[m[1]] = m[2]
+    end
+  end
+  return pkg_info
+end
+
+function badge(name, version)
+  color, lbl_color = if name in jso_pkgs
+    color_of_pkg(name)
+  else
+    "000", "fff"
+  end
+
+  badge_img = "<img class=\"badge\" src=\"https://img.shields.io/badge/$name-$version-$color?style=flat-square&labelColor=$lbl_color\">"
+  if name in jso_pkgs
+    link = "https://juliasmoothoptimizers.github.io/$name.jl/stable/"
+    "<a href=\"$link\">$badge_img</a>"
+  else
+    badge_img
+  end
+end
+
+function add_package_info(filename)
+  lines = readlines(filename)
+  j = findall(lines .== "---")[2]
+  pkg_info = package_information()
+  out = [
+    lines[1:j];
+    "";
+    [badge(pkg, ver) for (pkg, ver) in pkg_info];
+    "";
+    lines[j+1:end]
+  ]
+  open(filename, "w") do io
+    print(io, join(out, "\n"))
   end
 end
 
