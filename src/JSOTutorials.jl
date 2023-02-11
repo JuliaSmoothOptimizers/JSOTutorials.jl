@@ -106,7 +106,7 @@ function badge(name, version)
     "000", "fff"
   end
 
-  badge_img = "![$name $version](https://img.shields.io/badge/$name-$version-$color?style=flat-square&labelColor=$lbl_color\")"
+  badge_img = "![$name $version](https://img.shields.io/badge/$name-$version-$color?style=flat-square&labelColor=$lbl_color)"
   if name in jso_pkgs
     link = "https://juliasmoothoptimizers.github.io/$name.jl/stable/"
     "[$badge_img]($link)"
