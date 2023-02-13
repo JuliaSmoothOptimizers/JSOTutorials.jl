@@ -6,8 +6,8 @@ tags:
   - "cannoles"
 ---
 
-[![CaNNOLeS 0.7.2](https://img.shields.io/badge/CaNNOLeS-0.7.2-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/CaNNOLeS.jl/stable/)
-[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![CaNNOLeS 0.7.2](https://img.shields.io/badge/CaNNOLeS-0.7.2-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/CaNNOLeS.jl/stable/)
+[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 
 
 
@@ -17,6 +17,7 @@ optimization problems of the form
     min ¹/₂‖F(x)‖²      s. to     c(x) = 0.
 
 It uses other JuliaSmoothOptimizers packages for development.
+
 In particular, [NLPModels.jl](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) is used for defining the problem, and [SolverCore](https://github.com/JuliaSmoothOptimizers/SolverCore.jl) for the output.
 It also uses [HSL.jl](https://github.com/JuliaSmoothOptimizers/HSL.jl)'s `MA57` as main solver, but you can pass `linsolve=:ldlfactorizations` to use [LDLFactorizations.jl](https://github.com/JuliaSmoothOptimizers/LDLFactorizations.jl).
 
