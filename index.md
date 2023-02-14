@@ -20,5 +20,6 @@ For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.
 - [Solve a PDE-constrained optimization problem](introduction-to-pdenlpmodels/)
 - [Introduction to QuadraticModels](introduction-to-quadraticmodels/)
 - [Introduction to RipQP](introduction-to-ripqp/)
+- [SolverBenchmark.jl tutorial](introduction-to-solverbenchmark/)
 - [How to solve a small optimization problem with Ipopt + NLPModels](solve-an-optimization-problem-with-ipopt/)
 - [Using callbacks](using-callbacks/)
