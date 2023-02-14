@@ -157,32 +157,6 @@ pretty_latex_stats(stats[:alpha])
 
 
 
-Alternatively, you can print to a file.
-
-```julia
-open("alpha.tex", "w") do io
-  println(io, "\\documentclass[varwidth=20cm,crop=true]{standalone}")
-  println(io, "\\usepackage{longtable}[=v4.13]")
-  println(io, "\\begin{document}")
-  pretty_latex_stats(io, stats[:alpha])
-  println(io, "\\end{document}")
-end
-```
-
-
-```julia
-run(`latexmk -quiet -pdf alpha.tex`)
-run(`pdf2svg alpha.pdf alpha.svg`)
-```
-
-```
-Error: IOError: could not spawn `latexmk -quiet -pdf alpha.tex`: no such file or directory (ENOENT)
-```
-
-
-
-
-
 If only a subset of columns should be printed, the DataFrame should be indexed accordingly:
 
 ```julia
@@ -328,36 +302,47 @@ Thus we must first disable them for the `time` column using `col_formatters`, an
 fmt_override = Dict(:f => "%+10.3e",
                     :t => "%08.2f")
 hdr_override = Dict(:name => "Name", :f => "f(x)", :t => "Time")
-open("alpha2.tex", "w") do io
-  println(io, "\\documentclass[varwidth=20cm,crop=true]{standalone}")
-  println(io, "\\usepackage{longtable}[=v4.13]")
-  println(io, "\\begin{document}")
-  pretty_latex_stats(io,
-                    df[!, [:name, :status, :f, :t, :iter]],
-                    col_formatters = Dict(:t => "%f"),  # disable default formatting of t
-                    formatters = (v,i,j) -> begin
-                      if j == 4
-                        xi = floor(Int, v)
-                        minutes = div(xi, 60)
-                        seconds = xi % 60
-                        micros = round(Int, 1e6 * (v - xi))
-                        @sprintf("\\(%2d\\)m \\(%02d\\)s \\(%06d \\mu\\)s", minutes, seconds, micros)
-                      else
-                        v
-                      end
-                  end)
-  println(io, "\\end{document}")
+pretty_latex_stats(
+df[!, [:name, :status, :f, :t, :iter]],
+col_formatters = Dict(:t => "%f"),  # disable default formatting of t
+formatters = (v,i,j) -> begin
+  if j == 4
+    xi = floor(Int, v)
+    minutes = div(xi, 60)
+    seconds = xi % 60
+    micros = round(Int, 1e6 * (v - xi))
+    @sprintf("\\(%2d\\)m \\(%02d\\)s \\(%06d \\mu\\)s", minutes, seconds, micros)
+  else
+    v
+  end
 end
-```
-
-
-```julia
-run(`latexmk -quiet -pdf alpha2.tex`)
-run(`pdf2svg alpha2.pdf alpha2.svg`)
+)
 ```
 
 ```
-Error: IOError: could not spawn `latexmk -quiet -pdf alpha2.tex`: no such file or directory (ENOENT)
+\begin{longtable}{rrrrr}
+  \hline
+  name & status & f & t & iter \\\hline
+  \endfirsthead
+  \hline
+  name & status & f & t & iter \\\hline
+  \endhead
+  \hline
+  \multicolumn{5}{r}{{\bfseries Continued on next page}}\\
+  \hline
+  \endfoot
+  \endlastfoot
+  prob001 & first\_order & \(-2.42\)e\(-02\) & \(11\)m \(17\)s \(623091 \mu\)s & \(    60\) \\
+  prob002 & first\_order & \(-3.84\)e\(-01\) & \(10\)m \(45\)s \(642602 \mu\)s & \(    90\) \\
+  prob003 & failure & \( 5.79\)e\(-01\) & \(10\)m \(34\)s \(037248 \mu\)s & \(    50\) \\
+  prob004 & failure & \( 1.47\)e\(+00\) & \( 9\)m \(19\)s \(585367 \mu\)s & \(    70\) \\
+  prob005 & first\_order & \(-1.77\)e\(+00\) & \( 9\)m \(27\)s \(556767 \mu\)s & \(    10\) \\
+  prob006 & first\_order & \( 6.09\)e\(-01\) & \( 5\)m \(43\)s \(518002 \mu\)s & \(    20\) \\
+  prob007 & first\_order & \(-1.40\)e\(-01\) & \( 7\)m \(06\)s \(141220 \mu\)s & \(    10\) \\
+  prob008 & failure & \( 8.36\)e\(-01\) & \(10\)m \(21\)s \(997591 \mu\)s & \(    20\) \\
+  prob009 & first\_order & \(-9.29\)e\(-01\) & \( 2\)m \(28\)s \(248989 \mu\)s & \(    40\) \\
+  prob010 & first\_order & \( 7.89\)e\(-02\) & \( 3\)m \(50\)s \(955096 \mu\)s & \(    30\) \\\hline
+\end{longtable}
 ```
 
 
@@ -455,23 +440,33 @@ pretty_stats(stdout, df)
 ```julia
 hdr_override = Dict(:name => "Name", :f => "\\(f(x)\\)", :t => "Time")
 df = join(stats, [:f, :t], invariant_cols=[:name], hdr_override=hdr_override)
-open("alpha3.tex", "w") do io
-  println(io, "\\documentclass[varwidth=20cm,crop=true]{standalone}")
-  println(io, "\\usepackage{longtable}[=v4.13]")
-  println(io, "\\begin{document}")
-  pretty_latex_stats(io, df)
-  println(io, "\\end{document}")
-end
-```
-
-
-```julia
-run(`latexmk -quiet -pdf alpha3.tex`)
-run(`pdf2svg alpha3.pdf alpha3.svg`)
+pretty_latex_stats(df)
 ```
 
 ```
-Error: IOError: could not spawn `latexmk -quiet -pdf alpha3.tex`: no such file or directory (ENOENT)
+\begin{longtable}{rrrrrrrr}
+  \hline
+  id & name & \(f(x)\)\_alpha & Time\_alpha & \(f(x)\)\_beta & Time\_beta & \(f(x)\)\_gamma & Time\_gamma \\\hline
+  \endfirsthead
+  \hline
+  id & name & \(f(x)\)\_alpha & Time\_alpha & \(f(x)\)\_beta & Time\_beta & \(f(x)\)\_gamma & Time\_gamma \\\hline
+  \endhead
+  \hline
+  \multicolumn{8}{r}{{\bfseries Continued on next page}}\\
+  \hline
+  \endfoot
+  \endlastfoot
+  \(     1\) & prob001 & \(-2.42\)e\(-02\) & \( 6.78\)e\(+02\) & \( 5.90\)e\(-01\) & \( 3.10\)e\(+01\) & \(-7.31\)e\(-01\) & \( 5.23\)e\(+02\) \\
+  \(     2\) & prob002 & \(-3.84\)e\(-01\) & \( 6.46\)e\(+02\) & \(-9.15\)e\(-01\) & \( 1.94\)e\(+02\) & \(-1.38\)e\(+00\) & \( 4.25\)e\(+02\) \\
+  \(     3\) & prob003 & \( 5.79\)e\(-01\) & \( 6.34\)e\(+02\) & \(-2.14\)e\(+00\) & \( 5.16\)e\(+02\) & \( 1.90\)e\(+00\) & \( 2.48\)e\(+02\) \\
+  \(     4\) & prob004 & \( 1.47\)e\(+00\) & \( 5.60\)e\(+02\) & \( 4.86\)e\(-01\) & \( 7.12\)e\(+02\) & \( 4.77\)e\(-01\) & \( 8.39\)e\(+02\) \\
+  \(     5\) & prob005 & \(-1.77\)e\(+00\) & \( 5.68\)e\(+02\) & \(-3.67\)e\(-01\) & \( 1.17\)e\(+02\) & \( 3.74\)e\(-01\) & \( 3.24\)e\(+02\) \\
+  \(     6\) & prob006 & \( 6.09\)e\(-01\) & \( 3.44\)e\(+02\) & \(-1.44\)e\(+00\) & \( 4.79\)e\(+02\) & \( 1.36\)e\(+00\) & \( 1.62\)e\(+02\) \\
+  \(     7\) & prob007 & \(-1.40\)e\(-01\) & \( 4.26\)e\(+02\) & \( 1.23\)e\(-01\) & \( 6.62\)e\(+02\) & \( 8.25\)e\(-04\) & \( 8.83\)e\(+02\) \\
+  \(     8\) & prob008 & \( 8.36\)e\(-01\) & \( 6.22\)e\(+02\) & \( 2.63\)e\(-01\) & \( 3.84\)e\(+02\) & \(-2.04\)e\(+00\) & \( 2.83\)e\(+02\) \\
+  \(     9\) & prob009 & \(-9.29\)e\(-01\) & \( 1.48\)e\(+02\) & \( 1.41\)e\(+00\) & \( 1.15\)e\(+02\) & \( 8.89\)e\(-01\) & \( 4.88\)e\(+02\) \\
+  \(    10\) & prob010 & \( 7.89\)e\(-02\) & \( 2.31\)e\(+02\) & \(-1.89\)e\(+00\) & \( 9.90\)e\(+02\) & \(-3.92\)e\(-01\) & \( 3.70\)e\(+02\) \\\hline
+\end{longtable}
 ```
 
 
@@ -492,45 +487,11 @@ applied to a `DataFrame` and returning a vector.
 
 ```julia
 using Plots
-pyplot()
 
 p = performance_profile(stats, df -> df.t)
 ```
 
-```
-Error: InitError: PyError (PyImport_ImportModule
-
-The Python package matplotlib could not be imported by pyimport. Usually this means
-that you did not install matplotlib in the Python version being used by PyCall.
-
-PyCall is currently configured to use the Python version at:
-
-/usr/bin/python3
-
-and you should use whatever mechanism you usually use (apt-get, pip, conda,
-etcetera) to install the Python package containing the matplotlib module.
-
-One alternative is to re-configure PyCall to use a different Python
-version on your system: set ENV["PYTHON"] to the path/name of the python
-executable you want to use, run Pkg.build("PyCall"), and re-launch Julia.
-
-Another alternative is to configure PyCall to use a Julia-specific Python
-distribution via the Conda.jl package (which installs a private Anaconda
-Python distribution), which has the advantage that packages can be installed
-and kept up-to-date via Julia.  As explained in the PyCall documentation,
-set ENV["PYTHON"]="", run Pkg.build("PyCall"), and re-launch Julia. Then,
-To install the matplotlib module, you can use `pyimport_conda("matplotlib", PKG)`,
-where PKG is the Anaconda package that contains the module matplotlib,
-or alternatively you can use the Conda package directly (via
-`using Conda` followed by `Conda.add` etcetera).
-
-) <class 'ModuleNotFoundError'>
-ModuleNotFoundError("No module named 'matplotlib'")
-
-during initialization of module PyPlot
-```
-
-
+![](figures/index_14_1.png)
 
 
 
@@ -544,7 +505,7 @@ cost(df) = (df.status .!= :first_order) * Inf + df.t
 p = performance_profile(stats, cost)
 ```
 
-![](figures/index_19_1.png)
+![](figures/index_15_1.png)
 
 
 
@@ -561,7 +522,7 @@ costnames = ["Time", "Iterations"]
 p = profile_solvers(stats, costs, costnames)
 ```
 
-![](figures/index_20_1.png)
+![](figures/index_16_1.png)
 
 
 
