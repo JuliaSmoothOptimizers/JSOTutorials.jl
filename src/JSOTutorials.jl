@@ -103,7 +103,7 @@ function badge(name, version)
   color, lbl_color = if name in jso_pkgs
     color_of_pkg(name)
   else
-    "000", "fff"
+    "000", "999"
   end
 
   badge_img = "![$name $version](https://img.shields.io/badge/$name-$version-$color?style=flat-square&labelColor=$lbl_color)"
