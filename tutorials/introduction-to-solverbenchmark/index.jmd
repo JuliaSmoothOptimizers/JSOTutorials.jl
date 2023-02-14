@@ -63,23 +63,6 @@ Printing is LaTeX format is achieved with `pretty_latex_stats`:
 pretty_latex_stats(stats[:alpha])
 ```
 
-Alternatively, you can print to a file.
-
-```julia
-open("alpha.tex", "w") do io
-  println(io, "\\documentclass[varwidth=20cm,crop=true]{standalone}")
-  println(io, "\\usepackage{longtable}[=v4.13]")
-  println(io, "\\begin{document}")
-  pretty_latex_stats(io, stats[:alpha])
-  println(io, "\\end{document}")
-end
-```
-
-```julia
-run(`latexmk -quiet -pdf alpha.tex`)
-run(`pdf2svg alpha.pdf alpha.svg`)
-```
-
 If only a subset of columns should be printed, the DataFrame should be indexed accordingly:
 
 ```julia
@@ -143,31 +126,21 @@ Thus we must first disable them for the `time` column using `col_formatters`, an
 fmt_override = Dict(:f => "%+10.3e",
                     :t => "%08.2f")
 hdr_override = Dict(:name => "Name", :f => "f(x)", :t => "Time")
-open("alpha2.tex", "w") do io
-  println(io, "\\documentclass[varwidth=20cm,crop=true]{standalone}")
-  println(io, "\\usepackage{longtable}[=v4.13]")
-  println(io, "\\begin{document}")
-  pretty_latex_stats(io,
-                    df[!, [:name, :status, :f, :t, :iter]],
-                    col_formatters = Dict(:t => "%f"),  # disable default formatting of t
-                    formatters = (v,i,j) -> begin
-                      if j == 4
-                        xi = floor(Int, v)
-                        minutes = div(xi, 60)
-                        seconds = xi % 60
-                        micros = round(Int, 1e6 * (v - xi))
-                        @sprintf("\\(%2d\\)m \\(%02d\\)s \\(%06d \\mu\\)s", minutes, seconds, micros)
-                      else
-                        v
-                      end
-                  end)
-  println(io, "\\end{document}")
+pretty_latex_stats(
+df[!, [:name, :status, :f, :t, :iter]],
+col_formatters = Dict(:t => "%f"),  # disable default formatting of t
+formatters = (v,i,j) -> begin
+  if j == 4
+    xi = floor(Int, v)
+    minutes = div(xi, 60)
+    seconds = xi % 60
+    micros = round(Int, 1e6 * (v - xi))
+    @sprintf("\\(%2d\\)m \\(%02d\\)s \\(%06d \\mu\\)s", minutes, seconds, micros)
+  else
+    v
+  end
 end
-```
-
-```julia
-run(`latexmk -quiet -pdf alpha2.tex`)
-run(`pdf2svg alpha2.pdf alpha2.svg`)
+)
 ```
 
 ### Joining tables
@@ -200,18 +173,7 @@ pretty_stats(stdout, df)
 ```julia
 hdr_override = Dict(:name => "Name", :f => "\\(f(x)\\)", :t => "Time")
 df = join(stats, [:f, :t], invariant_cols=[:name], hdr_override=hdr_override)
-open("alpha3.tex", "w") do io
-  println(io, "\\documentclass[varwidth=20cm,crop=true]{standalone}")
-  println(io, "\\usepackage{longtable}[=v4.13]")
-  println(io, "\\begin{document}")
-  pretty_latex_stats(io, df)
-  println(io, "\\end{document}")
-end
-```
-
-```julia
-run(`latexmk -quiet -pdf alpha3.tex`)
-run(`pdf2svg alpha3.pdf alpha3.svg`)
+pretty_latex_stats(df)
 ```
 
 ## Profiles
@@ -228,7 +190,6 @@ applied to a `DataFrame` and returning a vector.
 
 ```julia
 using Plots
-pyplot()
 
 p = performance_profile(stats, df -> df.t)
 ```
