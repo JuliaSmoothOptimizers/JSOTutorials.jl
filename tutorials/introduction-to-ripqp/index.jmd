@@ -68,7 +68,7 @@ It is also possible to get a history of several quantities such as the primal an
 
 ```julia
 stats = ripqp(QM, history = true)
-pddH = stats.solver_specific[:pddH]
+pddH = stats.solver_specific[:pddH];
 ```
 
 ## Change configuration and tolerances
