@@ -98,7 +98,7 @@ Generic Execution stats
   multipliers_L: [0.0  4.5  0.0]
   multipliers_U: [5.0  0.0  0.0]
   iterations: 0
-  elapsed time: 0.017117023468017578
+  elapsed time: 0.012205839157104492
   solver specific:
     presolvedQM: nothing
     psoperations: [QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(1, 0.0, -8.0)  QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(3, 0.0, -3.0)  QuadraticModels.EmptyRow{Float64, Vector{Floa
@@ -117,11 +117,11 @@ read convex quadratic problems in MPS or SIF formats: (download [QAFIRO](https:/
 
 ```julia
 using QPSReader, QuadraticModels
-QM = QuadraticModel(readqps("QAFIRO.SIF"))
+QM = QuadraticModel(readqps("assets/QAFIRO.SIF"))
 ```
 
 ```
-Error: SystemError: opening file "QAFIRO.SIF": No such file or directory
+Error: SystemError: opening file "assets/QAFIRO.SIF": No such file or directory
 ```
 
 
@@ -238,7 +238,7 @@ stats1.elapsed_time
 ```
 
 ```
-7.414817810058594e-5
+5.602836608886719e-5
 ```
 
 
@@ -260,7 +260,7 @@ show(RipQP.to, sortby = :firstexec)
 ────────────────────────────────────────────────────────────────────
                             Time                    Allocations      
                    ───────────────────────   ────────────────────────
- Tot / % measured:      896ms /   0.0%           29.4MiB /   0.0%    
+ Tot / % measured:      748ms /   0.0%           29.4MiB /   0.0%    
 
  Section   ncalls     time    %tot     avg     alloc    %tot      avg
  ────────────────────────────────────────────────────────────────────
