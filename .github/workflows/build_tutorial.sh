@@ -32,6 +32,11 @@ if [ -d "$folder/figures" ]; then
   cp -r "$folder/figures/"* "markdown/$folder_without_tutorial_prefix/figures/"
 fi
 
+if [ -d "$folder/assets" ]; then
+  mkdir -p "markdown/$folder_without_tutorial_prefix/assets/"
+  cp -r "$folder/assets/"* "markdown/$folder_without_tutorial_prefix/assets/"
+fi
+
 if [ -d "markdown/$folder_without_tutorial_prefix/figures" ]; then
   cp -r "markdown/$folder_without_tutorial_prefix/figures" "parsed/$folder_without_tutorial_prefix/"
 fi
