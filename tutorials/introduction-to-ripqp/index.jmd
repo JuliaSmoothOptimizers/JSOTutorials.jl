@@ -51,7 +51,7 @@ read convex quadratic problems in MPS or SIF formats: (download [QAFIRO](https:/
 
 ```julia
 using QPSReader, QuadraticModels
-QM = QuadraticModel(readqps("QAFIRO.SIF"))
+QM = QuadraticModel(readqps("assets/QAFIRO.SIF"))
 ```
 
 ## Logging
