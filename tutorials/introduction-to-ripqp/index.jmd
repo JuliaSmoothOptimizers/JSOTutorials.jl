@@ -58,6 +58,10 @@ QM = QuadraticModel(readqps("assets/QAFIRO.SIF"))
 
 RipQP displays some logs at each iterate.
 
+```julia
+stats = ripqp(QM)
+```
+
 You can deactivate logging with
 
 ```julia
