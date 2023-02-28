@@ -98,7 +98,7 @@ Generic Execution stats
   multipliers_L: [0.0  4.5  0.0]
   multipliers_U: [5.0  0.0  0.0]
   iterations: 0
-  elapsed time: 0.01172018051147461
+  elapsed time: 0.012717962265014648
   solver specific:
     presolvedQM: nothing
     psoperations: [QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(1, 0.0, -8.0)  QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(3, 0.0, -3.0)  QuadraticModels.EmptyRow{Float64, Vector{Floa
@@ -151,6 +151,18 @@ QuadraticModels.QuadraticModel{Float64, Vector{Float64}, SparseMatricesCOO.Spars
 ## Logging
 
 RipQP displays some logs at each iterate.
+
+```julia
+stats = ripqp(QM)
+```
+
+```
+"Execution stats: first-order stationary"
+```
+
+
+
+
 
 You can deactivate logging with
 
@@ -248,7 +260,7 @@ stats1.elapsed_time
 ```
 
 ```
-0.15559005737304688
+0.16049814224243164
 ```
 
 
@@ -270,11 +282,11 @@ show(RipQP.to, sortby = :firstexec)
 ──────────────────────────────────────────────────────────────────────
                               Time                    Allocations      
                      ───────────────────────   ────────────────────────
-  Tot / % measured:       917ms /   0.0%           43.9MiB /   0.0%    
+  Tot / % measured:       926ms /   0.0%           43.9MiB /   0.0%    
 
  Section     ncalls     time    %tot     avg     alloc    %tot      avg
  ──────────────────────────────────────────────────────────────────────
- factorize       10   35.5μs  100.0%  3.55μs     0.00B     - %    0.00B
+ factorize       10   37.7μs  100.0%  3.77μs     0.00B     - %    0.00B
  ──────────────────────────────────────────────────────────────────────
 ```
 
