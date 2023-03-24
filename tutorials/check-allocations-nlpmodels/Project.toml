@@ -3,5 +3,5 @@ NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
 NLPModelsTest = "7998695d-6960-4d3a-85c4-e1bceb8cd856"
 
 [compat]
-NLPModels = "0.19.1"
+NLPModels = "0.20"
 NLPModelsTest = "0.8.3"
