@@ -6,8 +6,8 @@ tags:
   - "cannoles"
 ---
 
-[![CaNNOLeS 0.7.2](https://img.shields.io/badge/CaNNOLeS-0.7.2-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/CaNNOLeS.jl/stable/)
-[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![CaNNOLeS 0.7.3](https://img.shields.io/badge/CaNNOLeS-0.7.3-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/CaNNOLeS.jl/stable/)
+[![ADNLPModels 0.6.0](https://img.shields.io/badge/ADNLPModels-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 
 
 
@@ -65,7 +65,14 @@ stats = cannoles(nls, ϵtol = 1e-5, x = ones(2))
 ```
 
 ```
-"Execution stats: first-order stationary"
+Error: MethodError: no method matching solve!(::CaNNOLeS.CaNNOLeSSolver{Int64, Float64, Vector{Float64}, CaNNOLeS.LDLFactStruct{Float64, Int64}}, ::ADNLPModels.ADNLSModel{Float64, Vector{Float64}, Vec
+tor{Int64}}, ::SolverCore.GenericExecutionStats{Float64, Vector{Float64}, Vector{Float64}, Any}; method=:Newton, ϵtol=1.0e-5, x=[1.0, 1.0])
+Closest candidates are:
+  solve!(::CaNNOLeS.CaNNOLeSSolver{Ti, T, V, F}, ::NLPModels.AbstractNLSModel{T, V}, ::SolverCore.GenericExecutionStats{T, V, V}; callback, x, λ, method, max_iter, max_eval, max_time, max_inner, atol,
+ rtol, Fatol, Frtol, verbose, always_accept_extrapolation, δdec) where {Ti, T, V, F} at ~/.julia/packages/CaNNOLeS/Nio3Z/src/CaNNOLeS.jl:417 got unsupported keyword argument "ϵtol"
+  solve!(::SolverCore.AbstractOptimizationSolver, ::NLPModels.AbstractNLPModel, ::SolverCore.GenericExecutionStats; kwargs...) at ~/.julia/packages/SolverCore/eMqJc/src/solver.jl:43
+  solve!(::SolverCore.AbstractOptimizationSolver, ::NLPModels.AbstractNLPModel; kwargs...) at ~/.julia/packages/SolverCore/eMqJc/src/solver.jl:38
+  ...
 ```
 
 
