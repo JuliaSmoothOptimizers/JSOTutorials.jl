@@ -7,13 +7,13 @@ tags:
   - "jso-compliant"
 ---
 
-[![SolverBenchmark 0.5.4](https://img.shields.io/badge/SolverBenchmark-0.5.4-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/SolverBenchmark.jl/stable/)
-![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff")
-[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-[![SolverCore 0.3.3](https://img.shields.io/badge/SolverCore-0.3.3-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/)
-![Plots 1.38.5](https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff")
-[![ADNLPModels 0.5.1](https://img.shields.io/badge/ADNLPModels-0.5.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
-[![JSOSolvers 0.9.4](https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+[![SolverBenchmark 0.5.4](https://img.shields.io/badge/SolverBenchmark-0.5.4-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/SolverBenchmark.jl/stable/)
+![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=999)
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![SolverCore 0.3.6](https://img.shields.io/badge/SolverCore-0.3.6-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/)
+![Plots 1.38.8](https://img.shields.io/badge/Plots-1.38.8-000?style=flat-square&labelColor=999)
+[![ADNLPModels 0.6.0](https://img.shields.io/badge/ADNLPModels-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![JSOSolvers 0.9.4](https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 
 
@@ -99,7 +99,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseADJacobian,
+  SparseForwardADJacobian,
   ForwardDiffADHessian,
   ForwardDiffADGHjvprod,
 }
@@ -381,7 +381,7 @@ Generic Execution stats
   objective value: Inf
   primal feasibility: 0.0
   dual feasibility: Inf
-  solution: [NaN  6.9063291972783e-310]
+  solution: [0.0  6.9403588472852e-310]
   iterations: -1
   elapsed time: Inf
 ```
@@ -616,7 +616,7 @@ Generic Execution stats
   dual feasibility: 4.018046284781729e-9
   solution: [0.9999999986742657  0.9999999970013461]
   iterations: 18
-  elapsed time: 5.1975250244140625e-5
+  elapsed time: 6.198883056640625e-5
 ```
 
 
@@ -687,10 +687,10 @@ pretty_stats(stats[:newton][!, cols])
 ┌─────────┬─────────────┬───────────┬──────────────┬────────┐
 │    name │      status │ objective │ elapsed_time │   iter │
 ├─────────┼─────────────┼───────────┼──────────────┼────────┤
-│ Generic │ first_order │  2.47e-31 │     1.56e+00 │      1 │
-│ Generic │ first_order │  3.74e-21 │     5.61e-01 │     21 │
-│ Generic │    max_iter │ -8.36e+00 │     4.21e-01 │    100 │
-│ Generic │ first_order │  1.43e+00 │     5.05e-01 │      5 │
+│ Generic │ first_order │  2.47e-31 │     2.62e+00 │      1 │
+│ Generic │ first_order │  3.74e-21 │     5.38e-01 │     21 │
+│ Generic │    max_iter │ -8.36e+00 │     5.09e-01 │    100 │
+│ Generic │ first_order │  1.43e+00 │     4.88e-01 │      5 │
 └─────────┴─────────────┴───────────┴──────────────┴────────┘
 ```
 
