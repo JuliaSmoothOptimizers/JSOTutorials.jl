@@ -7,8 +7,8 @@ tags:
 ---
 
 ![GR 0.71.8](https://img.shields.io/badge/GR-0.71.8-000?style=flat-square&labelColor=999)
-[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-[![NLPModelsIpopt 0.10.0](https://img.shields.io/badge/NLPModelsIpopt-0.10.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![NLPModelsIpopt 0.10.1](https://img.shields.io/badge/NLPModelsIpopt-0.10.1-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/)
 ![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
 ![Plots 1.38.8](https://img.shields.io/badge/Plots-1.38.8-000?style=flat-square&labelColor=999)
 ![Ipopt 1.2.0](https://img.shields.io/badge/Ipopt-1.2.0-000?style=flat-square&labelColor=999)
@@ -101,7 +101,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 0
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 21
-Total seconds in IPOPT                               = 5.590
+Total seconds in IPOPT                               = 5.610
 
 EXIT: Optimal Solution Found.
 Generic Execution stats
@@ -111,9 +111,9 @@ Generic Execution stats
   dual feasibility: 3.732500974666708e-10
   solution: [0.9999999999400667  0.9999999998789006]
   iterations: 21
-  elapsed time: 5.59
+  elapsed time: 5.61
   solver specific:
-    real_time: 5.590451955795288
+    real_time: 5.6110169887542725
     internal_msg: :Solve_Succeeded
 ```
 
@@ -193,7 +193,7 @@ Number of inequality constraint evaluations          = 0
 Number of equality constraint Jacobian evaluations   = 0
 Number of inequality constraint Jacobian evaluations = 0
 Number of Lagrangian Hessian evaluations             = 21
-Total seconds in IPOPT                               = 2.596
+Total seconds in IPOPT                               = 2.670
 
 EXIT: Optimal Solution Found.
 ```
@@ -225,9 +225,9 @@ Generic Execution stats
   solution: [-0.9505563573613093  0.9139008176388945  0.9890905176644905  0.9985592422681151 ⋯ 0.999999930070643]
   multipliers: [4.1358568305002255  -1.8764949037033418  -0.06556333356358675  -0.021931863018312864 ⋯ -7.3765921628237065e-6]
   iterations: 6
-  elapsed time: 9.087
+  elapsed time: 9.125
   solver specific:
-    real_time: 9.087623119354248
+    real_time: 9.125166893005371
     internal_msg: :Solve_Succeeded
 ```
 
