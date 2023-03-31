@@ -7,12 +7,12 @@ tags:
   - "percival"
 ---
 
-[![Percival 0.6.4](https://img.shields.io/badge/Percival-0.6.4-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/Percival.jl/stable/)
-[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-[![NLPModelsJuMP 0.12.0](https://img.shields.io/badge/NLPModelsJuMP-0.12.0-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModelsJuMP.jl/stable/)
-![Plots 1.38.5](https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff")
-![JuMP 1.7.0](https://img.shields.io/badge/JuMP-1.7.0-000?style=flat-square&labelColor=fff")
-[![JSOSolvers 0.9.4](https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826")](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+[![Percival 0.6.5](https://img.shields.io/badge/Percival-0.6.5-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/Percival.jl/stable/)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![NLPModelsJuMP 0.12.1](https://img.shields.io/badge/NLPModelsJuMP-0.12.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModelsJuMP.jl/stable/)
+![Plots 1.38.8](https://img.shields.io/badge/Plots-1.38.8-000?style=flat-square&labelColor=999)
+![JuMP 1.9.0](https://img.shields.io/badge/JuMP-1.9.0-000?style=flat-square&labelColor=999)
+[![JSOSolvers 0.10.0](https://img.shields.io/badge/JSOSolvers-0.10.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 
 
@@ -85,7 +85,7 @@ Generic Execution stats
   dual feasibility: 8.338702542070883e-9
   solution: [0.9999999917126897  0.9999999825882647  0.9999999997312826  0.999999999455177 ⋯ 1.0000000026501263]
   iterations: 18
-  elapsed time: 2.3076648712158203
+  elapsed time: 2.28700590133667
 ```
 
 
@@ -156,7 +156,7 @@ Generic Execution stats
   dual feasibility: 1.4364101353965366e-10
   solution: [0.9999999999573873  0.9999999999104003  0.999999999934689  0.9999999998670257 ⋯ 0.999999999938523]
   iterations: 18
-  elapsed time: 0.0009140968322753906
+  elapsed time: 0.0009121894836425781
 ```
 
 
