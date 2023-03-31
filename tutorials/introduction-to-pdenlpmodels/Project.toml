@@ -11,7 +11,7 @@ PDENLPModels = "80da258d-c172-4540-9646-64f172512520"
 [compat]
 DCISolver = "0.4.2"
 Gridap = "0.15"
-JSOSolvers = "0.9.4"
+JSOSolvers = "0.10"
 NLPModels = "0.19.2"
 NLPModelsIpopt = "0.10.0"
 NLPModelsModifiers = "0.6.3"
