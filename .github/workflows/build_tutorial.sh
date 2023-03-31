@@ -16,6 +16,11 @@ MD_FILE=markdown/$folder_without_tutorial_prefix/$file_change_suffix
 OUTPUT_FILE=parsed/$folder_without_tutorial_prefix/$file_change_suffix
 mkdir -p $(dirname $OUTPUT_FILE)
 
+if [ -d "$folder/assets" ]; then
+  mkdir -p "markdown/$folder_without_tutorial_prefix/assets/"
+  cp -r "$folder/assets/"* "markdown/$folder_without_tutorial_prefix/assets/"
+fi
+
 echo ">> Weaving $file in $folder"
 julia --project -e """
 using Pkg;
@@ -30,11 +35,6 @@ JSOTutorials.parse_markdown_into_franklin(\"$MD_FILE\", \"$OUTPUT_FILE\")
 if [ -d "$folder/figures" ]; then
   mkdir -p "markdown/$folder_without_tutorial_prefix/figures/"
   cp -r "$folder/figures/"* "markdown/$folder_without_tutorial_prefix/figures/"
-fi
-
-if [ -d "$folder/assets" ]; then
-  mkdir -p "markdown/$folder_without_tutorial_prefix/assets/"
-  cp -r "$folder/assets/"* "markdown/$folder_without_tutorial_prefix/assets/"
 fi
 
 if [ -d "markdown/$folder_without_tutorial_prefix/figures" ]; then
