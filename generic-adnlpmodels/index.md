@@ -10,10 +10,10 @@ tags:
 
 [![OptimizationProblems 0.6.0](https://img.shields.io/badge/OptimizationProblems-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
 ![ForwardDiff 0.10.35](https://img.shields.io/badge/ForwardDiff-0.10.35-000?style=flat-square&labelColor=999)
-[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
 ![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
 [![ADNLPModels 0.6.0](https://img.shields.io/badge/ADNLPModels-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
-[![JSOSolvers 0.9.4](https://img.shields.io/badge/JSOSolvers-0.9.4-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+[![JSOSolvers 0.10.0](https://img.shields.io/badge/JSOSolvers-0.10.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
@@ -47,7 +47,7 @@ Generic Execution stats
   dual feasibility: 0.031313986
   solution: [0.9810229f0  0.9622698f0]
   iterations: 33
-  elapsed time: 2.4058539867401123
+  elapsed time: 3.010236978530884
 ```
 
 
@@ -160,8 +160,8 @@ adbackend.gradient_backend # returns information about the default backend for t
 ```
 ADNLPModels.ForwardDiffADGradient(ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2, Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##Wea
 veSandBox#312".f), Float64}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2}[Dual{ForwardDiff.Tag
-{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.89942852790306e-310,6.89938714390766e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.89942852790306e-310,6.
-89938714269977e-310)]))
+{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90342216580734e-310,6.90342216438917e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90342216580734e-310,6.
+9034225226184e-310)]))
 ```
 
 
