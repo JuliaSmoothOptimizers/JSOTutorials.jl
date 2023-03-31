@@ -8,6 +8,6 @@ OptimizationProblems = "5049e819-d29b-5fba-b941-0eee7e64c1c6"
 [compat]
 ADNLPModels = "0.6"
 JuMP = "1.1"
-NLPModels = "0.19"
+NLPModels = "0.20"
 NLPModelsJuMP = "0.12"
 OptimizationProblems = "0.6"
