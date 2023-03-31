@@ -7,7 +7,7 @@ tags:
   - "manual"
 ---
 
-[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
 [![ADNLPModels 0.6.0](https://img.shields.io/badge/ADNLPModels-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 
 
@@ -181,8 +181,8 @@ d = -H(x)\g(x)
 
 ```
 2-element Vector{Float64}:
- 0.0247191011235955
- 0.38067415730337073
+ 0.02471910112359558
+ 0.3806741573033705
 ```
 
 
@@ -200,11 +200,11 @@ end
 ```
 
 ```
-x = [-1.1752808988764045, 1.3806741573033707]
-x = [0.763114871176314, -3.1750338547478294]
-x = [0.7634296788839187, 0.5828247754969103]
-x = [0.9999953110849887, 0.9440273238532714]
-x = [0.9999956956536669, 0.9999913913257132]
+x = [-1.1752808988764043, 1.3806741573033705]
+x = [0.7631148711767448, -3.1750338547488415]
+x = [0.7634296788843487, 0.5828247754975671]
+x = [0.9999953110849988, 0.9440273238534903]
+x = [0.999995695653676, 0.9999913913257314]
 ```
 
 
