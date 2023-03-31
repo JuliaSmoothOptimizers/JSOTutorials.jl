@@ -115,10 +115,11 @@ qmSlack = SlackModel(qmCOO)
 ## Read MPS/SIF files
 
 You can read directly MPS or SIF files using [`QPSReader.jl`](https://github.com/JuliaSmoothOptimizers/QPSReader.jl)
+in order to read convex quadratic problems in MPS or SIF formats.
 
 ```julia
 using QPSReader
-qps = readqps("AFIRO.SIF")
+qps = readqps("assets/AFIRO.SIF")
 qmCOO4 = QuadraticModel(qps)
 ```
 
