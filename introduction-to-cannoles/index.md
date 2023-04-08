@@ -35,7 +35,7 @@ Find below a list of the main options of `cannoles`.
 
 | Parameters           | Type          | Default           | Description                                        |
 | -------------------- | ------------- | ----------------- | -------------------------------------------------- |
-| ϵtol                 | AbstractFloat | `√eps(eltype(x))` | tolerance                                          |
+| rtol                 | AbstractFloat | `√eps(eltype(x))` | tolerance                                          |
 | unbounded_threshold  | AbstractFloat | `-1e5`            | below this threshold the problem is unbounded      |
 | max_f                | Integer       | `100000`          | evaluation limit, e.g. `sum_counters(nls) > max_f` |
 | max_time             | AbstractFloat | `30.0`            | maximum number of seconds                          |
@@ -61,19 +61,11 @@ using CaNNOLeS, ADNLPModels
 
 # Rosenbrock
 nls = ADNLSModel(x -> [x[1] - 1; 10 * (x[2] - x[1]^2)], [-1.2; 1.0], 2)
-stats = cannoles(nls, ϵtol = 1e-5, x = ones(2))
+stats = cannoles(nls, rtol = 1e-5, x = ones(2))
 ```
 
 ```
-Error: MethodError: no method matching solve!(::CaNNOLeS.CaNNOLeSSolver{Int64, Float64, Vector{Float64}, CaNNOLeS.LDLFactStruct{Float64, Int64}, CaNNOLeS.Newton{Int64}}, ::ADNLPModels.ADNLSModel{Float
-64, Vector{Float64}, Vector{Int64}}, ::SolverCore.GenericExecutionStats{Float64, Vector{Float64}, Vector{Float64}, Any}; ϵtol=1.0e-5, x=[1.0, 1.0])
-Closest candidates are:
-  solve!(::CaNNOLeS.CaNNOLeSSolver{Ti, T, V, F, M}, ::NLPModels.AbstractNLSModel{T, V}, ::SolverCore.GenericExecutionStats{T, V, V}; callback, x, λ, use_initial_multiplier, max_iter, max_eval, max_tim
-e, max_inner, atol, rtol, Fatol, Frtol, verbose, always_accept_extrapolation, δdec) where {Ti, T, V, F, M<:CaNNOLeS.HessianStruct{Ti}} at ~/.julia/packages/CaNNOLeS/rqvBl/src/CaNNOLeS.jl:428 got unsup
-ported keyword argument "ϵtol"
-  solve!(::SolverCore.AbstractOptimizationSolver, ::NLPModels.AbstractNLPModel, ::SolverCore.GenericExecutionStats; kwargs...) at ~/.julia/packages/SolverCore/iOwNg/src/solver.jl:43
-  solve!(::SolverCore.AbstractOptimizationSolver, ::NLPModels.AbstractNLPModel; kwargs...) at ~/.julia/packages/SolverCore/iOwNg/src/solver.jl:38
-  ...
+"Execution stats: first-order stationary"
 ```
 
 
