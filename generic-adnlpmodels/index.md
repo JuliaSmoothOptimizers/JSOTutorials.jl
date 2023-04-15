@@ -8,11 +8,11 @@ tags:
   - "tests"
 ---
 
-[![OptimizationProblems 0.6.0](https://img.shields.io/badge/OptimizationProblems-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
+[![OptimizationProblems 0.7.0](https://img.shields.io/badge/OptimizationProblems-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
 ![ForwardDiff 0.10.35](https://img.shields.io/badge/ForwardDiff-0.10.35-000?style=flat-square&labelColor=999)
 [![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
 ![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
-[![ADNLPModels 0.6.0](https://img.shields.io/badge/ADNLPModels-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![ADNLPModels 0.6.1](https://img.shields.io/badge/ADNLPModels-0.6.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 [![JSOSolvers 0.10.0](https://img.shields.io/badge/JSOSolvers-0.10.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 ```julia
@@ -47,7 +47,7 @@ Generic Execution stats
   dual feasibility: 0.031313986
   solution: [0.9810229f0  0.9622698f0]
   iterations: 33
-  elapsed time: 3.010236978530884
+  elapsed time: 2.626713991165161
 ```
 
 
@@ -160,8 +160,8 @@ adbackend.gradient_backend # returns information about the default backend for t
 ```
 ADNLPModels.ForwardDiffADGradient(ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2, Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##Wea
 veSandBox#312".f), Float64}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2}[Dual{ForwardDiff.Tag
-{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90342216580734e-310,6.90342216438917e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90342216580734e-310,6.
-9034225226184e-310)]))
+{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90760476623716e-310,6.9075716155398e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90760476623716e-310,6.9
+0757161300863e-310)]))
 ```
 
 
@@ -277,7 +277,7 @@ OptimizationProblems.meta[!, :name] # access the names of the available  problem
 ```
 
 ```
-277-element Vector{String}:
+286-element Vector{String}:
  "AMPGO02"
  "AMPGO03"
  "AMPGO04"
@@ -289,13 +289,13 @@ OptimizationProblems.meta[!, :name] # access the names of the available  problem
  "AMPGO10"
  "AMPGO11"
  ⋮
- "tquartic"
  "triangle"
  "triangle_deer"
  "triangle_pacman"
  "triangle_turtle"
  "tridia"
  "vardim"
+ "watson"
  "woods"
  "zangwil3"
 ```
