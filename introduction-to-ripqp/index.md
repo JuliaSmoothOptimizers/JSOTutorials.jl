@@ -8,15 +8,16 @@ tags:
   - "solver"
 ---
 
-![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=999)
+![JSON 0.21.4](https://img.shields.io/badge/JSON-0.21.4-000?style=flat-square&labelColor=999)
 ![MatrixMarket 0.3.1](https://img.shields.io/badge/MatrixMarket-0.3.1-000?style=flat-square&labelColor=999)
 [![RipQP 0.6.2](https://img.shields.io/badge/RipQP-0.6.2-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/RipQP.jl/stable/)
-[![SparseMatricesCOO 0.2.1](https://img.shields.io/badge/SparseMatricesCOO-0.2.1-4b0082?style=flat-square&labelColor=9558b2)](https://juliasmoothoptimizers.github.io/SparseMatricesCOO.jl/stable/)
+![DelimitedFiles 1.9.1](https://img.shields.io/badge/DelimitedFiles-1.9.1-000?style=flat-square&labelColor=999)
 [![QuadraticModels 0.9.4](https://img.shields.io/badge/QuadraticModels-0.9.4-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/QuadraticModels.jl/stable/)
-![Plots 1.38.8](https://img.shields.io/badge/Plots-1.38.8-000?style=flat-square&labelColor=999)
+[![SparseMatricesCOO 0.2.1](https://img.shields.io/badge/SparseMatricesCOO-0.2.1-4b0082?style=flat-square&labelColor=9558b2)](https://juliasmoothoptimizers.github.io/SparseMatricesCOO.jl/stable/)
+![Plots 1.38.15](https://img.shields.io/badge/Plots-1.38.15-000?style=flat-square&labelColor=999)
 [![QPSReader 0.2.1](https://img.shields.io/badge/QPSReader-0.2.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/QPSReader.jl/stable/)
 [![LDLFactorizations 0.10.0](https://img.shields.io/badge/LDLFactorizations-0.10.0-4b0082?style=flat-square&labelColor=9558b2)](https://juliasmoothoptimizers.github.io/LDLFactorizations.jl/stable/)
-![TimerOutputs 0.5.22](https://img.shields.io/badge/TimerOutputs-0.5.22-000?style=flat-square&labelColor=999)
+![TimerOutputs 0.5.23](https://img.shields.io/badge/TimerOutputs-0.5.23-000?style=flat-square&labelColor=999)
 
 
 
@@ -98,7 +99,7 @@ Generic Execution stats
   multipliers_L: [0.0  4.5  0.0]
   multipliers_U: [5.0  0.0  0.0]
   iterations: 0
-  elapsed time: 0.013229131698608398
+  elapsed time: 0.015221118927001953
   solver specific:
     presolvedQM: nothing
     psoperations: [QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(1, 0.0, -8.0)  QuadraticModels.RemoveIfix{Float64, Vector{Float64}}(3, 0.0, -3.0)  QuadraticModels.EmptyRow{Float64, Vector{Floa
@@ -260,7 +261,7 @@ stats1.elapsed_time
 ```
 
 ```
-0.1744379997253418
+0.16805005073547363
 ```
 
 
@@ -282,11 +283,11 @@ show(RipQP.to, sortby = :firstexec)
 ──────────────────────────────────────────────────────────────────────
                               Time                    Allocations      
                      ───────────────────────   ────────────────────────
-  Tot / % measured:       1.02s /   0.0%           43.9MiB /   0.0%    
+  Tot / % measured:       323ms /   0.0%           22.6MiB /   0.0%    
 
  Section     ncalls     time    %tot     avg     alloc    %tot      avg
  ──────────────────────────────────────────────────────────────────────
- factorize       10   41.3μs  100.0%  4.13μs     0.00B     - %    0.00B
+ factorize       10   40.3μs  100.0%  4.03μs     0.00B     - %    0.00B
  ──────────────────────────────────────────────────────────────────────
 ```
 
