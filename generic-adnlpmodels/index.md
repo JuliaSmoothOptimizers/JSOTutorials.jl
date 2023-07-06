@@ -8,12 +8,12 @@ tags:
   - "tests"
 ---
 
-[![OptimizationProblems 0.7.0](https://img.shields.io/badge/OptimizationProblems-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
+[![OptimizationProblems 0.7.1](https://img.shields.io/badge/OptimizationProblems-0.7.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
 ![ForwardDiff 0.10.35](https://img.shields.io/badge/ForwardDiff-0.10.35-000?style=flat-square&labelColor=999)
 [![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
 ![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
-[![ADNLPModels 0.6.1](https://img.shields.io/badge/ADNLPModels-0.6.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
-[![JSOSolvers 0.10.0](https://img.shields.io/badge/JSOSolvers-0.10.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+[![ADNLPModels 0.6.2](https://img.shields.io/badge/ADNLPModels-0.6.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
@@ -42,12 +42,12 @@ print(stats)
 ```
 Generic Execution stats
   status: first-order stationary
-  objective value: 0.00036198387
+  objective value: 0.00035444953
   primal feasibility: 0.0
-  dual feasibility: 0.031313986
-  solution: [0.9810229f0  0.9622698f0]
+  dual feasibility: 0.029705668
+  solution: [0.98121893f0  0.9626594f0]
   iterations: 33
-  elapsed time: 2.626713991165161
+  elapsed time: 4.727682113647461
 ```
 
 
@@ -63,8 +63,8 @@ grad(nlp, x16)
 
 ```
 Error: Invalid Tag object:
-  Expected ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float16},
-  Observed ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float32}.
+  Expected ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float16},
+  Observed ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float32}.
 ```
 
 
@@ -96,8 +96,8 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseForwardADJacobian,
-  ForwardDiffADHessian,
+  SparseADJacobian,
+  SparseADHessian,
   ForwardDiffADGHjvprod,
 }
   Problem name: Generic
@@ -158,10 +158,10 @@ adbackend.gradient_backend # returns information about the default backend for t
 ```
 
 ```
-ADNLPModels.ForwardDiffADGradient(ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2, Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##Wea
-veSandBox#312".f), Float64}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}, Float64, 2}[Dual{ForwardDiff.Tag
-{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90760476623716e-310,6.9075716155398e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#312".f), Float64}}(0.0,6.90760476623716e-310,6.9
-0757161300863e-310)]))
+ADNLPModels.ForwardDiffADGradient(ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}, Float64, 2, Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##Wea
+veSandBox#292".f), Float64}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}, Float64, 2}[Dual{ForwardDiff.Tag
+{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(0.0,6.93607390331406e-310,6.93605117398766e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(0.0,6.93607390331406e-310,6.
+93605117332206e-310)]))
 ```
 
 
@@ -195,12 +195,12 @@ nlp = ADNLPModel(f, x0, gradient_backend = GenericGradientBackend)
 
 ```
 ADNLPModel - Model with automatic differentiation backend ADModelBackend{
-  Main.var"##WeaveSandBox#312".GenericGradientBackend,
+  Main.var"##WeaveSandBox#292".GenericGradientBackend,
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseForwardADJacobian,
-  ForwardDiffADHessian,
+  SparseADJacobian,
+  SparseADHessian,
   ForwardDiffADGHjvprod,
 }
   Problem name: Generic
@@ -277,7 +277,7 @@ OptimizationProblems.meta[!, :name] # access the names of the available  problem
 ```
 
 ```
-286-element Vector{String}:
+288-element Vector{String}:
  "AMPGO02"
  "AMPGO03"
  "AMPGO04"
@@ -289,12 +289,12 @@ OptimizationProblems.meta[!, :name] # access the names of the available  problem
  "AMPGO10"
  "AMPGO11"
  ⋮
- "triangle"
  "triangle_deer"
  "triangle_pacman"
  "triangle_turtle"
  "tridia"
  "vardim"
+ "vibrbeam"
  "watson"
  "woods"
  "zangwil3"
@@ -316,12 +316,12 @@ nlp = eval(name)(type = Val(T), gradient_backend = GenericGradientBackend)
 
 ```
 ADNLPModel - Model with automatic differentiation backend ADModelBackend{
-  Main.var"##WeaveSandBox#312".GenericGradientBackend,
+  Main.var"##WeaveSandBox#292".GenericGradientBackend,
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseForwardADJacobian,
-  ForwardDiffADHessian,
+  SparseADJacobian,
+  SparseADHessian,
   ForwardDiffADGHjvprod,
 }
   Problem name: hs68
@@ -332,7 +332,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
          low/upp: ████████████████████ 4              low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                fixed: ████████████████████ 2     
           infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
-            nnzh: (  0.00% sparsity)   10              linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+            nnzh: ( 40.00% sparsity)   6               linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                     nonlinear: ████████████████████ 2     
                                                          nnzj: ( 50.00% sparsity)   4     
 
