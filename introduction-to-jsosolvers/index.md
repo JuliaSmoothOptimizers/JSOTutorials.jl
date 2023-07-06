@@ -7,12 +7,12 @@ tags:
   - "models"
 ---
 
-![CSV 0.10.9](https://img.shields.io/badge/CSV-0.10.9-000?style=flat-square&labelColor=999)
+![CSV 0.10.11](https://img.shields.io/badge/CSV-0.10.11-000?style=flat-square&labelColor=999)
 [![SolverCore 0.3.7](https://img.shields.io/badge/SolverCore-0.3.7-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/)
 ![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
-![Plots 1.38.8](https://img.shields.io/badge/Plots-1.38.8-000?style=flat-square&labelColor=999)
-[![ADNLPModels 0.6.0](https://img.shields.io/badge/ADNLPModels-0.6.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
-[![JSOSolvers 0.10.0](https://img.shields.io/badge/JSOSolvers-0.10.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+![Plots 1.38.16](https://img.shields.io/badge/Plots-1.38.16-000?style=flat-square&labelColor=999)
+[![ADNLPModels 0.6.2](https://img.shields.io/badge/ADNLPModels-0.6.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 
 
@@ -156,8 +156,8 @@ ADNLSModel - Nonlinear least-squares model with automatic differentiation backen
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseForwardADJacobian,
-  ForwardDiffADHessian,
+  SparseADJacobian,
+  SparseADHessian,
   ForwardDiffADGHjvprod,
 }
   Problem name: Generic
