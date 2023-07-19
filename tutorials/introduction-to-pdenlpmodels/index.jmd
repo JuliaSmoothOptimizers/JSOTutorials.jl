@@ -91,7 +91,7 @@ By default, JSO-compliant solvers use `get_x0(nlp)` as an initial guess.
 using JSOSolvers, NLPModelsModifiers
 
 nls = FeasibilityResidual(nlp)
-stats_trunk = trunk(nls)
+stats_trunk = trunk(nls, max_time = 120.0)
 ```
 
 We check the solution from the stats returned by `trunk`:
