@@ -9,9 +9,9 @@ tags:
 
 ![CSV 0.10.11](https://img.shields.io/badge/CSV-0.10.11-000?style=flat-square&labelColor=999)
 [![SolverCore 0.3.7](https://img.shields.io/badge/SolverCore-0.3.7-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/)
-![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
+![DataFrames 1.6.0](https://img.shields.io/badge/DataFrames-1.6.0-000?style=flat-square&labelColor=999)
 ![Plots 1.38.16](https://img.shields.io/badge/Plots-1.38.16-000?style=flat-square&labelColor=999)
-[![ADNLPModels 0.6.2](https://img.shields.io/badge/ADNLPModels-0.6.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+[![ADNLPModels 0.7.0](https://img.shields.io/badge/ADNLPModels-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 [![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 
@@ -154,11 +154,11 @@ nls = ADNLSModel(F, β0, ndata)
 ADNLSModel - Nonlinear least-squares model with automatic differentiation backend ADModelBackend{
   ForwardDiffADGradient,
   ForwardDiffADHvprod,
-  ForwardDiffADJprod,
-  ForwardDiffADJtprod,
-  SparseADJacobian,
-  SparseADHessian,
-  ForwardDiffADGHjvprod,
+  EmptyADbackend,
+  EmptyADbackend,
+  EmptyADbackend,
+  ForwardDiffADHessian,
+  EmptyADbackend,
 }
   Problem name: Generic
    All variables: ████████████████████ 7      All constraints: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0        All residuals: ████████████████████ 37    
