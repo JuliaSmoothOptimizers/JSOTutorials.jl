@@ -11,8 +11,8 @@ tags:
 [![OptimizationProblems 0.7.1](https://img.shields.io/badge/OptimizationProblems-0.7.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
 ![ForwardDiff 0.10.35](https://img.shields.io/badge/ForwardDiff-0.10.35-000?style=flat-square&labelColor=999)
 [![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
-[![ADNLPModels 0.6.2](https://img.shields.io/badge/ADNLPModels-0.6.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
+![DataFrames 1.6.0](https://img.shields.io/badge/DataFrames-1.6.0-000?style=flat-square&labelColor=999)
+[![ADNLPModels 0.7.0](https://img.shields.io/badge/ADNLPModels-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
 [![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
 
 ```julia
@@ -42,12 +42,12 @@ print(stats)
 ```
 Generic Execution stats
   status: first-order stationary
-  objective value: 0.00035444953
+  objective value: 0.00036198387
   primal feasibility: 0.0
-  dual feasibility: 0.029705668
-  solution: [0.98121893f0  0.9626594f0]
+  dual feasibility: 0.031313986
+  solution: [0.9810229f0  0.9622698f0]
   iterations: 33
-  elapsed time: 4.727682113647461
+  elapsed time: 4.806403875350952
 ```
 
 
@@ -94,11 +94,11 @@ nlp = ADNLPModel(f, x0)
 ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   ForwardDiffADGradient,
   ForwardDiffADHvprod,
-  ForwardDiffADJprod,
-  ForwardDiffADJtprod,
-  SparseADJacobian,
-  SparseADHessian,
-  ForwardDiffADGHjvprod,
+  EmptyADbackend,
+  EmptyADbackend,
+  EmptyADbackend,
+  ForwardDiffADHessian,
+  EmptyADbackend,
 }
   Problem name: Generic
    All variables: ████████████████████ 2      All constraints: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
@@ -160,8 +160,8 @@ adbackend.gradient_backend # returns information about the default backend for t
 ```
 ADNLPModels.ForwardDiffADGradient(ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}, Float64, 2, Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##Wea
 veSandBox#292".f), Float64}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}, Float64, 2}[Dual{ForwardDiff.Tag
-{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(0.0,6.93607390331406e-310,6.93605117398766e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(0.0,6.93607390331406e-310,6.
-93605117332206e-310)]))
+{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(6.93235314625877e-310,0.0,6.9323566655342e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(0.0,6.93238838587515e-310,0.0
+)]))
 ```
 
 
@@ -197,11 +197,11 @@ nlp = ADNLPModel(f, x0, gradient_backend = GenericGradientBackend)
 ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   Main.var"##WeaveSandBox#292".GenericGradientBackend,
   ForwardDiffADHvprod,
-  ForwardDiffADJprod,
-  ForwardDiffADJtprod,
-  SparseADJacobian,
-  SparseADHessian,
-  ForwardDiffADGHjvprod,
+  EmptyADbackend,
+  EmptyADbackend,
+  EmptyADbackend,
+  ForwardDiffADHessian,
+  EmptyADbackend,
 }
   Problem name: Generic
    All variables: ████████████████████ 2      All constraints: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
@@ -320,8 +320,8 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  SparseADJacobian,
-  SparseADHessian,
+  ForwardDiffADJacobian,
+  ForwardDiffADHessian,
   ForwardDiffADGHjvprod,
 }
   Problem name: hs68
@@ -332,9 +332,9 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
          low/upp: ████████████████████ 4              low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                fixed: ████████████████████ 2     
           infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
-            nnzh: ( 40.00% sparsity)   6               linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+            nnzh: (  0.00% sparsity)   10              linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                     nonlinear: ████████████████████ 2     
-                                                         nnzj: ( 50.00% sparsity)   4     
+                                                         nnzj: (  0.00% sparsity)   8     
 
   Counters:
              obj: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                 grad: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                 cons: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
