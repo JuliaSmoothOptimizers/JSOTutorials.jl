@@ -28,18 +28,24 @@ Find below a list of the main options of `cannoles`.
 
 | Parameters           | Type          | Default           | Description                                        |
 | -------------------- | ------------- | ----------------- | -------------------------------------------------- |
-| rtol                 | AbstractFloat | `√eps(eltype(x))` | tolerance                                          |
+| atol                 | AbstractFloat | `√eps(eltype(x))` | absolute tolerance                                        |
+| rtol                 | AbstractFloat | `√eps(eltype(x))` | relative tolerance: the algorithm uses `ϵtol := atol + rtol * ‖∇F(x⁰)ᵀF(x⁰) - ∇c(x⁰)ᵀλ⁰‖` |
+| Fatol                | AbstractFloat | `√eps(eltype(x))` | absolute tolerance on the residual                                       |
+| Frtol                | AbstractFloat | `√eps(eltype(x))` |relative tolerance on the residual, the algorithm stops when ‖F(xᵏ)‖ ≤ Fatol + Frtol * ‖F(x⁰)‖  and ‖c(xᵏ)‖∞ ≤ √ϵtol |
 | unbounded_threshold  | AbstractFloat | `-1e5`            | below this threshold the problem is unbounded      |
-| max_f                | Integer       | `100000`          | evaluation limit, e.g. `sum_counters(nls) > max_f` |
+| max_eval             | Integer       | `100000`          | maximum number of evaluations computed by `neval_residual(nls) + neval_cons(nls)` |
+| max_iter             | Integer       | `-1`              | maximum number of iterations                       |
 | max_time             | AbstractFloat | `30.0`            | maximum number of seconds                          |
-| max_inner            | Integer       | `10000`           | maximum number of iterations                       |
+| max_inner            | Integer       | `10000`           | maximum number of inner iterations (return stalled if this limit is reached) |
+| verbose              | Integer       | `0`               | if > 0, display iteration details every `verbose` iteration |
 
 ### Algorithmic parameters
 
 | Parameters                  | Type           | Default             | Description                                        |
 | --------------------------- | -------------- | ------------------- | -------------------------------------------------- |
 | x                           | AbstractVector | `nls.meta.x0`       | initial guess |
-| λ                           | AbstractVector | `eltype(x)[]`       | initial guess for the Lagrange mutlipliers |
+| λ                           | AbstractVector | `nls.meta.y0`       | initial guess for the Lagrange mutlipliers |
+| use_initial_multiplier      | Bool           | `false`             | if `true` use `λ` for the initial stopping tests |
 | method                      | Symbol         | `:Newton`           | method to compute direction, `:Newton`, `:LM`, `:Newton_noFHess`, or `:Newton_vanishing` |
 | linsolve                    | Symbol         | `:ma57`             | solver use to compute the factorization: `:ma57`, `:ma97`, `:ldlfactorizations` |
 | verbose                     | Int            | `0`                 | if > 0, display iteration details every `verbose` iteration |
