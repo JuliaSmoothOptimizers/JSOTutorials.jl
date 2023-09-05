@@ -1,6 +1,6 @@
 ## JSOTutorials preview page
 
-For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.io/tutorials/>.
+For the complete list of tutorials, go to <https://jso.dev/tutorials/>.
 
 
 - [Test allocations of NLPModels](check-allocations-nlpmodels/)

@@ -10,9 +10,9 @@ tags:
   - "bundle adjustment"
 ---
 
-[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-[![BundleAdjustmentModels 0.3.1](https://img.shields.io/badge/BundleAdjustmentModels-0.3.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/stable/)
-![DataFrames 1.5.0](https://img.shields.io/badge/DataFrames-1.5.0-000?style=flat-square&labelColor=999)
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
+[![BundleAdjustmentModels 0.3.2](https://img.shields.io/badge/BundleAdjustmentModels-0.3.2-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/BundleAdjustmentModels.jl/stable/)
+![DataFrames 1.3.6](https://img.shields.io/badge/DataFrames-1.3.6-000?style=flat-square&labelColor=999)
 
 
 
@@ -41,14 +41,27 @@ df = problems_df()
 ```
 
 ```
-JLD2.ReconstructedTypes.var"##DataFrames.DataFrame#313"(AbstractVector[["problem-16-22106-pre", "problem-88-64298-pre", "problem-135-90642-pre", "problem-142-93602-pre", "problem-150-95821-pre", "prob
-lem-161-103832-pre", "problem-173-111908-pre", "problem-182-116770-pre", "problem-202-132796-pre", "problem-237-154414-pre"  …  "problem-744-543562-pre", "problem-951-708276-pre", "problem-1102-780462
--pre", "problem-1158-802917-pre", "problem-1184-816583-pre", "problem-1238-843534-pre", "problem-1288-866452-pre", "problem-1350-894716-pre", "problem-1408-912229-pre", "problem-1778-993923-pre"], ["d
-ubrovnik", "dubrovnik", "dubrovnik", "dubrovnik", "dubrovnik", "dubrovnik", "dubrovnik", "dubrovnik", "dubrovnik", "dubrovnik"  …  "venice", "venice", "venice", "venice", "venice", "venice", "venice",
- "venice", "venice", "venice"], [167436, 767874, 1106672, 1131216, 1136238, 1184038, 1269140, 1337410, 1503304, 1716662  …  6117726, 7497784, 8104680, 8261006, 8358094, 8581006, 8766012, 9034252, 9269
-060, 10003892], [66462, 193686, 273141, 282084, 288813, 312945, 337281, 351948, 400206, 465375  …  1637382, 2133387, 2351304, 2419173, 2460405, 2541744, 2610948, 2696298, 2749359, 2997771], [2009232, 
-9214488, 13280064, 13574592, 13634856, 14208456, 15229680, 16048920, 18039648, 20599944  …  73412712, 89973408, 97256160, 99132072, 100297128, 102972072, 105192144, 108411024, 111228720, 120046704]], 
-DataFrames.Index(Dict(:nnzj => 5, :group => 2, :nequ => 3, :name => 1, :nvar => 4), [:name, :group, :nequ, :nvar, :nnzj]))
+74×5 DataFrame
+ Row │ name                     group      nequ      nvar     nnzj
+     │ String                   String     Int64     Int64    Int64
+─────┼──────────────────────────────────────────────────────────────────
+   1 │ problem-16-22106-pre     dubrovnik    167436    66462    2009232
+   2 │ problem-88-64298-pre     dubrovnik    767874   193686    9214488
+   3 │ problem-135-90642-pre    dubrovnik   1106672   273141   13280064
+   4 │ problem-142-93602-pre    dubrovnik   1131216   282084   13574592
+   5 │ problem-150-95821-pre    dubrovnik   1136238   288813   13634856
+   6 │ problem-161-103832-pre   dubrovnik   1184038   312945   14208456
+   7 │ problem-173-111908-pre   dubrovnik   1269140   337281   15229680
+   8 │ problem-182-116770-pre   dubrovnik   1337410   351948   16048920
+  ⋮  │            ⋮                 ⋮         ⋮         ⋮         ⋮
+  68 │ problem-1158-802917-pre  venice      8261006  2419173   99132072
+  69 │ problem-1184-816583-pre  venice      8358094  2460405  100297128
+  70 │ problem-1238-843534-pre  venice      8581006  2541744  102972072
+  71 │ problem-1288-866452-pre  venice      8766012  2610948  105192144
+  72 │ problem-1350-894716-pre  venice      9034252  2696298  108411024
+  73 │ problem-1408-912229-pre  venice      9269060  2749359  111228720
+  74 │ problem-1778-993923-pre  venice     10003892  2997771  120046704
+                                                         59 rows omitted
 ```
 
 
@@ -62,7 +75,12 @@ filter_df = df[ ( df.nequ .≥ 50000 ) .& ( df.nvar .≤ 34000 ), :]
 ```
 
 ```
-Error: type ##DataFrames.DataFrame#313 has no field nequ
+2×5 DataFrame
+ Row │ name                  group    nequ   nvar   nnzj
+     │ String                String   Int64  Int64  Int64
+─────┼──────────────────────────────────────────────────────
+   1 │ problem-49-7776-pre   ladybug  63686  23769   764232
+   2 │ problem-73-11032-pre  ladybug  92244  33753  1106928
 ```
 
 
@@ -71,7 +89,7 @@ Error: type ##DataFrames.DataFrame#313 has no field nequ
 
 The `Dataframe` is listing the matrices that you can have access to, but they still need to be downloaded.
 
-Following the example above, we filtered two problems. 
+Following the example above, we filtered two problems.
 What we want to do now is to select the first one in the listing.
 
 ```julia
@@ -79,7 +97,7 @@ name = filter_df[1, :name] # select the name of the first problem
 ```
 
 ```
-Error: UndefVarError: filter_df not defined
+"problem-49-7776-pre"
 ```
 
 
@@ -89,7 +107,7 @@ Error: UndefVarError: filter_df not defined
 Now that the name is selected, we need to access the problem itself, and there are 2 solutions:
 
 - You can download the problem's archive file;
-- You can automatically create a nonlinear least squares problem using [`NLPModels`](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) from [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io/).
+- You can automatically create a nonlinear least squares problem using [`NLPModels`](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) from [JuliaSmoothOptimizers](https://jso.dev/).
 
 ## Get the problem archive file
 
@@ -99,21 +117,21 @@ This package uses Julia Artifacts to handle the problems archives so that
 2. They are identified with a unique hash;
 3. They can be deleted with a single command line.
 
-The method [`fetch_ba_name`](https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.fetch_ba_name-Tuple{AbstractString}) will automatically download the problem (if needed) and return its path.
+The method [`fetch_ba_name`](https://jso.dev/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.fetch_ba_name-Tuple{AbstractString}) will automatically download the problem (if needed) and return its path.
 
 ```julia
 path = fetch_ba_name(name)
 ```
 
 ```
-Error: UndefVarError: name not defined
+"/home/runner/.julia/artifacts/dd2da5f94014b5f9086a2b38a87f8c1bc171b9c2"
 ```
 
 
 
 
 
-It is also possible to directly download and get access to an entire group of problems using [`fetch_ba_group`](https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.fetch_ba_group-Tuple{AbstractString}).
+It is also possible to directly download and get access to an entire group of problems using [`fetch_ba_group`](https://jso.dev/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.fetch_ba_group-Tuple{AbstractString}).
 
 ```julia
 paths = fetch_ba_group("ladybug")
@@ -149,7 +167,7 @@ paths = fetch_ba_group("ladybug")
 
 ## Generate a nonlinear least squares model
 
-Now, it is possible to load the model using [`BundleAdjustmentModel`](https://juliasmoothoptimizers.github.io/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.BundleAdjustmentModel-Tuple{AbstractString})
+Now, it is possible to load the model using [`BundleAdjustmentModel`](https://jso.dev/BundleAdjustmentModels.jl/dev/reference/#BundleAdjustmentModels.BundleAdjustmentModel-Tuple{AbstractString})
 
 ```julia
 df = problems_df()
@@ -157,11 +175,6 @@ filter_df = df[ ( df.nequ .≥ 50000 ) .& ( df.nvar .≤ 34000 ), :]
 name = filter_df[1, :name]
 model = BundleAdjustmentModel(name);
 ```
-
-```
-Error: type ##DataFrames.DataFrame#314 has no field nequ
-```
-
 
 
 
@@ -177,7 +190,7 @@ model = BundleAdjustmentModel("problem-49-7776-pre");
 
 The function `BundleAdjustmentModel` will instantiate the model and automatically download it if needed.
 The resulting structure is an instance of `AbstractNLPModel`.
-So, it is possible to access its API as any other [`NLPModel`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/).
+So, it is possible to access its API as any other [`NLPModel`](https://jso.dev/NLPModels.jl/dev/).
 
 ```julia
 using NLPModels
@@ -186,7 +199,7 @@ using NLPModels
 
 
 
-Using [`residual`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.residual), it is possible to compute the residual of the model
+Using [`residual`](https://jso.dev/NLPModels.jl/dev/api/#NLPModels.residual), it is possible to compute the residual of the model
 
 ```julia
 model = BundleAdjustmentModel("problem-49-7776-pre.txt.bz2")
@@ -222,7 +235,7 @@ Fx = residual(model, x)
 
 
 
-or use the in-place method [`residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.residual!)
+or use the in-place method [`residual!`](https://jso.dev/NLPModels.jl/dev/api/#NLPModels.residual!)
 
 ```julia
 model = BundleAdjustmentModel("problem-49-7776-pre.txt.bz2")
@@ -237,7 +250,7 @@ residual!(model, x, Fx);
 
 You can also have access to the [`LinearOperator`](https://github.com/JuliaSmoothOptimizers/LinearOperators.jl) of the Jacobian matrix of the residual of the model which is calculated by hand (in contradiction to automatic differentiation).
 
-You need to call [`jac_structure_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_structure_residual!) at least once before calling [`jac_op_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_op_residual!).
+You need to call [`jac_structure_residual!`](https://jso.dev/NLPModels.jl/dev/api/#NLPModels.jac_structure_residual!) at least once before calling [`jac_op_residual!`](https://jso.dev/NLPModels.jl/dev/api/#NLPModels.jac_op_residual!).
 
 ```julia
 model = BundleAdjustmentModel("problem-49-7776")
@@ -251,7 +264,7 @@ jac_structure_residual!(model, rows, cols);
 
 
 
-You need to call [`jac_coord_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_coord_residual!) to update it to the current point.
+You need to call [`jac_coord_residual!`](https://jso.dev/NLPModels.jl/dev/api/#NLPModels.jac_coord_residual!) to update it to the current point.
 
 ```julia
 model = BundleAdjustmentModel("problem-49-7776")
@@ -288,7 +301,7 @@ jac_coord_residual!(model, x, vals)
 
 
 
-Finally you can use [`jac_op_residual!`](https://juliasmoothoptimizers.github.io/NLPModels.jl/dev/api/#NLPModels.jac_op_residual!):
+Finally you can use [`jac_op_residual!`](https://jso.dev/NLPModels.jl/dev/api/#NLPModels.jac_op_residual!):
 
 ```julia
 model = BundleAdjustmentModel("problem-49-7776")

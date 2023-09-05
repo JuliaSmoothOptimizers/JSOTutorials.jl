@@ -8,12 +8,12 @@ tags:
   - "tests"
 ---
 
-[![OptimizationProblems 0.7.1](https://img.shields.io/badge/OptimizationProblems-0.7.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
-![ForwardDiff 0.10.35](https://img.shields.io/badge/ForwardDiff-0.10.35-000?style=flat-square&labelColor=999)
-[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-![DataFrames 1.6.0](https://img.shields.io/badge/DataFrames-1.6.0-000?style=flat-square&labelColor=999)
-[![ADNLPModels 0.7.0](https://img.shields.io/badge/ADNLPModels-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
-[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+[![OptimizationProblems 0.7.3](https://img.shields.io/badge/OptimizationProblems-0.7.3-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/OptimizationProblems.jl/stable/)
+![ForwardDiff 0.10.36](https://img.shields.io/badge/ForwardDiff-0.10.36-000?style=flat-square&labelColor=999)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
+![DataFrames 1.6.1](https://img.shields.io/badge/DataFrames-1.6.1-000?style=flat-square&labelColor=999)
+[![ADNLPModels 0.7.0](https://img.shields.io/badge/ADNLPModels-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/ADNLPModels.jl/stable/)
+[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://jso.dev/JSOSolvers.jl/stable/)
 
 ```julia
 using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
@@ -24,10 +24,10 @@ using ADNLPModels, ForwardDiff, NLPModels, OptimizationProblems
 
 One of the main strengths of Julia for scientific computing is its native usage of [arbitrary precision arithmetic](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/#Arbitrary-Precision-Arithmetic).
 The same can be exploited for optimization models and solvers.
-In the organization [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io), the package [ADNLPModels.jl](https://github.com/JuliaSmoothOptimizers/ADNLPModels.jl) provides automatic differentiation (AD)-based model implementations that conform to the NLPModels API.
-This package is modular in the sense that it implements a backend system allowing the user to use essentially any AD system available, see [ADNLPModels.jl/dev/backend/](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/dev/backend/) for a tutorial.
+In the organization [JuliaSmoothOptimizers](https://jso.dev), the package [ADNLPModels.jl](https://github.com/JuliaSmoothOptimizers/ADNLPModels.jl) provides automatic differentiation (AD)-based model implementations that conform to the NLPModels API.
+This package is modular in the sense that it implements a backend system allowing the user to use essentially any AD system available, see [ADNLPModels.jl/dev/backend/](https://jso.dev/ADNLPModels.jl/dev/backend/) for a tutorial.
 
-Note that most of the solvers available in [JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io) will accept generic types.
+Note that most of the solvers available in [JuliaSmoothOptimizers](https://jso.dev) will accept generic types.
 For instance, it is possible to use the classical L-BFGS method implemented in [JSOSolvers.jl](https://github.com/JuliaSmoothOptimizers/JSOSolvers.jl/) in single precision.
 
 ```julia
@@ -47,7 +47,7 @@ Generic Execution stats
   dual feasibility: 0.031313986
   solution: [0.9810229f0  0.9622698f0]
   iterations: 33
-  elapsed time: 4.806403875350952
+  elapsed time: 4.3893210887908936
 ```
 
 
@@ -160,8 +160,8 @@ adbackend.gradient_backend # returns information about the default backend for t
 ```
 ADNLPModels.ForwardDiffADGradient(ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}, Float64, 2, Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##Wea
 veSandBox#292".f), Float64}, Float64, 2}}}((Partials(1.0, 0.0), Partials(0.0, 1.0)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}, Float64, 2}[Dual{ForwardDiff.Tag
-{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(6.93235314625877e-310,0.0,6.9323566655342e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(0.0,6.93238838587515e-310,0.0
-)]))
+{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(6.9297561929021e-310,6.9297561929021e-310,6.92970833802185e-310), Dual{ForwardDiff.Tag{typeof(Main.var"##WeaveSandBox#292".f), Float64}}(6.9297561929
+021e-310,6.9297083635101e-310,6.9297561929021e-310)]))
 ```
 
 
@@ -268,7 +268,7 @@ The same can be done for the other backends jacobian, hessian, etc.
 ## Multiprecision test problems
 
 Designing a multi-precision algorithm is very often connected with benchmarking and test problems.
-The package [OptimizationProblems.jl](https://github.com/JuliaSmoothOptimizers/OptimizationProblems.jl) provides a collection of optimization problems in JuMP and ADNLPModels syntax, see [introduction to OptimizationProblems.jl tutorial](https://juliasmoothoptimizers.github.io/tutorials/introduction-to-optimizationproblems/).
+The package [OptimizationProblems.jl](https://github.com/JuliaSmoothOptimizers/OptimizationProblems.jl) provides a collection of optimization problems in JuMP and ADNLPModels syntax, see [introduction to OptimizationProblems.jl tutorial](https://jso.dev/tutorials/introduction-to-optimizationproblems/).
 
 This package provides a `DataFrame` with all the information on the implemented problems.
 
@@ -277,7 +277,7 @@ OptimizationProblems.meta[!, :name] # access the names of the available  problem
 ```
 
 ```
-288-element Vector{String}:
+372-element Vector{String}:
  "AMPGO02"
  "AMPGO03"
  "AMPGO04"
@@ -374,4 +374,4 @@ grad!(nlp, x16, g) # returns a vector of Float16
 We should pay additional attention when using multiple precisions as casting, for instance `x0`, from `Float64` into `Float16` implies that rounding errors occur.
 Therefore, `x0` is different than `x16`, and the gradients evaluated for these values too.
 
-Feel free to look at [OptimizationProblems.jl documentation](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/dev/) to learn more or the tutorials at [juliasmoothoptimizers.github.io](https://juliasmoothoptimizers.github.io).
+Feel free to look at [OptimizationProblems.jl documentation](https://jso.dev/OptimizationProblems.jl/dev/) to learn more or the tutorials at [juliasmoothoptimizers.github.io](https://jso.dev).

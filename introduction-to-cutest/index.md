@@ -7,11 +7,11 @@ tags:
   - "models"
 ---
 
-![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=fff")
-[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-![Plots 1.38.5](https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff")
-[![CUTEst 0.13.1](https://img.shields.io/badge/CUTEst-0.13.1-8b0000?style=flat-square&labelColor=cb3c33")](https://juliasmoothoptimizers.github.io/CUTEst.jl/stable/)
-[![Krylov 0.9.0](https://img.shields.io/badge/Krylov-0.9.0-4b0082?style=flat-square&labelColor=9558b2")](https://juliasmoothoptimizers.github.io/Krylov.jl/stable/)
+![JSON 0.21.4](https://img.shields.io/badge/JSON-0.21.4-000?style=flat-square&labelColor=999)
+[![NLPModels 0.19.2](https://img.shields.io/badge/NLPModels-0.19.2-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
+![Plots 1.39.0](https://img.shields.io/badge/Plots-1.39.0-000?style=flat-square&labelColor=999)
+[![CUTEst 0.13.2](https://img.shields.io/badge/CUTEst-0.13.2-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/CUTEst.jl/stable/)
+[![Krylov 0.9.4](https://img.shields.io/badge/Krylov-0.9.4-4b0082?style=flat-square&labelColor=9558b2)](https://jso.dev/Krylov.jl/stable/)
 
 
 
@@ -32,7 +32,7 @@ CUTEst can be accessed in two ways.
 
 NLPModels defines an abstract interface to access the objective, constraints,
 derivatives, etc. of the problem. A
-[reference guide](https://juliasmoothoptimizers.github.io/NLPModels.jl/latest/api/)
+[reference guide](https://jso.dev/NLPModels.jl/latest/api/)
 is available to check what you need.
 
 Once CUTEst has been installed, open a problem with
@@ -102,7 +102,7 @@ Hx = [1330.0 480.0; 480.0 200.0]
 
 
 Remember to check the
-[API](https://juliasmoothoptimizers.github.io/NLPModels.jl/latest/api/)
+[API](https://jso.dev/NLPModels.jl/latest/api/)
 in case of doubts about these functions.
 
 Notice how `hess` returns a symmetric matrix.

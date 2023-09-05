@@ -8,13 +8,13 @@ tags:
   - "PDE"
 ---
 
-[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-[![NLPModelsIpopt 0.10.1](https://img.shields.io/badge/NLPModelsIpopt-0.10.1-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/NLPModelsIpopt.jl/stable/)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
+[![NLPModelsIpopt 0.10.1](https://img.shields.io/badge/NLPModelsIpopt-0.10.1-006400?style=flat-square&labelColor=389826)](https://jso.dev/NLPModelsIpopt.jl/stable/)
 ![Gridap 0.15.5](https://img.shields.io/badge/Gridap-0.15.5-000?style=flat-square&labelColor=999)
-[![PDENLPModels 0.3.4](https://img.shields.io/badge/PDENLPModels-0.3.4-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/PDENLPModels.jl/stable/)
-[![NLPModelsModifiers 0.6.6](https://img.shields.io/badge/NLPModelsModifiers-0.6.6-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/)
-[![DCISolver 0.4.3](https://img.shields.io/badge/DCISolver-0.4.3-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/DCISolver.jl/stable/)
-[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+[![PDENLPModels 0.3.4](https://img.shields.io/badge/PDENLPModels-0.3.4-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/PDENLPModels.jl/stable/)
+[![NLPModelsModifiers 0.6.6](https://img.shields.io/badge/NLPModelsModifiers-0.6.6-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModelsModifiers.jl/stable/)
+[![DCISolver 0.4.3](https://img.shields.io/badge/DCISolver-0.4.3-006400?style=flat-square&labelColor=389826)](https://jso.dev/DCISolver.jl/stable/)
+[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://jso.dev/JSOSolvers.jl/stable/)
 
 
 
@@ -85,7 +85,7 @@ x0 = zeros(npde + ncon);
 
 
 
-Overall, we built a GridapPDENLPModel, which implements the [NLPModel](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/) API.
+Overall, we built a GridapPDENLPModel, which implements the [NLPModel](https://jso.dev/NLPModels.jl/stable/) API.
 
 ```julia
 nlp = GridapPDENLPModel(x0, f, trian, Ypde, Ycon, Xpde, Xcon, op, name = "Control elastic membrane")
@@ -201,7 +201,7 @@ reset!(nlp);
 
 
 
-Most JSO-compliant solvers are using logger for printing iteration information. 
+Most JSO-compliant solvers are using logger for printing iteration information.
 `NullLogger` avoids printing iteration information.
 
 ```julia
@@ -248,7 +248,7 @@ stats_ipopt.elapsed_time, stats_dci.elapsed_time
 ```
 
 ```
-(66.498, 18.329838037490845)
+(74.27, 20.94061589241028)
 ```
 
 

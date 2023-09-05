@@ -8,10 +8,10 @@ tags:
   - "latex"
 ---
 
-[![SolverBenchmark 0.5.4](https://img.shields.io/badge/SolverBenchmark-0.5.4-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/SolverBenchmark.jl/stable/)
-![DataFrames 1.3.6](https://img.shields.io/badge/DataFrames-1.3.6-000?style=flat-square&labelColor=fff)
-![Plots 1.38.5](https://img.shields.io/badge/Plots-1.38.5-000?style=flat-square&labelColor=fff)
-![PyPlot 2.11.0](https://img.shields.io/badge/PyPlot-2.11.0-000?style=flat-square&labelColor=fff)
+[![SolverBenchmark 0.5.5](https://img.shields.io/badge/SolverBenchmark-0.5.5-006400?style=flat-square&labelColor=389826)](https://jso.dev/SolverBenchmark.jl/stable/)
+![DataFrames 1.3.6](https://img.shields.io/badge/DataFrames-1.3.6-000?style=flat-square&labelColor=999)
+![Plots 1.39.0](https://img.shields.io/badge/Plots-1.39.0-000?style=flat-square&labelColor=999)
+![PyPlot 2.11.2](https://img.shields.io/badge/PyPlot-2.11.2-000?style=flat-square&labelColor=999)
 
 
 
@@ -526,7 +526,7 @@ p = profile_solvers(stats, costs, costnames)
 
 
 
-### Example of benchmark running 
+### Example of benchmark running
 Here is a useful tutorial on how to use the benchmark with specific solver:
-[Run a benchmark with OptimizationProblems](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/dev/benchmark/)
+[Run a benchmark with OptimizationProblems](https://jso.dev/OptimizationProblems.jl/dev/benchmark/)
 The tutorial covers how to use the problems from `OptimizationProblems` to run a benchmark for unconstrained optimization.

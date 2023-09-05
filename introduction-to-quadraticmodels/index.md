@@ -5,14 +5,14 @@ tags:
   - "models"
 ---
 
-![JSON 0.21.3](https://img.shields.io/badge/JSON-0.21.3-000?style=flat-square&labelColor=999)
-[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-[![RipQP 0.6.2](https://img.shields.io/badge/RipQP-0.6.2-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/RipQP.jl/stable/)
-[![QuadraticModels 0.9.4](https://img.shields.io/badge/QuadraticModels-0.9.4-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/QuadraticModels.jl/stable/)
-[![SparseMatricesCOO 0.2.1](https://img.shields.io/badge/SparseMatricesCOO-0.2.1-4b0082?style=flat-square&labelColor=9558b2)](https://juliasmoothoptimizers.github.io/SparseMatricesCOO.jl/stable/)
-[![QPSReader 0.2.1](https://img.shields.io/badge/QPSReader-0.2.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/QPSReader.jl/stable/)
-[![LinearOperators 2.5.2](https://img.shields.io/badge/LinearOperators-2.5.2-4b0082?style=flat-square&labelColor=9558b2)](https://juliasmoothoptimizers.github.io/LinearOperators.jl/stable/)
-[![NLPModelsModifiers 0.6.5](https://img.shields.io/badge/NLPModelsModifiers-0.6.5-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/)
+![JSON 0.21.4](https://img.shields.io/badge/JSON-0.21.4-000?style=flat-square&labelColor=999)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
+[![RipQP 0.6.2](https://img.shields.io/badge/RipQP-0.6.2-006400?style=flat-square&labelColor=389826)](https://jso.dev/RipQP.jl/stable/)
+[![QuadraticModels 0.9.4](https://img.shields.io/badge/QuadraticModels-0.9.4-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/QuadraticModels.jl/stable/)
+[![SparseMatricesCOO 0.2.1](https://img.shields.io/badge/SparseMatricesCOO-0.2.1-4b0082?style=flat-square&labelColor=9558b2)](https://jso.dev/SparseMatricesCOO.jl/stable/)
+[![QPSReader 0.2.1](https://img.shields.io/badge/QPSReader-0.2.1-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/QPSReader.jl/stable/)
+[![LinearOperators 2.5.2](https://img.shields.io/badge/LinearOperators-2.5.2-4b0082?style=flat-square&labelColor=9558b2)](https://jso.dev/LinearOperators.jl/stable/)
+[![NLPModelsModifiers 0.6.6](https://img.shields.io/badge/NLPModelsModifiers-0.6.6-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModelsModifiers.jl/stable/)
 
 
 
@@ -266,7 +266,7 @@ QuadraticModels.QuadraticModel{Float64, Vector{Float64}, SparseMatricesCOO.Spars
 
 ## Use the NLPModels.jl API
 
-You can use the API from [`NLPModels.jl`](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/api/#Reference-guide) with QuadraticModels.
+You can use the API from [`NLPModels.jl`](https://jso.dev/NLPModels.jl/stable/api/#Reference-guide) with QuadraticModels.
 Here are some examples:
 
 ```julia
@@ -301,7 +301,7 @@ hess(qmCOO, x)
 
 
 
-It is possible to convert the model to a QuadraticModel with linear inequality constraints to equality constraints and bounds using [`SlackModel`](https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/reference/#NLPModelsModifiers.SlackModel)
+It is possible to convert the model to a QuadraticModel with linear inequality constraints to equality constraints and bounds using [`SlackModel`](https://jso.dev/NLPModelsModifiers.jl/stable/reference/#NLPModelsModifiers.SlackModel)
 
 ```julia
 using NLPModelsModifiers
@@ -396,7 +396,7 @@ Generic Execution stats
   multipliers_L: [2.815054264364191e-10  0.39130435399011315  3.43538410033642e-9]
   multipliers_U: [0.0  0.0  0.0]
   iterations: 5
-  elapsed time: 9.420822143554688
+  elapsed time: 11.428624153137207
   solver specific:
     iters_sp: 0
     pdd: 2.646321545885072e-10

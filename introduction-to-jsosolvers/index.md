@@ -8,11 +8,11 @@ tags:
 ---
 
 ![CSV 0.10.11](https://img.shields.io/badge/CSV-0.10.11-000?style=flat-square&labelColor=999)
-[![SolverCore 0.3.7](https://img.shields.io/badge/SolverCore-0.3.7-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/SolverCore.jl/stable/)
-![DataFrames 1.6.0](https://img.shields.io/badge/DataFrames-1.6.0-000?style=flat-square&labelColor=999)
-![Plots 1.38.16](https://img.shields.io/badge/Plots-1.38.16-000?style=flat-square&labelColor=999)
-[![ADNLPModels 0.7.0](https://img.shields.io/badge/ADNLPModels-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
-[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/)
+[![SolverCore 0.3.7](https://img.shields.io/badge/SolverCore-0.3.7-006400?style=flat-square&labelColor=389826)](https://jso.dev/SolverCore.jl/stable/)
+![DataFrames 1.6.1](https://img.shields.io/badge/DataFrames-1.6.1-000?style=flat-square&labelColor=999)
+![Plots 1.39.0](https://img.shields.io/badge/Plots-1.39.0-000?style=flat-square&labelColor=999)
+[![ADNLPModels 0.7.0](https://img.shields.io/badge/ADNLPModels-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/ADNLPModels.jl/stable/)
+[![JSOSolvers 0.11.0](https://img.shields.io/badge/JSOSolvers-0.11.0-006400?style=flat-square&labelColor=389826)](https://jso.dev/JSOSolvers.jl/stable/)
 
 
 
@@ -21,7 +21,7 @@ tags:
 # JSOSolvers.jl Tutorial
 
 This package provides optimization solvers curated by the
-[JuliaSmoothOptimizers](https://juliasmoothoptimizers.github.io)
+[JuliaSmoothOptimizers](https://jso.dev)
 organization.
 All solvers are based on [NLPModels.jl](https://github.com/JuliaSmoothOptimizers/NLPModels.jl) and [SolverCore.jl](https://github.com/JuliaSmoothOptimizers/SolverCore.jl).
 
@@ -241,12 +241,12 @@ The following table provides the correspondance between the solvers and the solv
 
 | Algorithm           | Solver structure |
 | ------------------- | ---------------- |
-| [lbfgs](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.lbfgs-Union{Tuple{NLPModels.AbstractNLPModel},%20Tuple{V}}%20where%20V)               | LBFGSSolver      |
-| [R2](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.R2-Union{Tuple{NLPModels.AbstractNLPModel{T,%20V}},%20Tuple{V},%20Tuple{T}}%20where%20{T,%20V})                  | R2Solver         |
-| [tron](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.tron-Union{Tuple{V},%20Tuple{Val{:Newton},%20NLPModels.AbstractNLPModel}}%20where%20V)                | TronSolver       |
-| [trunk](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.trunk-Union{Tuple{V},%20Tuple{Val{:Newton},%20NLPModels.AbstractNLPModel}}%20where%20V)               | TrunkSolver      |
-| [tron (nls-variant)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.tron-Union{Tuple{V},%20Tuple{Val{:GaussNewton},%20NLPModels.AbstractNLSModel}}%20where%20V)  | TronSolverNLS    |
-| [trunk (nls-variant)](https://juliasmoothoptimizers.github.io/JSOSolvers.jl/stable/reference/#JSOSolvers.trunk-Union{Tuple{V},%20Tuple{Val{:GaussNewton},%20NLPModels.AbstractNLSModel}}%20where%20V) | TrunkSolverNLS   |
+| [lbfgs](https://jso.dev/JSOSolvers.jl/stable/reference/#JSOSolvers.lbfgs-Union{Tuple{NLPModels.AbstractNLPModel},%20Tuple{V}}%20where%20V)               | LBFGSSolver      |
+| [R2](https://jso.dev/JSOSolvers.jl/stable/reference/#JSOSolvers.R2-Union{Tuple{NLPModels.AbstractNLPModel{T,%20V}},%20Tuple{V},%20Tuple{T}}%20where%20{T,%20V})                  | R2Solver         |
+| [tron](https://jso.dev/JSOSolvers.jl/stable/reference/#JSOSolvers.tron-Union{Tuple{V},%20Tuple{Val{:Newton},%20NLPModels.AbstractNLPModel}}%20where%20V)                | TronSolver       |
+| [trunk](https://jso.dev/JSOSolvers.jl/stable/reference/#JSOSolvers.trunk-Union{Tuple{V},%20Tuple{Val{:Newton},%20NLPModels.AbstractNLPModel}}%20where%20V)               | TrunkSolver      |
+| [tron (nls-variant)](https://jso.dev/JSOSolvers.jl/stable/reference/#JSOSolvers.tron-Union{Tuple{V},%20Tuple{Val{:GaussNewton},%20NLPModels.AbstractNLSModel}}%20where%20V)  | TronSolverNLS    |
+| [trunk (nls-variant)](https://jso.dev/JSOSolvers.jl/stable/reference/#JSOSolvers.trunk-Union{Tuple{V},%20Tuple{Val{:GaussNewton},%20NLPModels.AbstractNLSModel}}%20where%20V) | TrunkSolverNLS   |
 
 It is also possible to pre-allocate the output structure `stats` and call `solve!(solver, nlp, stats)`.
 ```julia
@@ -267,7 +267,7 @@ solve!(solver, nlp, stats)
 
 ## Callback
 
-All the solvers have a callback mechanism called at each iteration, see also the [Using callbacks tutorial](https://juliasmoothoptimizers.github.io/tutorials/using-callbacks/).
+All the solvers have a callback mechanism called at each iteration, see also the [Using callbacks tutorial](https://jso.dev/tutorials/using-callbacks/).
 The expected signature of the callback is `callback(nlp, solver, stats)`, and its output is ignored.
 Changing any of the input arguments will affect the subsequent iterations.
 In particular, setting `stats.status = :user` will stop the algorithm.
