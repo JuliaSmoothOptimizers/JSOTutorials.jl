@@ -68,7 +68,7 @@ ncon = Gridap.FESpaces.num_free_dofs(Ycon)
 x0 = zeros(npde + ncon);
 ```
 
-Overall, we built a GridapPDENLPModel, which implements the [NLPModel](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/) API.
+Overall, we built a GridapPDENLPModel, which implements the [NLPModel](https://jso.dev/NLPModels.jl/stable/) API.
 
 ```julia
 nlp = GridapPDENLPModel(x0, f, trian, Ypde, Ycon, Xpde, Xcon, op, name = "Control elastic membrane")
@@ -128,7 +128,7 @@ Reinitialize the counters before re-solving.
 reset!(nlp);
 ```
 
-Most JSO-compliant solvers are using logger for printing iteration information. 
+Most JSO-compliant solvers are using logger for printing iteration information.
 `NullLogger` avoids printing iteration information.
 
 ```julia

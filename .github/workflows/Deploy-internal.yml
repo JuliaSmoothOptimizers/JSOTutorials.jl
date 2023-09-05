@@ -43,7 +43,7 @@ jobs:
       - name: Install Julia
         uses: julia-actions/setup-julia@v1
         with:
-           version: 1
+          version: 1
       - name: Build tutorial
         run: |
           bash .github/workflows/build_tutorial.sh ${{ matrix.tutorial }}
@@ -73,7 +73,7 @@ jobs:
           cd JSOTutorials.jl-gh-pages
           echo "## JSOTutorials preview page
 
-          For the complete list of tutorials, go to <https://juliasmoothoptimizers.github.io/tutorials/>.
+          For the complete list of tutorials, go to <https://jso.dev/tutorials/>.
 
           " > index.md
           for file in **/*.md; do NAME=$(echo $file | cut -d/ -f 1); TITLE=$(grep "title:" $file | cut -d\" -f2); echo "- [$TITLE]($NAME/)"; done >> index.md
@@ -88,11 +88,11 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ needs.generate-job-strategy-matrix.outputs.job-strategy-matrix != '[]' }}
     steps:
-      - name: 'Comment PR'
+      - name: "Comment PR"
         uses: actions/github-script@0.3.0
         if: github.event_name == 'pull_request' && github.repository == github.event.pull_request.head.repo.full_name # if this is a pull request build AND the pull request is NOT made from a fork
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
-            github.issues.createComment({ issue_number, owner, repo, body: 'Once the build has completed, you can preview your PR at this URL: https://juliasmoothoptimizers.github.io/JSOTutorials.jl/' });
+            github.issues.createComment({ issue_number, owner, repo, body: 'Once the build has completed, you can preview your PR at this URL: https://jso.dev/JSOTutorials.jl/' });

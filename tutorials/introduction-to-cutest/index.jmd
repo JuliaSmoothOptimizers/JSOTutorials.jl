@@ -21,7 +21,7 @@ CUTEst can be accessed in two ways.
 
 NLPModels defines an abstract interface to access the objective, constraints,
 derivatives, etc. of the problem. A
-[reference guide](https://juliasmoothoptimizers.github.io/NLPModels.jl/latest/api/)
+[reference guide](https://jso.dev/NLPModels.jl/latest/api/)
 is available to check what you need.
 
 Once CUTEst has been installed, open a problem with
@@ -59,7 +59,7 @@ println("Hx = $( hess(nlp, nlp.meta.x0) )")
 ```
 
 Remember to check the
-[API](https://juliasmoothoptimizers.github.io/NLPModels.jl/latest/api/)
+[API](https://jso.dev/NLPModels.jl/latest/api/)
 in case of doubts about these functions.
 
 Notice how `hess` returns a symmetric matrix.
@@ -228,5 +228,3 @@ length(problems)
 problems = CUTEst.select(objtype="quadratic", contype="linear")
 length(problems)
 ```
-
-

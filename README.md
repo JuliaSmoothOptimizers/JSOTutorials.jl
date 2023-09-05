@@ -1,7 +1,7 @@
 # JSO Tutorials
 
 Curated repository of tutorials regarding all things JSO.
-See the renderer tutorials in <https://juliasmoothoptimizers.github.io>.
+See the renderer tutorials in <https://jso.dev>.
 
 ## Development
 
