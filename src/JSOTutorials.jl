@@ -9,7 +9,7 @@ using Weave, Pkg, IJulia, InteractiveUtils, Markdown, YAML
 repo_directory = joinpath(@__DIR__, "..")
 # cssfile = joinpath(@__DIR__, "..", "templates", "skeleton_css.css")
 # latexfile = joinpath(@__DIR__, "..", "templates", "julia_tex.tpl")
-default_builds = (:github, )
+default_builds = (:github,)
 
 function weave_file(folder, file, build_list = default_builds)
   target = joinpath(repo_directory, "tutorials", folder, file)
@@ -54,7 +54,7 @@ function weave_file(folder, file, build_list = default_builds)
     dir = joinpath(repo_directory, "markdown", basename(folder))
     mkpath(dir)
     weave(target, doctype = "github", out_path = dir, args = args)
-    add_package_info(joinpath(dir, file[1:end-4] * ".md"))
+    add_package_info(joinpath(dir, file[1:(end - 4)] * ".md"))
   end
   if :notebook ∈ build_list
     println("Building Notebook")
@@ -89,7 +89,7 @@ end
 function package_information()
   proj = sprint(io -> Pkg.status(io = io))
   re_str = r"\[[0-f]+\]\s+(.*) v(.*)"
-  pkg_info = Dict{String,String}()
+  pkg_info = Dict{String, String}()
   for line in split(proj, "\n")
     m = match(re_str, line)
     if m !== nothing
@@ -108,7 +108,7 @@ function badge(name, version)
 
   badge_img = "![$name $version](https://img.shields.io/badge/$name-$version-$color?style=flat-square&labelColor=$lbl_color)"
   if name in jso_pkgs
-    link = "https://juliasmoothoptimizers.github.io/$name.jl/stable/"
+    link = "https://jso.dev/$name.jl/stable/"
     "[$badge_img]($link)"
   else
     badge_img
@@ -120,11 +120,11 @@ function add_package_info(filename)
   j = findall(lines .== "---")[2]
   pkg_info = package_information()
   out = [
-    lines[1:j];
-    "";
-    [badge(pkg, ver) for (pkg, ver) in pkg_info];
-    "";
-    lines[j+1:end]
+    lines[1:j]
+    ""
+    [badge(pkg, ver) for (pkg, ver) in pkg_info]
+    ""
+    lines[(j + 1):end]
   ]
   open(filename, "w") do io
     print(io, join(out, "\n"))
@@ -203,13 +203,16 @@ function parse_markdown_into_franklin(infile, outfile)
   end
 
   open(outfile, "w") do io
-    println(io, """
-    @def title = "$(yaml["title"])"
-    @def showall = true
-    @def tags = $(yaml["tags"])
+    println(
+      io,
+      """
+@def title = "$(yaml["title"])"
+@def showall = true
+@def tags = $(yaml["tags"])
 
-    \\preamble{$(yaml["author"])}
-    """)
+\\preamble{$(yaml["author"])}
+""",
+    )
 
     code_fence = startswith("```")
     inside_fenced_code = false

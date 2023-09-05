@@ -14,5 +14,5 @@
   - [ ] The preview has your tutorial listed.
   - [ ] The preview looks like what you want.
 
-[preview]: https://juliasmoothoptimizers.github.io/JSOTutorials.jl/
+[preview]: https://jso.dev/JSOTutorials.jl/
 [Grammarly]: https://www.grammarly.com

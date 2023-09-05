@@ -90,7 +90,7 @@ qmCOO4 = convert(QuadraticModel{T, S, SparseMatrixCOO{T, Int}, SparseMatrixCOO{T
 
 ## Use the NLPModels.jl API
 
-You can use the API from [`NLPModels.jl`](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/api/#Reference-guide) with QuadraticModels.
+You can use the API from [`NLPModels.jl`](https://jso.dev/NLPModels.jl/stable/api/#Reference-guide) with QuadraticModels.
 Here are some examples:
 
 ```julia
@@ -105,7 +105,7 @@ grad(qmCOO, x)
 hess(qmCOO, x)
 ```
 
-It is possible to convert the model to a QuadraticModel with linear inequality constraints to equality constraints and bounds using [`SlackModel`](https://juliasmoothoptimizers.github.io/NLPModelsModifiers.jl/stable/reference/#NLPModelsModifiers.SlackModel)
+It is possible to convert the model to a QuadraticModel with linear inequality constraints to equality constraints and bounds using [`SlackModel`](https://jso.dev/NLPModelsModifiers.jl/stable/reference/#NLPModelsModifiers.SlackModel)
 
 ```julia
 using NLPModelsModifiers
@@ -132,5 +132,3 @@ using RipQP
 stats = ripqp(qmCOO)
 println(stats)
 ```
-
-
