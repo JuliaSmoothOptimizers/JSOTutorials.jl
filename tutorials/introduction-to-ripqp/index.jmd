@@ -95,7 +95,7 @@ At every iteration, RipQP solves two linear systems with the default Predictor-C
 
 To save these systems, you can use:
 
-```julia
+```
 w = SystemWrite(write = true, name="test_", kfirst = 4, kgap=3)
 stats1 = ripqp(QM, w = w)
 ```
@@ -104,7 +104,7 @@ This will save one matrix and the associated two right hand sides of the PC meth
 iteration four.
 Then, you can read the saved files with:
 
-```julia
+```
 using DelimitedFiles, MatrixMarket
 K = MatrixMarket.mmread("test_K_iter4.mtx")
 rhs_aff = readdlm("test_rhs_iter4_aff.rhs", Float64)[:]
