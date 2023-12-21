@@ -3,6 +3,7 @@
 For the complete list of tutorials, go to <https://jso.dev/tutorials/>.
 
 
+- [Comparing subsolvers for NLS solvers](advanced-jsosolvers/)
 - [Test allocations of NLPModels](check-allocations-nlpmodels/)
 - [How to create a model from the function and its derivatives](create-a-manual-model/)
 - [Creating a JSO-compliant solver](creating-a-jso-compliant-solver/)
