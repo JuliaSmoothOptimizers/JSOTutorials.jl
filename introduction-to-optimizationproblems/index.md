@@ -8,11 +8,11 @@ tags:
   - "manual"
 ---
 
-[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/)
-[![NLPModelsJuMP 0.12.1](https://img.shields.io/badge/NLPModelsJuMP-0.12.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/NLPModelsJuMP.jl/stable/)
-[![ADNLPModels 0.7.0](https://img.shields.io/badge/ADNLPModels-0.7.0-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/ADNLPModels.jl/stable/)
-![JuMP 1.12.0](https://img.shields.io/badge/JuMP-1.12.0-000?style=flat-square&labelColor=999)
-[![OptimizationProblems 0.7.1](https://img.shields.io/badge/OptimizationProblems-0.7.1-8b0000?style=flat-square&labelColor=cb3c33)](https://juliasmoothoptimizers.github.io/OptimizationProblems.jl/stable/)
+[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
+[![NLPModelsJuMP 0.12.7](https://img.shields.io/badge/NLPModelsJuMP-0.12.7-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModelsJuMP.jl/stable/)
+[![ADNLPModels 0.7.2](https://img.shields.io/badge/ADNLPModels-0.7.2-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/ADNLPModels.jl/stable/)
+![JuMP 1.23.2](https://img.shields.io/badge/JuMP-1.23.2-000?style=flat-square&labelColor=999)
+[![OptimizationProblems 0.7.4](https://img.shields.io/badge/OptimizationProblems-0.7.4-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/OptimizationProblems.jl/stable/)
 
 
 
@@ -29,7 +29,7 @@ length(problems)
 ```
 
 ```
-288
+372
 ```
 
 
@@ -42,14 +42,14 @@ jump_model = OptimizationProblems.PureJuMP.zangwil3()
 
 ```
 A JuMP Model
-Minimization problem with:
-Variables: 3
-Objective function type: Nonlinear
-`JuMP.AffExpr`-in-`MathOptInterface.EqualTo{Float64}`: 3 constraints
-Model mode: AUTOMATIC
-CachingOptimizer state: NO_OPTIMIZER
-Solver name: No optimizer attached.
-Names registered in the model: constr1, constr2, constr3, x
+├ solver: none
+├ objective_sense: MIN_SENSE
+│ └ objective_function_type: JuMP.AffExpr
+├ num_variables: 3
+├ num_constraints: 3
+│ └ JuMP.AffExpr in MOI.EqualTo{Float64}: 3
+└ Names registered in the model
+  └ :constr1, :constr2, :constr3, :x
 ```
 
 
@@ -62,7 +62,7 @@ length(var_problems)
 ```
 
 ```
-94
+95
 ```
 
 
@@ -75,13 +75,13 @@ jump_model_12 = OptimizationProblems.PureJuMP.woods(n=12)
 
 ```
 A JuMP Model
-Minimization problem with:
-Variables: 12
-Objective function type: Nonlinear
-Model mode: AUTOMATIC
-CachingOptimizer state: NO_OPTIMIZER
-Solver name: No optimizer attached.
-Names registered in the model: x
+├ solver: none
+├ objective_sense: MIN_SENSE
+│ └ objective_function_type: JuMP.AffExpr
+├ num_variables: 12
+├ num_constraints: 0
+└ Names registered in the model
+  └ :x
 ```
 
 
@@ -92,13 +92,13 @@ jump_model_120 = OptimizationProblems.PureJuMP.woods(n=120)
 
 ```
 A JuMP Model
-Minimization problem with:
-Variables: 120
-Objective function type: Nonlinear
-Model mode: AUTOMATIC
-CachingOptimizer state: NO_OPTIMIZER
-Solver name: No optimizer attached.
-Names registered in the model: x
+├ solver: none
+├ objective_sense: MIN_SENSE
+│ └ objective_function_type: JuMP.AffExpr
+├ num_variables: 120
+├ num_constraints: 0
+└ Names registered in the model
+  └ :x
 ```
 
 
@@ -137,7 +137,7 @@ length(problems)
 ```
 
 ```
-288
+372
 ```
 
 
@@ -263,7 +263,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
 
 One of the advantages of these problems is that they are type-stable. Indeed, one can specify the output type with the keyword `type` as follows.
 ```julia
-nlp16_12 = OptimizationProblems.ADNLPProblems.woods(n=12, type=Val(Float16))
+nlp16_12 = OptimizationProblems.ADNLPProblems.woods(n=12, type=Float16)
 ```
 
 ```
