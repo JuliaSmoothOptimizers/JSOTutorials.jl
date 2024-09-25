@@ -8,11 +8,11 @@ tags:
   - "manual"
 ---
 
-[![NLPModels 0.20.0](https://img.shields.io/badge/NLPModels-0.20.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
-[![NLPModelsJuMP 0.12.7](https://img.shields.io/badge/NLPModelsJuMP-0.12.7-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModelsJuMP.jl/stable/)
-[![ADNLPModels 0.7.2](https://img.shields.io/badge/ADNLPModels-0.7.2-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/ADNLPModels.jl/stable/)
+[![NLPModels 0.21.3](https://img.shields.io/badge/NLPModels-0.21.3-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModels.jl/stable/)
+[![NLPModelsJuMP 0.13.2](https://img.shields.io/badge/NLPModelsJuMP-0.13.2-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/NLPModelsJuMP.jl/stable/)
+[![ADNLPModels 0.8.7](https://img.shields.io/badge/ADNLPModels-0.8.7-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/ADNLPModels.jl/stable/)
 ![JuMP 1.23.2](https://img.shields.io/badge/JuMP-1.23.2-000?style=flat-square&labelColor=999)
-[![OptimizationProblems 0.7.4](https://img.shields.io/badge/OptimizationProblems-0.7.4-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/OptimizationProblems.jl/stable/)
+[![OptimizationProblems 0.9.0](https://img.shields.io/badge/OptimizationProblems-0.9.0-8b0000?style=flat-square&labelColor=cb3c33)](https://jso.dev/OptimizationProblems.jl/stable/)
 
 
 
@@ -77,7 +77,7 @@ jump_model_12 = OptimizationProblems.PureJuMP.woods(n=12)
 A JuMP Model
 ├ solver: none
 ├ objective_sense: MIN_SENSE
-│ └ objective_function_type: JuMP.AffExpr
+│ └ objective_function_type: JuMP.NonlinearExpr
 ├ num_variables: 12
 ├ num_constraints: 0
 └ Names registered in the model
@@ -94,7 +94,7 @@ jump_model_120 = OptimizationProblems.PureJuMP.woods(n=120)
 A JuMP Model
 ├ solver: none
 ├ objective_sense: MIN_SENSE
-│ └ objective_function_type: JuMP.AffExpr
+│ └ objective_function_type: JuMP.NonlinearExpr
 ├ num_variables: 120
 ├ num_constraints: 0
 └ Names registered in the model
@@ -154,8 +154,8 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   ForwardDiffADHvprod,
   ForwardDiffADJprod,
   ForwardDiffADJtprod,
-  ForwardDiffADJacobian,
-  ForwardDiffADHessian,
+  SparseADJacobian,
+  SparseADHessian,
   ForwardDiffADGHjvprod,
 }
   Problem name: zangwil3
@@ -166,7 +166,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
          low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0              low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                fixed: ████████████████████ 3     
           infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
-            nnzh: (  0.00% sparsity)   6               linear: ████████████████████ 3     
+            nnzh: (100.00% sparsity)   0               linear: ████████████████████ 3     
                                                     nonlinear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                          nnzj: (  0.00% sparsity)   9     
 
@@ -195,7 +195,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   EmptyADbackend,
   EmptyADbackend,
   EmptyADbackend,
-  ForwardDiffADHessian,
+  SparseADHessian,
   EmptyADbackend,
 }
   Problem name: woods
@@ -206,7 +206,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
          low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0              low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
           infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
-            nnzh: (  0.00% sparsity)   78              linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+            nnzh: ( 73.08% sparsity)   21              linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                     nonlinear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                          nnzj: (------% sparsity)         
 
@@ -233,7 +233,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   EmptyADbackend,
   EmptyADbackend,
   EmptyADbackend,
-  ForwardDiffADHessian,
+  SparseADHessian,
   EmptyADbackend,
 }
   Problem name: woods
@@ -244,7 +244,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
          low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0              low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
           infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
-            nnzh: (  0.00% sparsity)   7260            linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+            nnzh: ( 97.11% sparsity)   210             linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                     nonlinear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                          nnzj: (------% sparsity)         
 
@@ -273,7 +273,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
   EmptyADbackend,
   EmptyADbackend,
   EmptyADbackend,
-  ForwardDiffADHessian,
+  SparseADHessian,
   EmptyADbackend,
 }
   Problem name: woods
@@ -284,7 +284,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
          low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0              low/upp: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
            fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0                fixed: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
           infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0               infeas: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
-            nnzh: (  0.00% sparsity)   78              linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
+            nnzh: ( 73.08% sparsity)   21              linear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                     nonlinear: ⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅⋅ 0     
                                                          nnzj: (------% sparsity)         
 
