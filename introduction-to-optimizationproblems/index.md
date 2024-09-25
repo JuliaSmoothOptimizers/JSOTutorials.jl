@@ -261,7 +261,7 @@ ADNLPModel - Model with automatic differentiation backend ADModelBackend{
 
 
 
-One of the advantages of these problems is that they are type-stable. Indeed, one can specify the output type with the keyword `type` as follows.
+One of the advantages of these problems is that they are type-stable. Indeed, one can specify the output type with the keyword `type` as follows. Note that in version < 0.8 the argument was `type=Val(DataType)`.
 ```julia
 nlp16_12 = OptimizationProblems.ADNLPProblems.woods(n=12, type=Float16)
 ```
