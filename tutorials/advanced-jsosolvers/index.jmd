@@ -62,6 +62,12 @@ stats = trunk(nls; subsolver = :cgls, rtol = RTOL, atol = ATOL, max_time = max_t
 We define a dictionary of the different solvers that will be benchmarked.
 We consider here four variants of TRUNK using the different subsolvers.
 
+The same subsolver selection pattern applies to TRON’s least-squares specialization:
+
+```julia
+stats_tron = tron(nls; subsolver = :lsmr, rtol = RTOL, atol = ATOL, max_time = max_time)
+```
+
 Note on API updates: since JSOSolvers v0.11, subsolvers are selected using the keyword argument `subsolver` with a Symbol, for example `subsolver = :lsmr`. The previous form using `subsolver_type = CglsSolver` (and similar types) has been removed. The lists returned by `JSOSolvers.trunkls_allowed_subsolvers` and `JSOSolvers.tronls_allowed_subsolvers` enumerate the valid symbols you can pass.
 
 ```julia
