@@ -74,6 +74,13 @@ trunk(nls, atol = 1e-6, rtol = 1e-6)
 nls.counters
 ```
 
+You can also select a specific least-squares subsolver and pass tolerances and a time limit:
+
+```julia
+RTOL = 1e-6; ATOL = 1e-8; max_time = 60.0
+stats = trunk(nls; subsolver = :cgls, rtol = RTOL, atol = ATOL, max_time = max_time)
+```
+
 We conclude these examples by a nonlinear regression example from the [NIST data set](https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml).
 In particular, we consider the problem [`Thurber`](https://www.itl.nist.gov/div898/strd/nls/data/LINKS/DATA/Thurber.dat).
 
