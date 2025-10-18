@@ -53,12 +53,24 @@ using Krylov
 We define a dictionary of the different solvers that will be benchmarked.
 We consider here four variants of TRUNK using the different subsolvers.
 
+Note on API updates: since JSOSolvers v0.11, subsolvers are selected using the keyword argument `subsolver` with a Symbol, for example `subsolver = :lsmr`. The previous form using `subsolver_type = CglsSolver` (and similar types) has been removed. The lists returned by `JSOSolvers.trunkls_allowed_subsolvers` and `JSOSolvers.tronls_allowed_subsolvers` enumerate the valid symbols you can pass.
+
 ```julia
 solvers = Dict(
-  :trunk_cgls => model -> trunk(model, subsolver_type = CglsSolver),
-  :trunk_crls => model -> trunk(model, subsolver_type = CrlsSolver),
-  :trunk_lsqr => model -> trunk(model, subsolver_type = LsqrSolver),
-  :trunk_lsmr => model -> trunk(model, subsolver_type = LsmrSolver)
+    :trunk_cgls => nlp -> trunk(nlp; subsolver = :cgls),
+    :trunk_crls => nlp -> trunk(nlp; subsolver = :crls),
+    :trunk_lsqr => nlp -> trunk(nlp; subsolver = :lsqr),
+    :trunk_lsmr => nlp -> trunk(nlp; subsolver = :lsmr)
+)
+```
+
+If needed, you can also pass tolerances and runtime limits directly to `trunk` while selecting the subsolver:
+
+```julia
+RTOL = 1e-6; ATOL = 1e-8; max_time = 60.0
+solvers = Dict(
+    :trunkls_lsmr => nlp -> trunk(nlp; rtol = RTOL, atol = ATOL, subsolver = :lsmr, max_time = max_time),
+    :trunkls_cg   => nlp -> trunk(nlp; rtol = RTOL, atol = ATOL, subsolver = :cg,   max_time = max_time),
 )
 ```
 
