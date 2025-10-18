@@ -5,19 +5,16 @@ function tests()
     readdir(rootdir),
   )
   for dir in dirs
-    subdirs = filter(y -> isdir(joinpath(rootdir, dir, y)), readdir(joinpath(rootdir, dir)))
+    subdirs = readdir(joinpath(rootdir, dir))
     for subdir in subdirs
-      prefix = joinpath(rootdir, dir, subdir, "index")
+      prefix = joinpath(rootdir, dir, subdir, subdir)
       println("Verifying files in $dir/$subdir")
-      # Require the source markdown to be present
-      print("  index.jmd   exists…… ")
-      @assert isfile(prefix * ".jmd")
-      println("✓")
-
-      # Optional: ensure each tutorial folder has a Project.toml for deps
-      print("  Project.toml exists…… ")
-      @assert isfile(joinpath(rootdir, dir, subdir, "Project.toml"))
-      println("✓")
+      for suffix in [".jmd", ".html", ".ipynb", ".jl"]
+        spc = " "^(6 - length(suffix))
+        print("  $subdir$suffix$spc exists…… ")
+        @assert isfile(prefix * suffix)
+        println("✓")
+      end
     end
   end
 end
