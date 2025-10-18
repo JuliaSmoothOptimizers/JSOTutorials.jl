@@ -12,6 +12,8 @@ This tutorial showcases some advanced features of solvers in JSOSolvers.
 using JSOSolvers
 ```
 
+Migration note (JSOSolvers ≥ 0.11): subsolvers are now selected with a Symbol via the `subsolver` keyword. Replace any old usages like `trunk(nlp, subsolver_type = CglsSolver)` with `trunk(nlp; subsolver = :cgls)`. See `JSOSolvers.trunkls_allowed_subsolvers` and `JSOSolvers.tronls_allowed_subsolvers` for the list of accepted symbols.
+
 We benchmark different subsolvers used in the solvers TRUNK for unconstrained nonlinear least squares problems.
 The first step is to select a set of problems that are nonlinear least squares.
 
