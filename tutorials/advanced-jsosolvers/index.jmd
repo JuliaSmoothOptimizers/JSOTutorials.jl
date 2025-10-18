@@ -55,8 +55,7 @@ using Krylov
 For example, to call TRUNK with an explicit subsolver and tolerances:
 
 ```julia
-RTOL = 1e-6; ATOL = 1e-8; max_time = 60.0
-stats = trunk(nls; subsolver = :cgls, rtol = RTOL, atol = ATOL, max_time = max_time)
+stats = trunk(nls; subsolver = :cgls)
 ```
 
 We define a dictionary of the different solvers that will be benchmarked.
