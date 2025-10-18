@@ -16,6 +16,8 @@ All solvers are based on [NLPModels.jl](https://github.com/JuliaSmoothOptimizers
 This package contains the implementation of four algorithms that are classical for unconstrained/bound-constrained nonlinear optimization:
 `lbfgs`, `R2`, `tron`, and `trunk`.
 
+Migration note (JSOSolvers ≥ 0.11): when using specialized least-squares variants of `tron`/`trunk`, select the linear least-squares subsolver via a Symbol using the `subsolver` keyword, e.g. `trunk(nlp; subsolver = :lsmr)`. The old `subsolver_type = CglsSolver` style is no longer supported. See `JSOSolvers.trunkls_allowed_subsolvers` and `JSOSolvers.tronls_allowed_subsolvers` for the accepted symbols.
+
 ## Solver input and output
 
 All solvers have the following signature:
