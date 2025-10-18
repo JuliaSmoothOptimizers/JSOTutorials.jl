@@ -47,7 +47,6 @@ JSOSolvers.tronls_allowed_subsolvers
 ```
 
 These linear least squares solvers are implemented in the package [Krylov.jl](https://github.com/JuliaSmoothOptimizers/Krylov.jl).
-For detailed descriptions of each subsolver's algorithm and when to use it, see the [Krylov.jl documentation](https://jso.dev/Krylov.jl/stable/).
 
 ```julia
 using Krylov
