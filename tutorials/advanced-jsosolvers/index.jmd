@@ -56,7 +56,6 @@ For example, to call TRUNK with an explicit subsolver and tolerances:
 ```julia
 stats = trunk(nls; subsolver = :cgls)
 ```
-
 We define a dictionary of the different solvers that will be benchmarked.
 We consider here four variants of TRUNK using the different subsolvers.
 
