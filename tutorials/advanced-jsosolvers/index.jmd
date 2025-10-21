@@ -8,6 +8,8 @@ author: "Tangi Migot"
 
 This tutorial showcases some advanced features of solvers in JSOSolvers.
 
+**Note**: This tutorial is compatible with JSOSolvers 0.11. The subsolver is selected using the `subsolver_type` parameter with Krylov solver types (e.g., `CglsSolver`, `LsmrSolver`).
+
 ```julia
 using JSOSolvers
 ```
@@ -51,34 +53,29 @@ For detailed descriptions of each subsolver's algorithm and when to use it, see 
 using Krylov
 ```
 
-For example, to call TRUNK with an explicit subsolver and tolerances:
-
-```julia
-stats = trunk(nls; subsolver = :cgls)
-```
 We define a dictionary of the different solvers that will be benchmarked.
 We consider here four variants of TRUNK using the different subsolvers.
 
-The same subsolver selection pattern applies to TRON’s least-squares specialization:
+For example, to call TRUNK with an explicit subsolver:
 
 ```julia
-stats_tron = tron(nls; subsolver = :lsmr, rtol = RTOL, atol = ATOL, max_time = max_time)
+stats = trunk(nls, subsolver_type = CglsSolver)
 ```
+
+The same subsolver selection pattern applies to TRON's least-squares specialization:
+
+```julia
+stats_tron = tron(nls, subsolver_type = LsmrSolver)
+```
+
+Now we define the solver dictionary for benchmarking:
 
 ```julia
 solvers = Dict(
-    :trunk_cgls => nlp -> trunk(nlp; subsolver = :cgls),
-    :trunk_crls => nlp -> trunk(nlp; subsolver = :crls),
-    :trunk_lsqr => nlp -> trunk(nlp; subsolver = :lsqr),
-    :trunk_lsmr => nlp -> trunk(nlp; subsolver = :lsmr)
-)
-```
-
-```julia
-RTOL = 1e-6; ATOL = 1e-8; max_time = 60.0
-solvers = Dict(
-    :trunkls_lsmr => nlp -> trunk(nlp; rtol = RTOL, atol = ATOL, subsolver = :lsmr, max_time = max_time),
-    :trunkls_cg   => nlp -> trunk(nlp; rtol = RTOL, atol = ATOL, subsolver = :cg,   max_time = max_time),
+  :trunk_cgls => model -> trunk(model, subsolver_type = CglsSolver),
+  :trunk_crls => model -> trunk(model, subsolver_type = CrlsSolver),
+  :trunk_lsqr => model -> trunk(model, subsolver_type = LsqrSolver),
+  :trunk_lsmr => model -> trunk(model, subsolver_type = LsmrSolver)
 )
 ```
 
