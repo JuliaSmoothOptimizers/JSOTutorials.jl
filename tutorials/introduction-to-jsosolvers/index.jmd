@@ -48,9 +48,6 @@ To list the allowed least-squares subsolvers for these specializations:
 
 ```julia
 using JSOSolvers
-```
-
-```julia
 JSOSolvers.trunkls_allowed_subsolvers
 JSOSolvers.tronls_allowed_subsolvers
 ```
