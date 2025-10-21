@@ -6,6 +6,8 @@ author: "Tangi Migot"
 
 # Comparing subsolvers for nonlinear least squares in JSOSolvers
 
+Migration note (JSOSolvers ≥ 0.11): subsolvers are now selected with a Symbol via the `subsolver` keyword. Replace any old usages like `trunk(nlp, subsolver_type = CglsSolver)` with `trunk(nlp; subsolver = :cgls)`. See `JSOSolvers.trunkls_allowed_subsolvers` and `JSOSolvers.tronls_allowed_subsolvers` for the list of accepted symbols.
+
 This tutorial showcases some advanced features of solvers in JSOSolvers.
 
 ```julia
@@ -45,6 +47,7 @@ JSOSolvers.tronls_allowed_subsolvers
 ```
 
 These linear least squares solvers are implemented in the package [Krylov.jl](https://github.com/JuliaSmoothOptimizers/Krylov.jl).
+For detailed descriptions of each subsolver's algorithm and when to use it, see the [Krylov.jl documentation](https://jso.dev/Krylov.jl/stable/).
 
 ```julia
 using Krylov
