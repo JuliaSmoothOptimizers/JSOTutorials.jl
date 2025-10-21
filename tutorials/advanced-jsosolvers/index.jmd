@@ -8,8 +8,6 @@ author: "Tangi Migot"
 
 This tutorial showcases some advanced features of solvers in JSOSolvers.
 
-**Note**: This tutorial is compatible with JSOSolvers 0.11. The subsolver is selected using the `subsolver_type` parameter with Krylov solver types (e.g., `CglsSolver`, `LsmrSolver`).
-
 ```julia
 using JSOSolvers
 ```
@@ -49,33 +47,29 @@ JSOSolvers.tronls_allowed_subsolvers
 These linear least squares solvers are implemented in the package [Krylov.jl](https://github.com/JuliaSmoothOptimizers/Krylov.jl).
 For detailed descriptions of each subsolver's algorithm and when to use it, see the [Krylov.jl documentation](https://jso.dev/Krylov.jl/stable/).
 
-```julia
-using Krylov
-```
-
 We define a dictionary of the different solvers that will be benchmarked.
 We consider here four variants of TRUNK using the different subsolvers.
 
 For example, to call TRUNK with an explicit subsolver:
 
 ```julia
-stats = trunk(nls, subsolver_type = CglsSolver)
+stats = trunk(nls, subsolver = :cgls)
 ```
 
 The same subsolver selection pattern applies to TRON's least-squares specialization:
 
 ```julia
-stats_tron = tron(nls, subsolver_type = LsmrSolver)
+stats_tron = tron(nls, subsolver = :lsmr)
 ```
 
 Now we define the solver dictionary for benchmarking:
 
 ```julia
 solvers = Dict(
-  :trunk_cgls => model -> trunk(model, subsolver_type = CglsSolver),
-  :trunk_crls => model -> trunk(model, subsolver_type = CrlsSolver),
-  :trunk_lsqr => model -> trunk(model, subsolver_type = LsqrSolver),
-  :trunk_lsmr => model -> trunk(model, subsolver_type = LsmrSolver)
+  :trunk_cgls => model -> trunk(model, subsolver = :cgls),
+  :trunk_crls => model -> trunk(model, subsolver = :crls),
+  :trunk_lsqr => model -> trunk(model, subsolver = :lsqr),
+  :trunk_lsmr => model -> trunk(model, subsolver = :lsmr)
 )
 ```
 
