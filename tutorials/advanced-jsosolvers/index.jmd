@@ -8,15 +8,11 @@ author: "Tangi Migot"
 
 This tutorial showcases some advanced features of solvers in JSOSolvers.
 
-```julia
-using JSOSolvers
-```
-
 We benchmark different subsolvers used in the solver TRUNK for unconstrained nonlinear least squares problems.
 The first step is to select a set of problems that are nonlinear least squares.
 
 ```julia
-using ADNLPModels
+using JSOSolvers, ADNLPModels
 using OptimizationProblems
 using OptimizationProblems.ADNLPProblems
 df = OptimizationProblems.meta
