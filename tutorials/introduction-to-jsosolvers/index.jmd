@@ -47,6 +47,7 @@ The following examples illustrate this specialization.
 To list the allowed least-squares subsolvers for these specializations:
 
 ```julia
+using JSOSolvers
 JSOSolvers.trunkls_allowed_subsolvers
 JSOSolvers.tronls_allowed_subsolvers
 ```
