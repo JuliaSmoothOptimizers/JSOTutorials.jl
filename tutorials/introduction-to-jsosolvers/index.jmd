@@ -44,13 +44,6 @@ The solvers `tron` and `trunk` both have a specialized implementation for input 
 
 The following examples illustrate this specialization.
 
-To list the allowed least-squares subsolvers for these specializations:
-
-```julia
-JSOSolvers.trunkls_allowed_subsolvers
-JSOSolvers.tronls_allowed_subsolvers
-```
-
 ```julia
 using JSOSolvers, ADNLPModels
 f(x) = (x[1] - 1)^2 + 4 * (x[2] - x[1]^2)^2
@@ -70,6 +63,13 @@ trunk(nls, atol = 1e-6, rtol = 1e-6)
 
 ```julia
 nls.counters
+```
+
+To list the allowed least-squares subsolvers for these specializations:
+
+```julia
+JSOSolvers.trunkls_allowed_subsolvers
+JSOSolvers.tronls_allowed_subsolvers
 ```
 
 We conclude these examples by a nonlinear regression example from the [NIST data set](https://www.itl.nist.gov/div898/strd/nls/nls_main.shtml).
