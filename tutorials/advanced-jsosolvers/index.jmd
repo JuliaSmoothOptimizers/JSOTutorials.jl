@@ -4,15 +4,19 @@ tags: ["solvers", "krylov", "benchmark", "least squares"]
 author: "Tangi Migot"
 ---
 
-# Comparing subsolvers for nonlinear least squares in JSOSolvers
+# Comparing subsolvers for nonlinear least squares JSOSolvers solvers
 
 This tutorial showcases some advanced features of solvers in JSOSolvers.
 
-We benchmark different subsolvers used in the solver TRUNK for unconstrained nonlinear least squares problems.
+```julia
+using JSOSolvers
+```
+
+We benchmark different subsolvers used in the solvers TRUNK for unconstrained nonlinear least squares problems.
 The first step is to select a set of problems that are nonlinear least squares.
 
 ```julia
-using JSOSolvers, ADNLPModels
+using ADNLPModels
 using OptimizationProblems
 using OptimizationProblems.ADNLPProblems
 df = OptimizationProblems.meta
@@ -34,38 +38,27 @@ For this task, several solvers are available.
 JSOSolvers.trunkls_allowed_subsolvers
 ```
 
-This benchmark could also be followed for the solver TRON where the following subsolvers are available.
+This benchmark could also be followed for the solver TRON where the following subsolver are available.
 
 ```julia
 JSOSolvers.tronls_allowed_subsolvers
 ```
 
 These linear least squares solvers are implemented in the package [Krylov.jl](https://github.com/JuliaSmoothOptimizers/Krylov.jl).
-For detailed descriptions of each subsolver's algorithm and when to use it, see the [Krylov.jl documentation](https://jso.dev/Krylov.jl/stable/).
+
+```julia
+using Krylov
+```
 
 We define a dictionary of the different solvers that will be benchmarked.
 We consider here four variants of TRUNK using the different subsolvers.
 
-For example, to call TRUNK with an explicit subsolver:
-
-```julia
-stats = trunk(nls, subsolver = :cgls)
-```
-
-The same subsolver selection pattern applies to TRON's least-squares specialization:
-
-```julia
-stats_tron = tron(nls, subsolver = :lsmr)
-```
-
-Now we define the solver dictionary for benchmarking:
-
 ```julia
 solvers = Dict(
-  :trunk_cgls => model -> trunk(model, subsolver = :cgls),
-  :trunk_crls => model -> trunk(model, subsolver = :crls),
-  :trunk_lsqr => model -> trunk(model, subsolver = :lsqr),
-  :trunk_lsmr => model -> trunk(model, subsolver = :lsmr)
+  :trunk_cgls => model -> trunk(model, subsolver_type = CglsSolver),
+  :trunk_crls => model -> trunk(model, subsolver_type = CrlsSolver),
+  :trunk_lsqr => model -> trunk(model, subsolver_type = LsqrSolver),
+  :trunk_lsmr => model -> trunk(model, subsolver_type = LsmrSolver)
 )
 ```
 
@@ -98,5 +91,5 @@ profile_solvers(stats, costs, costnames)
 ```
 
 The CRLS and CGLS variants are the ones solving more problems, and even though the difference is rather small the CGLS variant is consistently faster which seems to indicate that it is the most appropriate subsolver for TRUNK.
-The size of the problems was rather small here, so this should be confirmed on larger instances.
+The size of the problems were rather small here, so this should be confirmed on larger instance.
 Moreover, the results may vary depending on the origin of the test problems.
