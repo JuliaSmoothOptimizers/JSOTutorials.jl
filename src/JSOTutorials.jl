@@ -69,6 +69,22 @@ function weave_all(build_list = default_builds)
     folder == "test.jmd" && continue
     weave_folder(folder, build_list)
   end
+
+  tutorial_files = readdir("tutorials")
+  for tutorial_file in tutorial_files
+    
+    tutorial_path = joinpath("tutorials", tutorial_file)
+
+    github_url = "https://github.com/JuliaSmoothOptimizers/JSOTutorials.jl/tree/main/tutorials" * tutorial_path
+    footer = "\n\n---\n[Edit this page on GitHub]($github_url)"
+    
+    tutorial_content = read(tutorial_path, String)
+    write(tutorial_path, tutorial_content * footer)
+
+    # Weave the tutorial
+    weave(tutorial_path)
+  end
+
 end
 
 function weave_folder(folder, build_list = default_builds)
