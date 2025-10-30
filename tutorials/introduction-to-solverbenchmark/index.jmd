@@ -223,32 +223,33 @@ Here is a useful tutorial on how to use the benchmark with specific solver:
 The tutorial covers how to use the problems from `OptimizationProblems` to run a benchmark for unconstrained optimization.
 
 ## Handling `solver_specific` in benchmark runs
+If a solver's execution-stats object contains a `solver_specific` dictionary
+(accessible as `s.solver_specific`), `solve_problems` will create columns for
+each key in that dictionary in the per-solver `DataFrame`. (Note: `bmark_solvers`
+forwards keyword arguments to each solver, so ensure your solver wrapper populates
+`s.solver_specific` if you want those columns.)
 
-`SolverBenchmark` accepts solver-specific options via the keyword argument `solver_specific` on benchmarking functions (for example, when calling the high-level benchmarking helpers such as `bmark_solvers`).
-
-- `solver_specific` is a mapping that associates a solver identifier (typically a `Symbol` or the solver name you use in the benchmark) with a dictionary of options specific to that solver implementation.
-- Those options are passed through to the solver when the run is executed and are recorded as part of the run metadata.
-- As a result, runs that differ only by solver-specific options are treated as distinct entries in the benchmark results; you can group, filter or compare them in the produced `DataFrame`s.
-
+Here is a example showing how to set a solver-specific flag and then access it for tabulation:
 ```julia
-using SolverBenchmark, NLPModelsTest, JSOSolvers
+using NLPModelsTest, DataFrames, SolverCore, SolverBenchmark
 
-solver_specific = Dict(
-  :IPOPT => Dict("tol" => 1e-8, "max_iter" => 200),
-  :KNITRO => Dict("maxit" => 500)
+function newton(nlp)
+  stats = GenericExecutionStats(nlp)
+  set_solver_specific!(stats, :isConvex, true)
+  return stats
+end
+
+solvers = Dict(:newton => newton)
+problems = [NLPModelsTest.BROWNDEN()]
+stats = bmark_solvers(solvers, problems)
+
+combined_stats = DataFrame(
+  name         = stats[:newton].name,
+  nvars        = stats[:newton].nvar,
+  convex       = stats[:newton].isConvex,
+  newton_iters = stats[:newton].iter,
 )
 
-results = bmark_solvers(solvers, problems; solver_specific = solver_specific)
-
-first(results)
+combined_stats.convex = string.(combined_stats.convex)
+pretty_stats(combined_stats)
 ```
-
-Notes and tips:
-
-- If you pass different option sets for the same solver, make sure the keys you use
-  identify the intended solver variation unambiguously (e.g., distinct Symbols).
-- When creating tables or profiles, you can add or extract columns from the per-solver
-  DataFrames to show which solver-specific options were used for each run.
-- If you prefer the solver-specific settings to appear as explicit columns, you can
-  preprocess the DataFrames (extract the dict entries into columns) before creating
-  joined tables or profile plots.
