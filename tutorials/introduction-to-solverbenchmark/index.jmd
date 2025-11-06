@@ -240,14 +240,4 @@ end
 solvers = Dict(:newton => newton)
 problems = [NLPModelsTest.BROWNDEN()]
 stats = bmark_solvers(solvers, problems)
-
-combined_stats = DataFrame(
-  name         = stats[:newton].name,
-  nvars        = stats[:newton].nvar,
-  convex       = stats[:newton].isConvex,
-  newton_iters = stats[:newton].iter,
-)
-
-combined_stats.convex = string.(combined_stats.convex)
-pretty_stats(combined_stats)
 ```
