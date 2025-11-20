@@ -221,3 +221,21 @@ p = profile_solvers(stats, costs, costnames)
 Here is a useful tutorial on how to use the benchmark with specific solver:
 [Run a benchmark with OptimizationProblems](https://jso.dev/OptimizationProblems.jl/dev/benchmark/)
 The tutorial covers how to use the problems from `OptimizationProblems` to run a benchmark for unconstrained optimization.
+
+### Handling `solver_specific` in stats
+If a solver's `GenericExecutionStats` contains a `solver_specific` dictionary, a column is created for each key in that dictionary in the per-solver `DataFrame`.
+
+Here is an example showing how to set a solver-specific flag and then access it for tabulation:
+```julia
+using NLPModelsTest, DataFrames, SolverCore, SolverBenchmark
+
+function newton(nlp)
+  stats = GenericExecutionStats(nlp)
+  set_solver_specific!(stats, :isConvex, true)
+  return stats
+end
+
+solvers = Dict(:newton => newton)
+problems = [NLPModelsTest.BROWNDEN()]
+stats = bmark_solvers(solvers, problems)
+```
