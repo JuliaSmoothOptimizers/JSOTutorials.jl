@@ -225,7 +225,7 @@ The tutorial covers how to use the problems from `OptimizationProblems` to run a
 ### Handling `solver_specific` in stats
 If a solver's `GenericExecutionStats` contains a `solver_specific` dictionary, a column is created for each key in that dictionary in the per-solver `DataFrame`.
 
-Here is a example showing how to set a solver-specific flag and then access it for tabulation:
+Here is an example showing how to set a solver-specific flag and then access it for tabulation:
 ```julia
 using NLPModelsTest, DataFrames, SolverCore, SolverBenchmark
 
