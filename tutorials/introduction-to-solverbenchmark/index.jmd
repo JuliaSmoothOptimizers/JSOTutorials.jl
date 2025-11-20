@@ -223,9 +223,7 @@ Here is a useful tutorial on how to use the benchmark with specific solver:
 The tutorial covers how to use the problems from `OptimizationProblems` to run a benchmark for unconstrained optimization.
 
 ### Handling `solver_specific` in stats
-If a solver's GenericExecutionStats contains a `solver_specific` dictionary
-, a column is created for
-each key in that dictionary in the per-solver `DataFrame`.
+If a solver's `GenericExecutionStats` contains a `solver_specific` dictionary, a column is created for each key in that dictionary in the per-solver `DataFrame`.
 
 Here is a example showing how to set a solver-specific flag and then access it for tabulation:
 ```julia
