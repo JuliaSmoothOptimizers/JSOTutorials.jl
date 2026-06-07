@@ -1,0 +1,75 @@
+---
+title: "Accessing Linear and Nonlinear Constraints (Linear API)"
+tags: ["models", "linear", "constraints", "linear_api"]
+author: "arnavk23"
+---
+
+# Accessing Linear and Nonlinear Constraints (Linear API)
+
+This short tutorial illustrates how to inspect and operate on the constraint Jacobian using the "linear API" utilities available in the NLPModels ecosystem. The linear API is useful when a problem contains both linear and nonlinear constraints and you want to test or operate on the Jacobian and related linear operators without materializing dense matrices.
+
+We demonstrate how to:
+
+- evaluate the constraint vector;
+- obtain the Jacobian sparsity and coordinates;
+- build the `LinearOperator` representation of the Jacobian and use `mul!` to compute Jacobian-vector products; and
+- compare direct `jprod!`/`jtprod!` evaluations with the operator-based `mul!`.
+
+## Example using a test problem
+
+We use the `HS21` problem from `NLPModelsTest`, a standard constrained Hock--Schittkowski test problem. Choosing it by name keeps this tutorial stable across package versions and ensures the example exercises the constraint/Jacobian APIs that the linear API is designed to inspect.
+
+```julia
+using NLPModelsTest, NLPModels, LinearOperators, LinearAlgebra
+
+# Load a specific constrained test problem by name instead of relying on
+# the ordering of `nlp_problems`, which can change across package versions.
+problem_name = "HS21"
+@assert problem_name in NLPModelsTest.nlp_problems "$(problem_name) is not available in NLPModelsTest.nlp_problems"
+nlp = getfield(NLPModelsTest, Symbol(problem_name))()
+
+# Point at which to evaluate
+x = nlp.meta.x0
+
+# Evaluate constraints
+c = zeros(nlp.meta.ncon)
+cons!(nlp, x, c)
+println("c = ", c)
+
+# Get Jacobian sparsity and values
+rows = zeros(Int, nlp.meta.nnzj)
+cols = zeros(Int, nlp.meta.nnzj)
+jac_structure!(nlp, rows, cols)
+vals = zeros(Float64, nlp.meta.nnzj)
+jac_coord!(nlp, x, vals)
+
+println("Jacobian nonzero pattern (first 10):")
+println(hcat(rows[1:min(end,10)], cols[1:min(end,10)], vals[1:min(end,10)]))
+
+# Build a LinearOperator for the Jacobian (operator acts on variable-space vectors)
+Jv = zeros(nlp.meta.ncon)
+Jtv = zeros(nlp.meta.nvar)
+J = jac_op!(nlp, x, Jv, Jtv) # returns a LinearOperator representing the Jacobian
+
+# Compare operator-based J*v with jprod!
+v = ones(nlp.meta.nvar)
+Jv_op = similar(Jv)
+mul!(Jv_op, J, v)               # operator-based product
+Jv_direct = zeros(nlp.meta.ncon)
+jprod!(nlp, x, v, Jv_direct)    # direct Jacobian-vector product API
+
+println("||J*v (op) - J*v (jprod!)|| = ", norm(Jv_op - Jv_direct))
+
+# And similarly for J'*w
+w = ones(nlp.meta.ncon)
+Jt_w_op = zeros(nlp.meta.nvar)
+mul!(Jt_w_op, adjoint(J), w)
+Jt_w_direct = zeros(nlp.meta.nvar)
+jtprod!(nlp, x, w, Jt_w_direct)
+println("||J' * w (op) - J' * w (jtprod!)|| = ", norm(Jt_w_op - Jt_w_direct))
+```
+
+## Notes
+
+- The `jac_op!`/`hess_op!` helpers produce `LinearOperator` objects (see `LinearOperators.jl`), which allow efficient `mul!` operations without assembling dense matrices.
+- The testing utilities in this repository expose a `linear_api` option (for example in `test_allocs_nlpmodels`) that enables checking the linear-specific functions; see the `Test allocations of NLPModels` tutorial for details.
